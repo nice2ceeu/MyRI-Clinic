@@ -53,18 +53,22 @@
         href="../pages/Patient-History.php"><img src="../assets/icons/history-icon.svg" alt="history-icon" />
         <p class="md:hidden lg:block">Visitor history</p>
       </a>
+
+
+      <!-- enrolled info -->
+      <a
+        class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
+        href="../pages/enrolledstudentlist.php"><img src="../assets/icons/enroll-icon.svg" alt="inforamation-icon" />
+        <p class="md:hidden lg:block">Enrolled students</p>
+      </a>
+
       <!-- medical forn  -->
       <a
         class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
         href="../pages/medicalform.php"><img src="../assets/icons/medicalform-icon.svg" alt="inforamation-icon" />
         <p class="md:hidden lg:block">Medical form</p>
       </a>
-      <!-- student info -->
-      <a
-        class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
-        href="../pages/enrolledstudentlist.php"><img src="../assets/icons/enroll-icon.svg" alt="inforamation-icon" />
-        <p class="md:hidden lg:block">Enrolled students</p>
-      </a>
+
       <!-- student info -->
       <a
         class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
