@@ -8,6 +8,16 @@ $nameParts = explode(',', $fullname);
 $lastname = trim(strtolower($nameParts[0]));
 $firstname = trim(strtolower($nameParts[1]) ?? '');
 
+if ($firstname == '') {
+    //modal
+    echo
+    session_start();
+    $_SESSION['modal_title'] = 'Invalid Format';
+    $_SESSION['modal_message'] = 'The Fullname Field Must be(Lastname, Firstname)';
+    header("Location: ../view/pages/medicalinformation.php");
+    exit;
+}
+
 $gender = $_POST['gender'];
 $_date = $_POST['_date'];
 $_address = $_POST['_address'];

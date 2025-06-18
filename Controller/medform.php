@@ -7,20 +7,6 @@ if (isset($_POST["submit"])) {
 
     $fullname = $_POST['fullname'];
 
-
-
-
-    //    $name = explode(',', $fullname);
-    //     $lastname = strtolower($name[0]);
-    //     $firstname = strtolower(trim($name[1] ?? ''));
-    //     if ($firstname == '') {
-    //         //modal
-    //         echo "<script>alert('Invalid Format. It should be (Lastname, Firstname)');
-    //                             window.location.href = window.location.pathname;</script>";
-    //     }
-
-
-
     $gender = $_POST['gender'];
     $_date = $_POST['date'];
     $address = $_POST['address'];
@@ -99,6 +85,15 @@ if (isset($_POST["submit"])) {
     $_etc = $etc;
     $_vaccineName = $vaccineName;
 
+    if ($firstname == '') {
+        //modal
+        echo
+        session_start();
+        $_SESSION['modal_title'] = 'Invalid Format';
+        $_SESSION['modal_message'] = 'The Fullname Field Must be(Lastname, Firstname)';
+        header("Location: ../view/pages/medicalform.php");
+        exit;
+    }
     $checkStmt = $conn->prepare("SELECT id FROM medforms WHERE firstname = ? AND lastname = ?");
     $checkStmt->bind_param("ss", $firstname, $lastname);
     $checkStmt->execute();
@@ -141,11 +136,13 @@ if (isset($_POST["submit"])) {
                ?, ?, ?, ?, ?,
                 ?, ?, ?, ?, ?,
                  ?, ?, ?, ?, ?,
-                  ?, ?, ?, ?, ?,?,
-                   ?, ?)");
+                  ?, ?, ?, ?, ?,
+                  ?, ?, ?)");
 
     $stmt->bind_param(
         "sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+
+
         $firstname,
         $lastname,
         $gender,
@@ -210,14 +207,9 @@ if (isset($_POST["submit"])) {
         $booster,
         $plus_covid_date
     );
-
-
-
-
-
-
     $stmt->execute();
     echo
+    session_start();
     // ??? not working alert mo 
     $_SESSION['modal_title'] = 'successfull';
     $_SESSION['modal_message'] = 'Patient record updated. You can check it in the Enrolled';

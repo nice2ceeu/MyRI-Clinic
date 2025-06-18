@@ -60,6 +60,15 @@ include('../components/navbar.php');
       </button>
     </form>
 
+
+    <form action="../../Controller/uploadform.php" method="POST" enctype="multipart/form-data">
+      <label>Select Excel File:</label><br>
+      <input type="file" name="file" accept=".xlsx,.xls,.csv">
+      <button class="bg-[#06118e] text-nowrap text-white lg:ml-auto ml-0  md:mx-8.5 poppins  uppercase flex justify-evenly gap-2.5 px-10 mx-8.5 cursor-pointer py-2.5 rounded-lg"
+        type="submit" name="upload">Upload & Import</button>
+    </form>
+
+
     <a class="bg-[#06118e] text-nowrap text-white lg:ml-auto ml-0  md:mx-8.5 poppins  uppercase flex justify-evenly gap-2.5 px-10 mx-8.5 cursor-pointer py-2.5 rounded-lg"
       href="view-download.php">My downloads
       <img src="../assets/icons/my-download-icon.svg" alt="my-download-icon">

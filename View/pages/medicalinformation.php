@@ -861,6 +861,8 @@ include('../components/navbar.php');
     const getRadioVal = name => document.querySelector(`input[name="${name}"]:checked`)?.value || '';
     const getCheckVal = id => document.getElementById(id)?.checked ? 'yes' : 'no';
 
+
+
     const data = {
       id: getVal("id"),
       fullname: getVal("fullname"),
@@ -948,9 +950,16 @@ include('../components/navbar.php');
       })
       .then(response => response.text())
       .then(data => {
-        alert("The form is updated successfully");
-        window.location.reload();
+        const fullnames = document.getElementById('fullname').value; // 
+        if (fullnames && fullnames.includes(',')) {
+          alert("The form is updated successfully");
+          window.location.reload();
+        } else {
+          alert("Invalid Name Format.\nMust be in the form: 'Lastname, Firstname'");
+          window.location.reload();
+        }
       });
+
   }
 </script>
 

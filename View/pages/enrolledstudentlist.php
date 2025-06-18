@@ -191,19 +191,9 @@ include('../components/navbar.php');
             const filterButton = document.getElementById('show-filter');
 
 
-            let allChecked = false;
+           
 
-            function toggleCheckboxes() {
-                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-                checkboxes.forEach(checkbox => checkbox.checked = !allChecked);
-
-                // Update button text (optional)
-                const button = document.querySelector('button');
-                button.textContent = allChecked ? 'Check All' : 'Uncheck All';
-
-                // Flip state
-                allChecked = !allChecked;
-            }
+           
 
 
             function checkInputs() {
