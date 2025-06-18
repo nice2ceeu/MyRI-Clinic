@@ -3,7 +3,24 @@
 include("../config/database.php");
 
 if (isset($_POST["submit"])) {
+
+
     $fullname = $_POST['fullname'];
+
+
+
+
+    //    $name = explode(',', $fullname);
+    //     $lastname = strtolower($name[0]);
+    //     $firstname = strtolower(trim($name[1] ?? ''));
+    //     if ($firstname == '') {
+    //         //modal
+    //         echo "<script>alert('Invalid Format. It should be (Lastname, Firstname)');
+    //                             window.location.href = window.location.pathname;</script>";
+    //     }
+
+
+
     $gender = $_POST['gender'];
     $_date = $_POST['date'];
     $address = $_POST['address'];
@@ -194,13 +211,16 @@ if (isset($_POST["submit"])) {
         $plus_covid_date
     );
 
+
+
+
+
+
     $stmt->execute();
     echo
     // ??? not working alert mo 
-    session_start();
     $_SESSION['modal_title'] = 'successfull';
-    $_SESSION['modal_message'] = 'Patient record updated. You can check it in the visitor history';
+    $_SESSION['modal_message'] = 'Patient record updated. You can check it in the Enrolled';
     header("Location: ../view/pages/medicalform.php");
-    exit;
 }
 ?>

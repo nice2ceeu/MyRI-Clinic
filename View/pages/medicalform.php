@@ -432,12 +432,11 @@ include('../components/navbar.php');
 
 
         <!-- immunization -->
-        <section class="flex flex-col md:flex-wrap md:flex-row [&>section]:flex  [&>section]:items-center [&>section]:gap-3">
-          <label
-            id="label"
-            class="text-nowrap mr-1 font-semibold uppercase"
-            for="immunization">immunization</label>
-          <br>x`
+        <label
+          id="label"
+          class="text-nowrap mr-1 font-semibold uppercase"
+          for="immunization">immunization</label>
+        <section class="flex flex-col md:flex-wrap md:flex-row gap-4 [&>section]:flex  [&>section]:items-center [&>section]:gap-3">
 
           <section>
             <label
