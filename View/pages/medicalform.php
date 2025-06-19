@@ -368,7 +368,7 @@ include('../components/navbar.php');
           <label
             id="label"
             class="text-nowrap mr-1 font-semibold"
-            for="pastMedication">MEDICATION that are already take form the past:</label>
+            for="pastMedication">MEDICATION that are already take from the past:</label>
           <input
             id="pastMedication"
             class=" border-b-1 focus:border-b-1  px-2 focus:outline-0 grow-1"
@@ -379,7 +379,7 @@ include('../components/navbar.php');
         <section class="flex flex-col lg:flex-row ">
           <label
             id="label"
-            class="text-nowrap mr-1 font-semibold uppercase"
+            class="text-nowrap mr-1 font-semibold "
             for="currentMedication">Current medication:</label>
           <input
             id="currentMedication"

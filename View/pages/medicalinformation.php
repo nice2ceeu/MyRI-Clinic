@@ -826,7 +826,7 @@ include('../components/navbar.php');
 
 
 </body>
-<script src="../script/medformEdit.js"></script>
+<script src="../script/medformEdit.js" defer></script>
 <script>
   const edit = document.getElementById("editBtn")
   const container = document.getElementById("actionBtn")
