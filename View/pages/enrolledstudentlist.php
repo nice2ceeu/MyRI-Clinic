@@ -121,7 +121,7 @@ include('../components/navbar.php');
                     <h1 id="file-choose" class="font-semibold text-2xl">Choose a File</h1>
                     <h6 class="opacity-80 text-sm">XLS, XLSX, XLSM, XLTX and XLTM</h6>
                 </div>
-                <input class="absolute opacity-0 top-[-20px] focus:opacity-0 h-full w-full" id="file" type="file" name="file" required>
+                <input class="absolute opacity-0 top-[-20px] focus:opacity-0 h-full w-full" id="file" type="file" name="file" accept=".xlsx,.xls,.csv" required>
             </label>
         </div>
         <br>
@@ -133,6 +133,9 @@ include('../components/navbar.php');
             class="poppins z-10 mt-5 w-1/3 justify-center cursor-pointer border-1 px-5 py-3 flex gap-x-3 rounded-lg"
             type='submit' name="upload">Browse</button>
     </form>
+
+
+
     <section class="relative mt-12">
         <hr class="absolute text-[#acacac] z-[-1] w-full bottom-0" />
     </section>
@@ -191,9 +194,9 @@ include('../components/navbar.php');
             const filterButton = document.getElementById('show-filter');
 
 
-           
 
-           
+
+
 
 
             function checkInputs() {
@@ -252,7 +255,7 @@ include('../components/navbar.php');
                     $lastname = strtolower($name[0]);
                     $firstname = strtolower(trim($name[1] ?? ''));
                     if ($firstname == '') {
-                         //modal
+                        //modal
                         echo "<script>alert('Invalid Format. It should be (Lastname, Firstname)');
                         window.location.href = window.location.pathname;</script>";
                     }

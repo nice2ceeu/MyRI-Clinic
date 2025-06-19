@@ -18,21 +18,22 @@ document.addEventListener("click", (e) => {
   //   if (yesRadio) yesRadio.checked = false;
   // }
 
-  if (e.target.id === "other-no") {
+if (e.target.id === "other-no") {
     const specify = document.getElementById("specify");
     const opacity = document.getElementById("specifyOpacity");
     if (specify) {
       specify.value = "";
-      // specify.disabled = true;
+      specify.disabled = true;
       opacity.classList.add("opacity-40");
     }
   }
+
 
   if (e.target.id === "other-yes") {
     const specify = document.getElementById("specify");
     const opacity = document.getElementById("specifyOpacity");
     if (specify) {
-      specify.disabled = false;
+      // specify.disabled = false;
       opacity.classList.remove("opacity-40");
     }
   }
@@ -101,10 +102,7 @@ gender.addEventListener("blur", (e) => {
     height.disabled = false;
     firstMens.disabled = false;
   } else {
-    weight.value = "";
-    height.value = "";
-    firstMens.value = "";
-
+  
     femaleDiv.classList.add("opacity-40");
     weight.disabled = true;
     height.disabled = true;
