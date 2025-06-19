@@ -677,7 +677,7 @@ include('../components/navbar.php');
 </section>
 
 </body>
-<script src="../script/medform.js"></script>
+<script src="../script/medformFillup.js"></script>
 <script>
   let selectedRadio = null;
 

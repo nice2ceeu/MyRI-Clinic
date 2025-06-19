@@ -60,16 +60,27 @@ include('../components/navbar.php');
       </button>
     </form>
 
+    <div id="blur" class="fixed h-dvh backdrop-blur-xs top-0 bg-white/30 z-20 w-full"> </div>
+    <!-- btn -->
 
-    <form action="../../Controller/uploadform.php" method="POST" enctype="multipart/form-data">
-      <label>Select Excel File:</label><br>
-      <input type="file" name="file" accept=".xlsx,.xls,.csv">
-      <button class="bg-[#06118e] text-nowrap text-white lg:ml-auto ml-0  md:mx-8.5 poppins  uppercase flex justify-evenly gap-2.5 px-10 mx-8.5 cursor-pointer py-2.5 rounded-lg"
-        type="submit" name="upload">Upload & Import</button>
+    <button id="file-upload" class=" lg:ml-auto ml-0 bg-[#06118e] text-nowrap text-white md:mx-8.5 poppins uppercase flex justify-evenly gap-2.5 px-10 mx-8.5 cursor-pointer py-2.5 rounded-lg ">upload a file <img src="../assets/icons/file-upload-icon.svg" alt=""></button>
+    <!--up form  -->
+    <form id="upload" class="flex invisible flex-col gap-5 z-20 bg-white justify-center items-center size-100 absolute border-1 border-dashed top-1/3 right-1/5" action="../../Controller/uploadform.php" method="POST" enctype="multipart/form-data">
+      <img id="close" class="invert absolute z-10  top-1.5 right-1.5 cursor-pointer" src="../assets/icons/close-icon.svg" alt="close-icon">
+      <div class="flex flex-col items-center pt-12">
+        <h1 id="file-choose" class="font-semibold text-2xl">Choose a File</h1>
+        <h6 class="opacity-80 text-sm">XLS, XLSX, XLSM, XLTX and XLTM</h6>
+      </div>
+      <br>
+      <input id="file" class="absolute opacity-0 border-1 h-72 w-full text-center inline cursor-pointer" type="file" name="file" accept=".xlsx,.xls,.csv">
+      <button
+        id="browse"
+        class=" text-nowrap border-1 rounded-lg px-5 py-2 my-5 mt-auto cursor-pointer"
+        type="submit" name="upload">Browse</button>
     </form>
 
 
-    <a class="bg-[#06118e] text-nowrap text-white lg:ml-auto ml-0  md:mx-8.5 poppins  uppercase flex justify-evenly gap-2.5 px-10 mx-8.5 cursor-pointer py-2.5 rounded-lg"
+    <a class="bg-[#06118e] text-nowrap text-white  md:mx-8.5 poppins  uppercase flex justify-evenly gap-2.5 px-10 mx-8.5 cursor-pointer py-2.5 rounded-lg"
       href="view-download.php">My downloads
       <img src="../assets/icons/my-download-icon.svg" alt="my-download-icon">
     </a>
@@ -242,10 +253,71 @@ include('../components/navbar.php');
       </tbody>
     </table>
   </main>
-  <script>
-    sessionStorage.setItem("lastPage", window.location.href);
-  </script>
+
 </section>
 </body>
+
+<script>
+  sessionStorage.setItem("lastPage", window.location.href);
+</script>
+<script>
+  const file_upload = document.getElementById("file-upload")
+  const upload = document.getElementById("upload")
+  const blur = document.getElementById("blur")
+  const close = document.getElementById("close")
+  const file_choose = document.getElementById("file-choose")
+  const fileInput = document.getElementById("file")
+  const browse = document.getElementById("browse")
+  const allowedExtensions = ['xls', 'xlsx', 'xlsm', 'xltx', 'xltm'];
+  let click = false
+  blur.classList.add("hidden")
+  file_upload.addEventListener("click", () => {
+    if (!click) {
+      upload.classList.remove("invisible")
+      blur.classList.remove("hidden")
+      click = true
+    } else {
+      upload.classList.add("invisible")
+      blur.classList.add("hidden")
+      click = false
+    }
+  })
+
+  close.addEventListener("click", () => {
+    if (!click) {
+      upload.classList.remove("invisible")
+      blur.classList.remove("hidden")
+      click = true
+    } else {
+      upload.classList.add("invisible")
+      blur.classList.add("hidden")
+      click = false
+    }
+  })
+
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files.length > 0) {
+      file_choose.textContent = fileInput.files[0].name;
+      browse.textContent = 'Upload';
+
+    } else {
+      file_choose.textContent = 'Choose a File';
+
+    }
+  });
+
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    const fileName = file.name.toLowerCase();
+    const fileExt = fileName.split('.').pop();
+
+    if (!allowedExtensions.includes(fileExt)) {
+      alert('Invalid file type. Please select an Excel file.');
+      file.value = ' '; // clear input
+    }
+  });
+</script>
 
 </html>
