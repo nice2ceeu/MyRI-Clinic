@@ -313,7 +313,7 @@ include('../components/navbar.php');
                 }
               } else {
                 echo "<tr '>";
-                echo "<td colspan='9' class='text-center bg-[#d4d4d40c]'>" . "No Current Patient." . "</td>";
+                echo "<td colspan='9' class='text-center bg-[#d4d4d44d]'>" . "No Current Patient." . "</td>";
                 echo "</tr>";
               }
             } catch (mysqli_sql_exception $e) {

@@ -18,7 +18,7 @@
 
 <nav
   id="SideBar"
-  class="z-50 w-62 md:sm:w-24 lg:w-72 md:h-dvh xl:lg:w-82 translate-x-[50rem]  drop-shadow-2xl md:drop-shadow-none    md:translate-x-0  overflow-y-hidden fixed  duration-500 right-0 top-[-17px] md:top-0 md:left-0 md:block">
+  class="z-50 w-62 md:sm:w-24 lg:w-72 md:h-dvh xl:lg:w-82 translate-x-[50rem]  drop-shadow-2xl md:drop-shadow-none   md:translate-x-0  overflow-y-hidden fixed  duration-500 right-0 top-[-17px] md:top-0 md:left-0 md:block">
   <main
     class="grid text-white h-[70%] grid-rows-[50px_1fr_60px] md:h-42 ">
     <section
