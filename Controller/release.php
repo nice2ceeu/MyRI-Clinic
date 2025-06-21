@@ -55,7 +55,7 @@ if (isset($_POST['release'])) {
             $stmt->execute();
 
 
-            $stmt1 = $conn->prepare("UPDATE meds SET Med_Quantity = ? WHERE Medicine_Name = ?");
+            $stmt1 = $conn->prepare("UPDATE meds SET Med_Quantity = ? WHERE Medicine_Name = ? order by Med_Quantity asc limit 1");
             $stmt1->bind_param("is", $newQty, $medicineLower);
             $stmt1->execute();
 
@@ -70,7 +70,7 @@ if (isset($_POST['release'])) {
 
 
                 $stmt3 = $conn->prepare("UPDATE used_meds SET id =?, Med_Quantity = ?, Date_Consumed = ? WHERE Medicine_name = ?");
-                $stmt3->bind_param("siss", $medicine_id,$updatedQuantity, $dateConsumed, $medicineLower);
+                $stmt3->bind_param("siss", $medicine_id, $updatedQuantity, $dateConsumed, $medicineLower);
             } else {
 
                 $stmt3 = $conn->prepare("INSERT INTO used_meds (id, Medicine_name, Med_Quantity, Date_Consumed) VALUES (?, ?, ?, ?)");

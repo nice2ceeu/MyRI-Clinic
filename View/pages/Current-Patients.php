@@ -99,7 +99,7 @@ include('../components/navbar.php');
                     for="studentGrade">
                     grade
                 </label>
-                <input class="border-1 rounded px-3.5 py-1.5 w-42" type="number" name="studentGrade" id="studentGrade" min="1" max="12"  placeholder="1-12">
+                <input class="border-1 rounded px-3.5 py-1.5 w-42" type="number" name="studentGrade" id="studentGrade" min="1" max="12" placeholder="1-12">
             </div>
 
 
@@ -347,7 +347,7 @@ include('../components/navbar.php');
                 // Fetch medicine options once
                 $medOptions = "";
                 $dateNow = date('Y-m-d');
-                $query = "SELECT Medicine_Name FROM meds where Med_Quantity > 0 AND Expiration_Date > '$dateNow'";
+                $query = "SELECT DISTINCT Medicine_Name FROM meds where Med_Quantity > 0 AND Expiration_Date > '$dateNow'";
                 $result = $conn->query($query);
 
                 if ($result->num_rows > 0) {
