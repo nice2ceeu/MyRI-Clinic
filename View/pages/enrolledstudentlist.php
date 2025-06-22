@@ -248,6 +248,7 @@ include('../components/navbar.php');
 
                 <?php
                 include("../../config/database.php");
+
                 if (isset($_POST['submit'])) {
                     $fullname = $_POST['fullname'];
                     $name = explode(',', $fullname);
@@ -255,153 +256,125 @@ include('../components/navbar.php');
                     $lastname = strtolower($name[0]);
                     $firstname = strtolower(trim($name[1] ?? ''));
                     if ($firstname == '') {
-                        //modal
                         echo "<script>alert('Invalid Format. It should be (Lastname, Firstname)');
-                        window.location.href = window.location.pathname;</script>";
+        window.location.href = window.location.pathname;</script>";
                     }
-                    $stmt = $conn->prepare("SELECT * FROM admin WHERE firstname = ? AND lastname = ? AND user_role='student' order by id desc");
-                    $stmt->bind_param("ss", $firstname, $lastname);
-                    $stmt->execute();
-                    $result = $stmt->get_result();
 
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            $user =  htmlspecialchars($row['username']);
-                            if (htmlspecialchars($row['password']) == "") {
-                                $registered  = "<span style='color:red'>Not Registered</span>";
-                            } else {
-                                $registered = "<span style='color:green'> Registered</span>";
-                            }
+                    $query = "SELECT * FROM admin WHERE firstname = ? AND lastname = ? AND user_role='student' ORDER BY id DESC";
+                    $params = array($firstname, $lastname);
+                    $stmt = sqlsrv_prepare($conn, $query, $params);
+
+                    if ($stmt && sqlsrv_execute($stmt)) {
+                        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                            $user = htmlspecialchars($row['username']);
+                            $password = $row['password'] ?? '';
+                            $registered = $password == '' ? "<span style='color:red'>Not Registered</span>" : "<span style='color:green'>Registered</span>";
                             $id = htmlspecialchars($row['id']);
-                            echo "<tr class=''>";
 
-                            echo "<td>" . $id . "</td>";
-                            echo "<td>" . htmlspecialchars($row['lastname']) . " " . htmlspecialchars($row['firstname']) .   "</td>";
-                            echo "<td>" . $user  . "</td>";
+                            echo "<tr>";
+                            echo "<td>$id</td>";
+                            echo "<td>" . htmlspecialchars($row['lastname']) . " " . htmlspecialchars($row['firstname']) . "</td>";
+                            echo "<td>$user</td>";
+                            echo "<td>$registered</td>";
 
-
-                            echo "<td>" . $registered . "</td>";
-                            if (htmlspecialchars($row['password']) === '' || htmlspecialchars($row['password']) === null) {
+                            if ($password === '' || $password === null) {
                                 echo "<td>Unavailable</td>";
                             } else {
-                                echo "<td>" .
-                                    "<form action='../../Controller/resetpassword.php' method='POST'>
-                                    <input type='hidden' name='id' value='$id'>
-                                    <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-orange-500 cursor-pointer text-white' type='submit' name='reset'>RESET PASSWORD</button>
-                                </form></td>";
+                                echo "<td><form action='../../Controller/resetpassword.php' method='POST'>
+                <input type='hidden' name='id' value='$id'>
+                <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-orange-500 cursor-pointer text-white' type='submit' name='reset'>RESET PASSWORD</button>
+                </form></td>";
                             }
-                            echo "<td>" .
-                                "<form action='../../Controller/delete.php' method='POST'>
-                                    <input type='hidden' name='id' value='$user'>
-                                    <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete-form'>REMOVE RECORD</button>
-                                </form></td>";
 
+                            echo "<td><form action='../../Controller/delete.php' method='POST'>
+            <input type='hidden' name='id' value='$user'>
+            <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete-form'>REMOVE RECORD</button>
+            </form></td>";
                             echo "</tr>";
                         }
                     }
-                } else if (isset($_POST['show-filter'])) {
+                } elseif (isset($_POST['show-filter'])) {
                     $accountStatus = $_POST['accountStatus'];
-                    if ($accountStatus === 'registered') {
+                    $query = $accountStatus === 'registered'
+                        ? "SELECT * FROM admin WHERE user_role = 'student' AND password != '' ORDER BY lastname ASC"
+                        : "SELECT * FROM admin WHERE user_role = 'student' AND (password IS NULL OR password = '') ORDER BY lastname ASC";
 
-                        $query = "SELECT * FROM admin where user_role = 'student' and password != '' order by lastname asc";
-                        $result = $conn->query($query);
-                    } else {
-                        $query = "SELECT * FROM admin where user_role = 'student' and password = '' order by lastname asc";
-                        $result = $conn->query($query);
-                    }
-                    if ($result->num_rows > 0) {
 
-                        while ($row = $result->fetch_assoc()) {
-                            $user =  htmlspecialchars($row['username']);
-                            if (htmlspecialchars($row['password']) == "") {
-                                $registered  = "<span style='color:red'>Not Registered</span>";
-                            } else {
-                                $registered = "<span style='color:green'> Registered</span>";
-                            }
+                    $stmt = sqlsrv_prepare($conn, $query);
+
+                    if ($stmt && sqlsrv_execute($stmt)) {
+                        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                            $user = htmlspecialchars($row['username']);
+                            $password = $row['password'] ?? '';
+                            $registered = $password == '' ? "<span style='color:red'>Not Registered</span>" : "<span style='color:green'>Registered</span>";
                             $id = htmlspecialchars($row['id']);
-                            echo "<tr class=''>";
 
-                            echo "<td>" . $id . "</td>";
-                            echo "<td>" . htmlspecialchars($row['lastname']) . " " . htmlspecialchars($row['firstname']) .   "</td>";
-                            echo "<td>" . $user  . "</td>";
+                            echo "<tr>";
+                            echo "<td>$id</td>";
+                            echo "<td>" . htmlspecialchars($row['lastname']) . " " . htmlspecialchars($row['firstname']) . "</td>";
+                            echo "<td>$user</td>";
+                            echo "<td>$registered</td>";
 
-
-                            echo "<td>" . $registered . "</td>";
-                            if (htmlspecialchars($row['password']) === '' || htmlspecialchars($row['password']) === null) {
+                            if ($password === '' || $password === null) {
                                 echo "<td>Unavailable</td>";
                             } else {
-                                echo "<td>" .
-                                    "<form action='../../Controller/resetpassword.php' method='POST'>
-                                    <input type='hidden' name='id' value='$id'>
-                                    <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-orange-500 cursor-pointer text-white' type='submit' name='reset'>RESET PASSWORD</button>
-                                </form></td>";
+                                echo "<td><form action='../../Controller/resetpassword.php' method='POST'>
+                <input type='hidden' name='id' value='$id'>
+                <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-orange-500 cursor-pointer text-white' type='submit' name='reset'>RESET PASSWORD</button>
+                </form></td>";
                             }
-                            echo "<td>" .
-                                "<form action='../../Controller/delete.php' method='POST'>
-                                    <input type='hidden' name='id' value='$user'>
-                                    <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete-form'>REMOVE RECORD</button>
-                                </form></td>";
 
+                            echo "<td><form action='../../Controller/delete.php' method='POST'>
+            <input type='hidden' name='id' value='$user'>
+            <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete-form'>REMOVE RECORD</button>
+            </form></td>";
                             echo "</tr>";
                         }
                     } else {
-                        echo "<tr>";
-                        echo "<td colspan='8' class='text-center uppercase bg-[#d4d4d40c]'>" . "No data available." . "</td>";
-                        echo "</tr>";
+                        echo "<tr><td colspan='8' class='text-center uppercase bg-[#d4d4d40c]'>No data available.</td></tr>";
                     }
-                } else if (isset($_POST['show-all']) || !isset($_POST['show-all'])) {
-
-
+                } elseif (isset($_POST['show-all']) || !isset($_POST['show-all'])) {
                     try {
-                        $query = "SELECT * FROM admin where user_role = 'student' order by lastname asc";
-                        $result = $conn->query($query);
+                        $query = "SELECT * FROM admin WHERE user_role = 'student' ORDER BY lastname ASC";
+                        $stmt = sqlsrv_prepare($conn, $query);
 
-                        if ($result->num_rows > 0) {
-
-                            while ($row = $result->fetch_assoc()) {
-                                $user =  htmlspecialchars($row['username']);
-                                if (htmlspecialchars($row['password']) == "") {
-                                    $registered  = "<span style='color:red'>Not Registered</span>";
-                                } else {
-                                    $registered = "<span style='color:green'> Registered</span>";
-                                }
+                        if ($stmt && sqlsrv_execute($stmt)) {
+                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                $user = htmlspecialchars($row['username']);
+                                $password = $row['password'] ?? '';
+                                $registered = $password == '' ? "<span style='color:red'>Not Registered</span>" : "<span style='color:green'>Registered</span>";
                                 $id = htmlspecialchars($row['id']);
-                                echo "<tr class=''>";
 
-                                echo "<td>" . $id . "</td>";
-                                echo "<td>" . htmlspecialchars($row['lastname']) . " " . htmlspecialchars($row['firstname']) .   "</td>";
-                                echo "<td>" . $user  . "</td>";
+                                echo "<tr>";
+                                echo "<td>$id</td>";
+                                echo "<td>" . htmlspecialchars($row['lastname']) . " " . htmlspecialchars($row['firstname']) . "</td>";
+                                echo "<td>$user</td>";
+                                echo "<td>$registered</td>";
 
-
-                                echo "<td>" . $registered . "</td>";
-                                if (htmlspecialchars($row['password']) === '' || htmlspecialchars($row['password']) === null) {
+                                if ($password === '' || $password === null) {
                                     echo "<td>Unavailable</td>";
                                 } else {
-                                    echo "<td>" .
-                                        "<form action='../../Controller/resetpassword.php' method='POST'>
-                                    <input type='hidden' name='id' value='$id'>
-                                    <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-orange-500 cursor-pointer text-white' type='submit' name='reset'>RESET PASSWORD</button>
-                                </form></td>";
+                                    echo "<td><form action='../../Controller/resetpassword.php' method='POST'>
+                    <input type='hidden' name='id' value='$id'>
+                    <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-orange-500 cursor-pointer text-white' type='submit' name='reset'>RESET PASSWORD</button>
+                    </form></td>";
                                 }
-                                echo "<td>" .
-                                    "<form action='../../Controller/delete.php' method='POST'>
-                                    <input type='hidden' name='id' value='$user'>
-                                    <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete-form'>REMOVE RECORD</button>
-                                </form></td>";
 
+                                echo "<td><form action='../../Controller/delete.php' method='POST'>
+                <input type='hidden' name='id' value='$user'>
+                <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete-form'>REMOVE RECORD</button>
+                </form></td>";
                                 echo "</tr>";
                             }
                         } else {
-                            echo "<tr>";
-                            echo "<td colspan='8' class='text-center uppercase bg-[#d4d4d40c]'>" . "No data available." . "</td>";
-                            echo "</tr>";
+                            echo "<tr><td colspan='8' class='text-center uppercase bg-[#d4d4d40c]'>No data available.</td></tr>";
                         }
-                    } catch (mysqli_sql_exception $e) {
+                    } catch (Exception $e) {
                         echo "Error: " . $e->getMessage();
                     }
                 }
-
                 ?>
+
 
         </table>
     </div>

@@ -56,6 +56,7 @@ if (isset($_SESSION['username'])) {
       type="password"
       name="password"
       placeholder="PASSWORD"
+      autocomplete="false"
       required />
     <button
       action="submit"

@@ -193,126 +193,113 @@ include('../components/navbar.php');
             <tbody class="text-left [&>tr]:odd:bg-[#a8a8a829] [&>tr>td]:px-4 [&>tr>td]:py-4.5">
                 <?php
                 include('../../config/database.php');
-                if (isset($_POST['filter-stocks'])) {
 
-                    include('../../config/database.php');
+                if (isset($_POST['filter-stocks'])) {
                     $status = $_POST['status'];
                     $today = date("Y-m-d");
 
-                    if ($status === 'available') {
-
-                        $stmt = $conn->prepare("SELECT * FROM meds WHERE Med_Quantity > 0 AND Expiration_Date > ? ORDER BY Medicine_Name ASC");
-                        $stmt->bind_param("s", $today);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                    } else if ($status === 'unavailable') {
-
-                        $stmt = $conn->prepare("SELECT * FROM meds WHERE Expiration_Date < ? ORDER BY Medicine_Name ASC");
-                        $stmt->bind_param("s", $today);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                    } else {
-
-                        // out of stocks
-                        $stmt = $conn->prepare("SELECT * FROM meds WHERE Med_Quantity = 0 ORDER BY Medicine_Name ASC");
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                    }
-
-                    if ($result->num_rows > 0) {
-
-                        while ($row = $result->fetch_assoc()) {
-                            $_id = htmlspecialchars($row['id']);
-                            $medName = htmlspecialchars($row['Medicine_Name']);
-                            $qty = htmlspecialchars($row['Med_Quantity']);
-                            $epx = htmlspecialchars($row['Expiration_Date']);
-                            $issued = htmlspecialchars($row['issued']);
-
-                            echo "<tr>";
-                            echo "<td>" . $_id . "</td>";
-                            echo "<td>" . $medName . "</td>";
-                            echo "<td>" . $qty . "</td>";
-
-                            if ($epx <= $today) {
-                                echo "<td><span style='color:red'>EXPIRED</span></td>";
-                            } else {
-                                echo "<td>" . $epx . "</td>";
-                            }
-
-                            $statusText = ($epx <= $today) ? "Unavailable" : ($qty == 0 ? "Out of stocks" : "Available");
-                            $statusColor = ($epx <= $today) ? "red" : ($qty == 0 ? "orange" : "green");
-                            echo "<td><span style='color:$statusColor;'>$statusText</span></td>";
-
-                            echo "<td>" . $issued . "</td>";
-
-                            echo "<td>
-                                        <form action='../../Controller/delete.php' method='POST'>
-                                            <input type='hidden' name='id' value='" . $_id . "'>
-                                            <button class='flex rounded-lg gap-5 px-7 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete'>
-                                                <span>Delete</span>
-                                            </button>
-                                        </form>
-                                    </td>";
-                            echo "</tr>";
+                    try {
+                        if ($status === 'available') {
+                            $query = "SELECT * FROM meds WHERE Med_Quantity > 0 AND Expiration_Date > ? ORDER BY Medicine_Name ASC";
+                            $params = [$today];
+                        } else if ($status === 'unavailable') {
+                            $query = "SELECT * FROM meds WHERE Expiration_Date < ? ORDER BY Medicine_Name ASC";
+                            $params = [$today];
+                        } else {
+                            $query = "SELECT * FROM meds WHERE Med_Quantity = 0 ORDER BY Medicine_Name ASC";
+                            $params = [];
                         }
-                    } else {
-                        echo "<tr><td colspan='7' class='text-center'>No records found for the selected status.</td></tr>";
-                    }
 
-                    $stmt->close();
-                } else {
+                        $stmt = sqlsrv_prepare($conn, $query, $params);
 
-
-                    if (isset($_POST['show-all']) || !isset($_POST['show-all'])) {
-                        $today = date("Y-m-d");
-                        try {
-                            $query = "SELECT * FROM meds order by Medicine_Name asc";
-                            $result = $conn->query($query);
-                            if ($result->num_rows > 0) {
-
-                                while ($row = $result->fetch_assoc()) {
-                                    $_id = htmlspecialchars($row['id']);
-                                    $qty = htmlspecialchars($row['Med_Quantity']);
+                        if ($stmt && sqlsrv_execute($stmt)) {
+                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                $_id = htmlspecialchars($row['id']);
+                                $medName = htmlspecialchars($row['Medicine_Name']);
+                                $qty = htmlspecialchars($row['Med_Quantity']);
+                                $epx = $row['Expiration_Date'];
 
 
-
-                                    $epx = htmlspecialchars($row['Expiration_Date']);
-                                    echo "<tr>";
-                                    echo "<td>" . $_id . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['Medicine_Name']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['Med_Quantity']) . "</td>";
-                                    if (htmlspecialchars($row['Expiration_Date']) <= $today) {
-                                        echo "<td>" . "<span style='color:red'>EXPIRED</span>" . "</td>";
-                                    } else {
-                                        echo "<td>" . htmlspecialchars($row['Expiration_Date']) . "</td>";
-                                    }
-                                    echo "<td><span style='color: " .
-                                        ($epx <= $today ? "red" : ($qty == 0 ? "orange" : "green")) . ";'>" .
-                                        ($epx <= $today ? "Unavailable" : ($qty == 0 ? "Out of stocks" : "Available")) .
-                                        "</span></td>";
-
-
-
-
-                                    echo "<td>" . htmlspecialchars($row['issued']) . "</td>";
-                                    echo "<td>" . "<form action='../../Controller/delete.php' method='POST'>
-                        <input type='hidden' name='id' value='" . $_id . "'>
-                            
-                        <button class='flex rounded-lg gap-5 px-7 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete'><span '>Delete</span> </button>
-                        </form> " . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
                                 echo "<tr>";
-                                echo "<td colspan='9' class='text-center bg-[#d4d4d40c]'>" . "No Medicine Found." . "</td>";
+                                echo "<td>$_id</td>";
+                                echo "<td>$medName</td>";
+                                echo "<td>$qty</td>";
+
+                                if ($epx <= $today) {
+                                    echo "<td><span style='color:red'>EXPIRED</span></td>";
+                                } else {
+                                    echo "<td>$epx</td>";
+                                }
+
+                                $statusText = ($epx <= $today) ? "Unavailable" : ($qty == 0 ? "Out of stocks" : "Available");
+                                $statusColor = ($epx <= $today) ? "red" : ($qty == 0 ? "orange" : "green");
+                                echo "<td><span style='color:$statusColor;'>$statusText</span></td>";
+
+                                echo "<td>" . $row['issued'] . "</td>";
+                                echo "<td>
+                        <form action='../../Controller/delete.php' method='POST'>
+                            <input type='hidden' name='id' value='$_id'>
+                            <button class='flex rounded-lg gap-5 px-7 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete'>
+                                <span>Delete</span>
+                            </button>
+                        </form>
+                    </td>";
                                 echo "</tr>";
                             }
-                        } catch (mysqli_sql_exception $e) {
-                            echo "Error: " . $e->getMessage();
+                        } else {
+                            echo "<tr><td colspan='7' class='text-center'>No records found for the selected status.</td></tr>";
                         }
+                    } catch (Exception $e) {
+                        echo "Error: " . $e->getMessage();
+                    }
+                } else {
+                    $today = date("Y-m-d");
+                    try {
+                        $query = "SELECT * FROM meds ORDER BY Medicine_Name ASC";
+                        $stmt = sqlsrv_prepare($conn, $query);
+
+                        if ($stmt && sqlsrv_execute($stmt)) {
+                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                $_id = htmlspecialchars($row['id']);
+                                $qty = htmlspecialchars($row['Med_Quantity']);
+                                $epx = $row['Expiration_Date'];
+
+
+                                echo "<tr>";
+                                echo "<td>$_id</td>";
+                                echo "<td>" . htmlspecialchars($row['Medicine_Name']) . "</td>";
+                                echo "<td>$qty</td>";
+
+                                if ($epx <= $today) {
+                                    echo "<td><span style='color:red'>EXPIRED</span></td>";
+                                } else {
+                                    echo "<td>$epx</td>";
+                                }
+
+                                $statusColor = ($epx <= $today) ? "red" : ($qty == 0 ? "orange" : "green");
+                                $statusText = ($epx <= $today) ? "Unavailable" : ($qty == 0 ? "Out of stocks" : "Available");
+                                echo "<td><span style='color:$statusColor;'>$statusText</span></td>";
+
+                                echo "<td>" . $row['issued'] . "</td>";
+                                echo "<td>
+                        <form action='../../Controller/delete.php' method='POST'>
+                            <input type='hidden' name='id' value='$_id'>
+                            <button class='flex rounded-lg gap-5 px-7 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete'>
+                                <span>Delete</span>
+                            </button>
+                        </form>
+                    </td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='9' class='text-center bg-[#d4d4d40c]'>No Medicine Found.</td></tr>";
+                        }
+                    } catch (Exception $e) {
+                        echo "Error: " . $e->getMessage();
                     }
                 }
                 ?>
+
 
             </tbody>
         </table>
@@ -347,32 +334,33 @@ include('../components/navbar.php');
                 <?php
                 include('../../config/database.php');
 
-
                 $today = date("Y-m-d");
                 try {
-                    $query = "SELECT * FROM used_meds order by Medicine_Name asc";
-                    $result = $conn->query($query);
-                    if ($result->num_rows > 0) {
+                    $query = "SELECT * FROM used_meds ORDER BY Medicine_Name ASC";
+                    $stmt = sqlsrv_prepare($conn, $query);
 
-                        while ($row = $result->fetch_assoc()) {
+                    if ($stmt && sqlsrv_execute($stmt)) {
+                        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                             $_id = htmlspecialchars($row['id']);
+                            $medName = htmlspecialchars($row['Medicine_Name']);
+                            $qty = htmlspecialchars($row['Med_Quantity']);
+                            $dateConsumed = isset($row['Date_Consumed']) && $row['Date_Consumed'] instanceof DateTime
+                                ? $row['Date_Consumed']->format('Y-m-d')
+                                : htmlspecialchars($row['Date_Consumed']);
+
                             echo "<tr>";
-                            echo "<td>" . $_id . "</td>";
-                            echo "<td>" . htmlspecialchars($row['Medicine_Name']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['Med_Quantity']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['Date_Consumed']) . "</td>";
+                            echo "<td>$_id</td>";
+                            echo "<td>$medName</td>";
+                            echo "<td>$qty</td>";
+                            echo "<td>$dateConsumed</td>";
                             echo "</tr>";
                         }
                     } else {
-                        echo "<tr>";
-                        echo "<td colspan='9' class='text-center bg-[#ffc5c541]'>" . "No Medicine Found." . "</td>";
-                        echo "</tr>";
+                        echo "<tr><td colspan='9' class='text-center bg-[#ffc5c541]'>No Medicine Found.</td></tr>";
                     }
-                } catch (mysqli_sql_exception $e) {
+                } catch (Exception $e) {
                     echo "Error: " . $e->getMessage();
                 }
-
-
                 ?>
 
 
