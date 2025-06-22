@@ -13,7 +13,7 @@ include('../components/navbar.php');
 
 
 <section class="md:sm:ml-24 lg:ml-72 md:h-dvh xl:lg:ml-82">
-  <section class="relative mt-5 text-[max(3vw,2rem)] ">
+  <section class="relative mt-5 text-[max(2.5vw,2rem)]">
     <h1 class="poppins uppercase font-[500] bg-white ml-12 px-5 inline z-20 ">
       Visitor History
     </h1>
@@ -221,7 +221,7 @@ include('../components/navbar.php');
                 echo "<td>" . "<form action='../../Controller/studenthistory.php' method='POST'>
                           <input type='hidden' name='fname' value='" . $_firstname . "'>
                           <input type='hidden' name='lname' value='" . $_lastname . "'>
-                          <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><p class='hidden lg:block'>View History </p> <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'></button>
+                          <button class='flex rounded-lg gap-5 px-2 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><p class='hidden text-nowrap lg:block'>View History </p> <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'></button>
                         </form>" . "</td>";
                 echo "</tr>";
               }
@@ -278,7 +278,7 @@ include('../components/navbar.php');
                 echo "<td>" . "<form action='../../Controller/studenthistory.php' method='POST'>
                           <input type='hidden' name='fname' value='" . $_firstname . "'>
                           <input type='hidden' name='lname' value='" . $_lastname . "'>
-                          <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><p class='hidden lg:block'>View History </p> <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'></button>
+                          <button class='flex rounded-lg gap-5 px-2 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><p class='hidden text-nowrap lg:block'>View History </p> <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'></button>
                         </form>" . "</td>";
                 echo "</tr>";
               }
@@ -322,7 +322,7 @@ include('../components/navbar.php');
                         <form action='../../Controller/studenthistory.php' method='POST'>
                           <input type='hidden' name='fname' value='" . $_firstname . "'>
                           <input type='hidden' name='lname' value='" . $_lastname . "'>
-                          <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><p class='hidden lg:block'>View History </p> <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'></button>
+                          <button class='flex rounded-lg gap-5 px-2 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><p class='hidden text-nowrap lg:block'>View History </p> <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'></button>
                         </form>
                   </td>";
                   echo "</tr>";
