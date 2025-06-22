@@ -65,7 +65,7 @@ include('../components/navbar.php');
 
     <button id="file-upload" class=" lg:ml-auto ml-0 bg-[#06118e] text-nowrap text-white md:mx-8.5 poppins uppercase flex justify-evenly gap-2.5 px-10 mx-8.5 cursor-pointer py-2.5 rounded-lg ">upload a file <img src="../assets/icons/file-upload-icon.svg" alt=""></button>
     <!--up form  -->
-    <form id="upload" class="flex invisible flex-col gap-5 z-20 bg-white justify-center items-center size-100 absolute border-1 border-dashed top-1/3 right-1/5" action="../../Controller/uploadform.php" method="POST" enctype="multipart/form-data">
+    <form id="upload" class="flex invisible flex-col gap-5 z-20 bg-white justify-center items-center size-100 absolute border-1 border-dashed top-1/3 right-1/5" action="../../controller/uploadform.php" method="POST" enctype="multipart/form-data">
       <img id="close" class="invert absolute z-10  top-1.5 right-1.5 cursor-pointer" src="../assets/icons/close-icon.svg" alt="close-icon">
       <div class="flex flex-col items-center pt-12">
         <h1 id="file-choose" class="font-semibold text-2xl">Choose a File</h1>
@@ -170,13 +170,13 @@ include('../components/navbar.php');
                 <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span>View Form</span></button>
                 </form></td>";
 
-                  echo   "<td><form action='../../Controller/studenthistory.php' method='POST'>
+                  echo   "<td><form action='../../controller/studenthistory.php' method='POST'>
                 <input type='hidden' name='fname' value='" . $_firstname . "'>
                 <input type='hidden' name='lname' value='" . $_lastname . "'>
                 <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span>View History</span></button>
                 </form></td>";
 
-                  echo "<td><form action='../../Controller/delete.php' method='POST'>
+                  echo "<td><form action='../../controller/delete.php' method='POST'>
                 <input type='hidden' name='id' value='$_id'>
                 <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='form-del'>REMOVE FORM</button>
                 </form></td>";
@@ -215,13 +215,13 @@ include('../components/navbar.php');
                   <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span>View Form</span></button>
                   </form></td>";
 
-                    echo   "<td><form action='../../Controller/studenthistory.php' method='POST'>
+                    echo   "<td><form action='../../controller/studenthistory.php' method='POST'>
                   <input type='hidden' name='fname' value='" . $_firstname . "'>
                   <input type='hidden' name='lname' value='" . $_lastname . "'>
                   <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span>View History</span></button>
                   </form></td>";
 
-                    echo "<td><form action='../../Controller/delete.php' method='POST'>
+                    echo "<td><form action='../../controller/delete.php' method='POST'>
                   <input type='hidden' name='id' value='$_id'>
                   <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='form-del'>REMOVE FORM</button>
                   </form></td>";
