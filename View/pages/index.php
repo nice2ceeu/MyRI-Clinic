@@ -34,7 +34,7 @@ if (isset($_SESSION['username'])) {
 
 <body class="flex items-center justify-center w-lvw h-dvh">
   <form
-    action="../../Controller/login.php"
+    action="/Controller/login.php"
     method="POST"
     class="z-10 gap-5 p-6.5 flex flex-col justify-center shadow-[5px_5px_10px_rgba(0,0,0,0.1)] rounded-lg items-center">
     <section>
