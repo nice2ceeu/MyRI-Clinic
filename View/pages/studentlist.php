@@ -13,7 +13,7 @@ include('../components/navbar.php');
 
 <section class="md:sm:ml-24 lg:ml-72 md:h-dvh xl:lg:ml-82 uppercase">
 
-  <section class="relative mt-5 text-[max(3vw,2rem)] ">
+  <section class="relative mt-5 text-[max(2.5vw,2rem)]">
     <h1 class="poppins uppercase font-[500] bg-white ml-12 px-5 inline z-20 ">
       Student's list Form
     </h1>
@@ -22,7 +22,7 @@ include('../components/navbar.php');
 
   <!-- FORM SEARCH SECTION FOR USERS  -->
 
-  <section class="flex gap-5 mt-5  flex-wrap items-center poppins uppercase  py-3.5  w-full">
+  <section class="flex gap-5 mt-5 flex-wrap items-center poppins uppercase  py-3.5  w-full">
     <form
       action=""
       method="POST"
@@ -51,7 +51,7 @@ include('../components/navbar.php');
         <img src="../assets/icons/search-icon.svg" />
       </button>
     </form>
-    <form class="ml-auto md:ml-0" action="" method="POST">
+    <form class="" action="" method="POST">
       <button
         type="submit"
         name="search-all"
@@ -60,10 +60,14 @@ include('../components/navbar.php');
       </button>
     </form>
 
-    <div id="blur" class="fixed h-dvh backdrop-blur-xs top-0 bg-white/30 z-20 w-full"> </div>
+    <div id="blur" class="fixed h-dvh hidden backdrop-blur-xs top-0 bg-white/30 z-20 w-full"> </div>
     <!-- btn -->
 
-    <button id="file-upload" class=" lg:ml-auto ml-0 bg-[#06118e] text-nowrap text-white md:mx-8.5 poppins uppercase flex justify-evenly gap-2.5 px-10 mx-8.5 cursor-pointer py-2.5 rounded-lg ">upload a file <img src="../assets/icons/file-upload-icon.svg" alt=""></button>
+
+
+
+
+    <button id="file-upload" class="bg-[#06118e] ml-auto  text-nowrap text-white poppins uppercase flex justify-evenly gap-2.5 px-5 cursor-pointer py-2.5 rounded-lg ">upload a file <img src="../assets/icons/file-upload-icon.svg" alt=""></button>
     <!--up form  -->
     <form id="upload" class="flex invisible flex-col gap-5 z-20 bg-white justify-center items-center size-100 absolute border-1 border-dashed top-1/3 right-1/5" action="../../Controller/uploadform.php" method="POST" enctype="multipart/form-data">
       <img id="close" class="invert absolute z-10  top-1.5 right-1.5 cursor-pointer" src="../assets/icons/close-icon.svg" alt="close-icon">
@@ -78,12 +82,11 @@ include('../components/navbar.php');
         class=" text-nowrap border-1 rounded-lg px-5 py-2 my-5 mt-auto cursor-pointer"
         type="submit" name="upload">Browse</button>
     </form>
-
-
-    <a class="bg-[#06118e] text-nowrap text-white  md:mx-8.5 poppins  uppercase flex justify-evenly gap-2.5 px-10 mx-8.5 cursor-pointer py-2.5 rounded-lg"
+    <a class="bg-[#06118e] text-nowrap text-white poppins mr-5 uppercase flex justify-evenly gap-2.5 px-7  cursor-pointer py-2.5 rounded-lg"
       href="view-download.php">My downloads
       <img src="../assets/icons/my-download-icon.svg" alt="my-download-icon">
     </a>
+
   </section>
 
   <section class="relative mt-12">
@@ -168,20 +171,20 @@ include('../components/navbar.php');
                 echo   "<td><form  action='../pages/medicalinformation.php' method='POST'>
                         
                         <input type='hidden' name='id' value='" . $_id . "'>
-                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span '>View Form</span></button>
+                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span '>Form</span></button>
                         
                         </form>
                         </td>";
                 echo   "<td><form action='../../Controller/studenthistory.php' method='POST'>
                         <input type='hidden' name='fname' value='" . $_firstname . "'>
                         <input type='hidden' name='lname' value='" . $_lastname . "'>
-                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span '>View History</span></button>
+                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span '>History</span></button>
                         </form>
                         </td>";
                 echo "<td>" .
                   "<form action='../../Controller/delete.php' method='POST'>
                                     <input type='hidden' name='id' value='$_id'>
-                                    <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='form-del'>REMOVE FORM</button>
+                                    <button class='flex rounded-lg gap-5 px-3 py-2.5 text-nowrap bg-red-500 cursor-pointer text-white' type='submit' name='form-del'>REMOVE FORM</button>
                                 </form></td>";
 
                 echo "</tr>";
@@ -218,20 +221,20 @@ include('../components/navbar.php');
                     echo   "<td><form  action='../pages/medicalinformation.php' method='POST'>
                         
                         <input type='hidden' name='id' value='" . $_id . "'>
-                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span '>View Form</span></button>
+                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-nowrap text-white' type='submit' name='view-form'><span '>Form</span></button>
                         
                         </form>
                         </td>";
                     echo   "<td><form action='../../Controller/studenthistory.php' method='POST'>
                         <input type='hidden' name='fname' value='" . $_firstname . "'>
                         <input type='hidden' name='lname' value='" . $_lastname . "'>
-                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span '>View History</span></button>
+                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-nowrap text-white' type='submit' name='view-history'><span '>History</span></button>
                         </form>
                         </td>";
                     echo "<td>" .
                       "<form action='../../Controller/delete.php' method='POST'>
                                     <input type='hidden' name='id' value='$_id'>
-                                    <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='form-del'>REMOVE FORM</button>
+                                    <button class='flex rounded-lg gap-5 px-3 py-2.5 text-nowrap bg-red-500 cursor-pointer text-white' type='submit' name='form-del'>REMOVE FORM</button>
                                 </form></td>";
 
                     echo "</tr>";
