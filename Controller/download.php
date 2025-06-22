@@ -1,6 +1,6 @@
 <?php
-include('../config/database.php');
-require '../vendor/autoload.php';
+include('/config/database.php');
+require '/vendor/autoload.php';
 
 
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -79,7 +79,7 @@ if (isset($_POST['download'])) {
         $plus_covid_date = htmlspecialchars($row['plus_covid_date']);
 
         // Create Word document
-        $template = new TemplateProcessor('../View/pages/template/medform.docx');
+        $template = new TemplateProcessor('/View/pages/template/medform.docx');
 
         $template->setValue('firstname', $_firstname);
         $template->setValue('lastname', $_lastname);
@@ -160,7 +160,7 @@ if (isset($_POST['download'])) {
         $template->setValue('plus_covid_date', $plus_covid_date);
 
         $filename = $_lastname . $_firstname . ".docx";
-        $filepath = '../View/pages/downloads/' . $filename;
+        $filepath = '/View/pages/downloads/' . $filename;
         $template->saveAs($filepath);
 
         // Force file download
@@ -249,7 +249,7 @@ if (isset($_POST['download-stud'])) {
         $plus_covid_date = htmlspecialchars($row['plus_covid_date']);
 
         // Create Word document
-        $template = new TemplateProcessor('../view/pages/template/medform.docx');
+        $template = new TemplateProcessor('/view/pages/template/medform.docx');
 
         $template->setValue('firstname', $_firstname);
         $template->setValue('lastname', $_lastname);
@@ -330,7 +330,7 @@ if (isset($_POST['download-stud'])) {
         $template->setValue('plus_covid_date', $plus_covid_date);
 
         $filename = $_lastname . $_firstname . ".docx";
-        $filepath = '../view/pages/downloads/' . $filename;
+        $filepath = '/view/pages/downloads/' . $filename;
         $template->saveAs($filepath);
 
         // Force file download

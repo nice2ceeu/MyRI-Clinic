@@ -7,7 +7,7 @@ if (!isset($_SESSION['username'])) {
 }
 ?>
 <?php
-include('../components/body.php');
+include('/components/body.php');
 
 ?>
 
@@ -15,7 +15,7 @@ include('../components/body.php');
 
 
     <?php
-    include('../../config/database.php');
+    include('config/database.php');
 
 
 
@@ -118,7 +118,7 @@ include('../components/body.php');
         <img
             id="home-btn"
             class="size-12 cursor-pointer"
-            src="../assets/icons/school-icon.svg"
+            src="/assets/icons/school-icon.svg"
             alt="" />
 
         <h1 id="home-btn" class="cursor-pointer">MyRi Clinic</h1>
@@ -126,10 +126,10 @@ include('../components/body.php');
         <img
             id="menu-btn"
             class="z-21 size-9 cursor-pointer invert"
-            src="../assets/icons/menu-icon.svg"
+            src="/assets/icons/menu-icon.svg"
             alt="menu-btn" />
     </header>
-    <a class="flex bg-[#06118e] poppins uppercase font-semibold text-white w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly text-[max(1vw,1rem)]" href="userprofile.php"><span>Back</span><img src="../assets/icons/back-icon.svg" alt="back-icon"></a>
+    <a class="flex bg-[#06118e] poppins uppercase font-semibold text-white w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly text-[max(1vw,1rem)]" href="userprofile.php"><span>Back</span><img src="/assets/icons/back-icon.svg" alt="back-icon"></a>
     <section class="relative my-5 text-[max(3vw,2rem)] ">
         <h1 class="poppins uppercase font-[500] bg-white ml-12 px-5 inline z-20 ">
             My medical form
@@ -145,7 +145,7 @@ include('../components/body.php');
                 class="row-start-1 invisible md:visible cursor-pointer shadow-2xl bg-secondary flex items-center justify-center text-2xl krona">
                 <img
                     class="md:block size-12 lg:hidden"
-                    src="../assets/icons/school-icon.svg"
+                    src="/assets/icons/school-icon.svg"
                     alt="school-img" />
                 <h1 class="md:hidden text-3xl lg:block">MyRi Clinic</h1>
             </section>
@@ -157,8 +157,8 @@ include('../components/body.php');
                 <!-- studnet info -->
                 <a
                     class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
-                    href="../pages/userformview.php">
-                    <img src="../assets/icons/medicalform-icon.svg" alt="medicalform-icon" />
+                    href="/pages/userformview.php">
+                    <img src="/assets/icons/medicalform-icon.svg" alt="medicalform-icon" />
                     <p class="md:hidden lg:block">My medical form</p>
                 </a>
 
@@ -167,8 +167,8 @@ include('../components/body.php');
 
                 <a
                     class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
-                    href="../pages/userhistory.php">
-                    <img src="../assets/icons/history-icon.svg" alt="visitor-icon" />
+                    href="/pages/userhistory.php">
+                    <img src="/assets/icons/history-icon.svg" alt="visitor-icon" />
                     <p class="md:hidden lg:block">My history</p>
                 </a>
 
@@ -178,8 +178,8 @@ include('../components/body.php');
                 <section class="mt-auto ">
                     <a
                         class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] items-center rounded-lg md:flex md:justify-center lg:justify-start"
-                        href="../pages/changepass.php">
-                        <img class="size-7" src="../assets/icons/manage-pass-icon.svg" alt="visitor-icon" />
+                        href="/pages/changepass.php">
+                        <img class="size-7" src="/assets/icons/manage-pass-icon.svg" alt="visitor-icon" />
                         <p class="md:hidden text-[16px] lg:block">Manage account</p>
                     </a>
 
@@ -188,8 +188,8 @@ include('../components/body.php');
                     <a
 
                         class="flex gap-x-4 px-3.5 uppercase py-3.5 leading-6 rounded-lg md:flex md:justify-center lg:justify-start lg:items-center mt-3 "
-                        href="../pages/userprofile.php">
-                        <img class=" size-6 " src=" ../assets/icons/user-icon.svg" alt="visitor-icon" />
+                        href="/pages/userprofile.php">
+                        <img class=" size-6 " src=" /assets/icons/user-icon.svg" alt="visitor-icon" />
                         <div class="md:hidden lg:block flex flex-col">
                             <?php
                             echo "
@@ -208,13 +208,13 @@ include('../components/body.php');
                 class="rounded-bl-2xl  md:rounded-none row-start-3 bg-secondary poppins   flex text-lg w-full items-center  gap-x-5">
 
                 <!-- logout -->
-                <form class="w-full px-3.5  " action="../../controller/logout.php" method="POST">
+                <form class="w-full px-3.5  " action="/controller/logout.php" method="POST">
                     <button
                         id="logout-btn"
                         type="submit"
                         name="submit"
                         class="flex gap-x-4 px-3.5  poppins  rounded-lg md:flex md:justify-center lg:justify-start lg:items-center w-full cursor-pointer"
-                        href="../pages/index.php"><img class="size-6" src="../assets/icons/exit-icon.svg" alt="inforamation-icon" />
+                        href="/pages/index.php"><img class="size-6" src="/assets/icons/exit-icon.svg" alt="inforamation-icon" />
                         <p class="md:hidden lg:block">Logout</p>
                     </button>
                 </form>
@@ -223,8 +223,8 @@ include('../components/body.php');
     </nav>
     <!-- navvvvvvvvvvv -->
     <fieldset id="myFieldset" disabled>
-        <form action="../../controller/medform.php" method="POST">
-            <!-- form for student information........ -->
+        <form action="/controller/medform.php" method="POST">
+            <!-- form for student information -->
             <section
                 class="poppins flex flex-col md:flex-row md:flex-wrap gap-4 px-3 uppercase">
                 <!-- namee of student -->
@@ -399,7 +399,7 @@ include('../components/body.php');
 
             </section>
 
-            <!--form for STUDENT MEDICAL HISTORY ........ -->
+            <!--form for STUDENT MEDICAL HISTORY  -->
             <section class="relative  my-5 text-[min(4vw,1.5rem)] ">
                 <h1 class="poppins uppercase font-[500] bg-white ml-12 px-5 inline z-20 ">
                     MEDICAL HISTORY
@@ -532,7 +532,7 @@ include('../components/body.php');
                     </div>
                 </section>
             </section>
-            <!--form for STUDENT MEDICAL HISTORY ........ -->
+            <!--form for STUDENT MEDICAL HISTORY  -->
             <!-- other information for medical History  -->
             <section class="flex gap-y-5 flex-col poppins px-3 [&>section>label]:font-semibold">
                 <section id="specifyOpacity" class="flex flex-col md:flex-row">
@@ -882,7 +882,7 @@ include('../components/body.php');
             <!-- SUBMIT BUTTON FOR MEDICAL FORM  -->
         </form>
     </fieldset>
-    <form action="../../controller/download.php" method="POST">
+    <form action="/controller/download.php" method="POST">
         <input type="hidden" name="firstname" value="<?php echo $firstname ?>">
         <input type="hidden" name="lastname" value="<?php echo $lastname ?>">
         <button
@@ -892,7 +892,7 @@ include('../components/body.php');
             class="bg-primary poppins my-5 place-self-center mt-5 w-1/3 md:w-1/5 justify-center cursor-pointer text-white px-5 py-3 flex gap-x-3 rounded-lg">
 
             <p>Download</p>
-            <img src="../assets/icons/check-icon.svg" alt="check-icon" />
+            <img src="/assets/icons/check-icon.svg" alt="check-icon" />
 
         </button>
     </form>
@@ -902,6 +902,6 @@ include('../components/body.php');
 
 
 </body>
-<script src="../script/navbaruser.js"></script>
+<script src="/script/navbaruser.js"></script>
 
 </html>

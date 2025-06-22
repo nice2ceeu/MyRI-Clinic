@@ -10,7 +10,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-include("../../View/modal/alert.php");
+include("View/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
     $msg = $_SESSION['modal_message'];
     $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -23,8 +23,8 @@ if (isset($_SESSION['modal_message'])) {
 }
 ?>
 <?php
-include('../components/body.php');
-include('../components/navbar.php');
+include('/components/body.php');
+include('/components/navbar.php');
 ?>
 
 <section class="md:sm:ml-24  lg:ml-72 md:h-dvh xl:lg:ml-82 overflow-x-hidden uppercase">
@@ -39,7 +39,7 @@ include('../components/navbar.php');
 
     <section class="flex gap-5 mt-5 items-center flex-wrap poppins uppercase  py-3.5  w-full">
         <form
-            action="../../controller/addmeds.php"
+            action="/controller/addmeds.php"
             method="POST"
             class="mx-8.5 gap-3.5 uppercase flex  flex-wrap w-full md:basis-[73%] ">
             <section class="relative basis-xm  ">
@@ -92,7 +92,7 @@ include('../components/navbar.php');
                     name="add"
                     class="uppercase w-full py-2.5 px-9 flex gap-5 items-center justify-evenly cursor-pointer">
                     <p>Add</p>
-                    <img class src="../assets/icons/check-icon.svg" alt="" />
+                    <img class src="/assets/icons/check-icon.svg" alt="" />
                 </button>
             </section>
 
@@ -103,7 +103,7 @@ include('../components/navbar.php');
             id="view-comsume"
             class="uppercase bg-primary text-white border-1 rounded-lg py-2.5 px-5  flex gap-5 items-center justify-evenly cursor-pointer">
             <p class="text-nowrap">view comsume</p>
-            <img class="size-5.5" src="../assets/icons/view-icon.svg" alt="" />
+            <img class="size-5.5" src="/assets/icons/view-icon.svg" alt="" />
         </button>
     </section>
 
@@ -138,7 +138,7 @@ include('../components/navbar.php');
                 name="filter-stocks"
                 class="uppercase bg-primary text-white rounded-lg py-2 px-5 flex gap-5 items-center justify-evenly cursor-pointer">
                 <p>Filter</p>
-                <img class="size-5.5" src="../assets/icons/filter-icon.svg" alt="" />
+                <img class="size-5.5" src="/assets/icons/filter-icon.svg" alt="" />
             </button>
             <script>
                 const status = document.getElementById('status');
@@ -192,7 +192,7 @@ include('../components/navbar.php');
             </thead>
             <tbody class="text-left [&>tr]:odd:bg-[#a8a8a829] [&>tr>td]:px-4 [&>tr>td]:py-4.5">
                 <?php
-                include('../../config/database.php');
+                include('config/database.php');
 
                 if (isset($_POST['filter-stocks'])) {
                     $status = $_POST['status'];
@@ -237,7 +237,7 @@ include('../components/navbar.php');
 
                                 echo "<td>" . $row['issued'] . "</td>";
                                 echo "<td>
-                        <form action='../../controller/delete.php' method='POST'>
+                        <form action='/controller/delete.php' method='POST'>
                             <input type='hidden' name='id' value='$_id'>
                             <button class='flex rounded-lg gap-5 px-7 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete'>
                                 <span>Delete</span>
@@ -282,7 +282,7 @@ include('../components/navbar.php');
 
                                 echo "<td>" . $row['issued'] . "</td>";
                                 echo "<td>
-                        <form action='../../controller/delete.php' method='POST'>
+                        <form action='/controller/delete.php' method='POST'>
                             <input type='hidden' name='id' value='$_id'>
                             <button class='flex rounded-lg gap-5 px-7 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete'>
                                 <span>Delete</span>
@@ -314,7 +314,7 @@ include('../components/navbar.php');
     <div id="blur" class="fixed  h-full backdrop-blur-xs top-[-20px] bg-white/30 z-0 w-full"></div>
 
     <div id="consumed-medicine" class="absolute top-1/4 md:w-[60%] w-[90%] right-5 md:right-1/8 overflow-y-auto overflow-x-hidden shadow-xl z-10 p-5  bg-white">
-        <img id="close" class="invert absolute top-2  right-2 cursor-pointer" src="../assets/icons/close-icon.svg" alt="">
+        <img id="close" class="invert absolute top-2  right-2 cursor-pointer" src="/assets/icons/close-icon.svg" alt="">
         <section class=" relative mt-5 text-[min(4vw,2rem)] ">
             <h1 class=" poppins uppercase font-[500] bg-white ml-12 px-5 inline z-20 ">
                 Consumed medicine
@@ -332,7 +332,7 @@ include('../components/navbar.php');
             </thead>
             <tbody class="text-left [&>tr]:odd:bg-[#a8a8a829] [&>tr>td]:px-4 [&>tr>td]:py-4.5">
                 <?php
-                include('../../config/database.php');
+                include('config/database.php');
 
                 $today = date("Y-m-d");
                 try {

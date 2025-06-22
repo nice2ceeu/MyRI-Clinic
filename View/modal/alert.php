@@ -1,6 +1,6 @@
 <?php
 
-include("../components/body.php");
+include("/components/body.php");
 ?>
 
 
@@ -12,14 +12,14 @@ include("../components/body.php");
     <img
       onclick="closeModal()"
       class="absolute invert opacity-70 cursor-pointer top-2 right-2"
-      src="../assets/icons/close-icon.svg"
+      src="/assets/icons/close-icon.svg"
       alt="close-icon" />
     <h1
       class="text-4xl uppercase font-[500] flex items-center gap-3"
       id="alertHeader">
       <img
         class="size-12 animate-pulse duration-[0.1s]"
-        src="../assets/icons/alert-icon.svg"
+        src="/assets/icons/alert-icon.svg"
         alt="alert-icon" />
       Login failed
     </h1>

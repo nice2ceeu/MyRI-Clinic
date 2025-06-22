@@ -1,5 +1,5 @@
 <?php
-include('../config/database.php');
+include('/config/database.php');
 
 if (isset($_POST['reset'])) {
     $id = $_POST['id'];
@@ -13,7 +13,7 @@ if (isset($_POST['reset'])) {
     if ($stmt) {
         echo "<script>
             alert('Password has been reset. Password: 00000000');
-            window.location.href ='../view/pages/enrolledstudentlist.php';
+            window.location.href ='/view/pages/enrolledstudentlist.php';
         </script>";
     } else {
         die(print_r(sqlsrv_errors(), true));
@@ -43,7 +43,7 @@ if (isset($_POST['reset-password'])) {
                     session_start();
                     $_SESSION['modal_title'] = 'Success';
                     $_SESSION['modal_message'] = 'Password Successfully Changed!';
-                    header("Location: ../view/pages/userprofile.php");
+                    header("Location: /view/pages/userprofile.php");
                     exit;
                 } else {
                     die(print_r(sqlsrv_errors(), true));
@@ -52,21 +52,21 @@ if (isset($_POST['reset-password'])) {
                 session_start();
                 $_SESSION['modal_title'] = 'Alert';
                 $_SESSION['modal_message'] = 'Current Password does not match our records.';
-                header("Location: ../view/pages/changepass.php");
+                header("Location: /view/pages/changepass.php");
                 exit;
             }
         } else {
             session_start();
             $_SESSION['modal_title'] = 'Alert';
             $_SESSION['modal_message'] = 'User not found.';
-            header("Location: ../view/pages/changepass.php");
+            header("Location: /view/pages/changepass.php");
             exit;
         }
     } else {
         session_start();
         $_SESSION['modal_title'] = 'Alert';
         $_SESSION['modal_message'] = 'Passwords must match and be longer than 8 characters.';
-        header("Location: ../view/pages/changepass.php");
+        header("Location: /view/pages/changepass.php");
         exit;
     }
 }

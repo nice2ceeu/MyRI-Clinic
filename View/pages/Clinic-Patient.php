@@ -2,7 +2,7 @@
 
 session_start();
 
-include("../../View/modal/alert.php");
+include("View/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
   $msg = $_SESSION['modal_message'];
   $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -21,8 +21,8 @@ if (!isset($_SESSION['username'])) {
 
 ?>
 <?php
-include('../components/body.php');
-include('../components/navbar.php');
+include('/components/body.php');
+include('/components/navbar.php');
 ?>
 <section class="md:sm:ml-24 lg:ml-72 md:h-dvh xl:lg:ml-82">
 
@@ -34,7 +34,7 @@ include('../components/navbar.php');
   </section>
   <!-- visitor form  -->
   <form
-    action="../../controller/addvisitor.php"
+    action="/controller/addvisitor.php"
     method="POST"
     class="px-8.5 mt-5 gap-3.5 uppercase flex justify-center flex-wrap lg:flex-nowrap min-[200px]:w-[90%]">
 
@@ -129,7 +129,7 @@ include('../components/navbar.php');
         name="submit"
         class="uppercase w-full py-2.5 px-9 flex gap-5 items-center justify-evenly cursor-pointer">
         <p>submit</p>
-        <img clas src="../assets/icons/check-icon.svg" alt="" />
+        <img clas src="/assets/icons/check-icon.svg" alt="" />
       </button>
     </section>
   </form>
@@ -170,7 +170,7 @@ include('../components/navbar.php');
         id="filter"
         class="uppercase bg-primary text-white rounded-lg py-2 px-5 flex gap-5 items-center justify-evenly cursor-pointer">
         <p>Filter</p>
-        <img class="size-5.5" src="../assets/icons/filter-icon.svg" alt="" />
+        <img class="size-5.5" src="/assets/icons/filter-icon.svg" alt="" />
       </button>
 
     </form>
@@ -225,8 +225,8 @@ include('../components/navbar.php');
         <?php
 
 
-        include("../../config/database.php");
-        include('../components/body.php');
+        include("config/database.php");
+        include('/components/body.php');
 
 
 

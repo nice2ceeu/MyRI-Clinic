@@ -13,6 +13,6 @@ menuBtn.addEventListener("click", () => {
 });
 window.addEventListener("click", (e) => {
   if (e.target.id == "home-btn") {
-    window.location = "../pages/Clinic-Patient.php";
+    window.location = "/pages/Clinic-Patient.php";
   }
 });

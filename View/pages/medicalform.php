@@ -3,7 +3,7 @@ session_start();
 
 
 
-include("../../View/modal/alert.php");
+include("View/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
   $msg = $_SESSION['modal_message'];
   $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -22,8 +22,8 @@ if (!isset($_SESSION['username'])) {
 }
 ?>
 <?php
-include('../components/body.php');
-include('../components/navbar.php');
+include('/components/body.php');
+include('/components/navbar.php');
 ?>
 
 <section class="overflow-x-hidden md:sm:ml-24 lg:ml-72 md:h-dvh xl:lg:ml-82">
@@ -34,8 +34,8 @@ include('../components/navbar.php');
     <hr class="absolute z-[-1] w-full top-1/2" />
   </section>
 
-  <form action="../../controller/medform.php" method="POST">
-    <!-- form for student information........ -->
+  <form action="/controller/medform.php" method="POST">
+    <!-- form for student information -->
     <section
       class="poppins flex flex-col md:flex-row md:flex-wrap gap-4 px-3 uppercase">
       <!-- namee of student -->
@@ -200,7 +200,7 @@ include('../components/navbar.php');
 
     </section>
 
-    <!--form for STUDENT MEDICAL HISTORY ........ -->
+    <!--form for STUDENT MEDICAL HISTORY  -->
     <section class="relative py-7.5 pt-12">
 
       <section class="relative  my-5 text-[min(4vw,1.5rem)] ">
@@ -332,7 +332,7 @@ include('../components/navbar.php');
           </div>
         </section>
       </section>
-      <!--form for STUDENT MEDICAL HISTORY ........ -->
+      <!--form for STUDENT MEDICAL HISTORY  -->
       <!-- other information for medical History  -->
       <section class="flex gap-y-5 flex-col poppins px-3 [&>section>label]:font-semibold">
         <section id="specifyOpacity" class="flex flex-col md:flex-row">
@@ -670,14 +670,14 @@ include('../components/navbar.php');
         name="submit"
         class="bg-primary poppins place-self-center mt-5 w-1/3 justify-center cursor-pointer text-white px-5 py-3 flex gap-x-3 rounded-lg">
         <p>SUBMIT</p>
-        <img src="../assets/icons/check-icon.svg" alt="check-icon" />
+        <img src="/assets/icons/check-icon.svg" alt="check-icon" />
       </button>
 
   </form>
 </section>
 
 </body>
-<script src="../script/medformFillup.js"></script>
+<script src="/script/medformFillup.js"></script>
 <script>
   let selectedRadio = null;
 

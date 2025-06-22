@@ -1,5 +1,5 @@
 <?php
-include('../config/database.php');
+include('/config/database.php');
 
 $id = $_POST['id'];
 $fullname = $_POST['fullname'];
@@ -12,7 +12,7 @@ if ($firstname == '') {
     session_start();
     $_SESSION['modal_title'] = 'Invalid Format';
     $_SESSION['modal_message'] = 'The Fullname Field Must be (Lastname, Firstname)';
-    header("Location: ../view/pages/medicalinformation.php");
+    header("Location: /view/pages/medicalinformation.php");
     exit;
 }
 

@@ -1,6 +1,6 @@
 <?php
 
-include('../components/body.php');
+include('/components/body.php');
 
 ?>
 <?php
@@ -11,7 +11,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 } else {
 
-    include('../../config/database.php');
+    include('config/database.php');
 
     $firstname = $_SESSION['firstname'];
     $lastname = $_SESSION['lastname'];
@@ -40,7 +40,7 @@ if (!isset($_SESSION['username'])) {
 
 
 <nav class="poppins uppercase font-semibold text-white text-center py-5 bg-[#06118e] text-[max(2vw,3rem)] w-full">Visit History</nav>
-<a class="flex bg-[#06118e] poppins uppercase font-semibold text-white w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly text-[max(1vw,1rem)]" href="userprofile.php"><span>Back</span><img src="../assets/icons/back-icon.svg" alt="back-icon"></a>
+<a class="flex bg-[#06118e] poppins uppercase font-semibold text-white w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly text-[max(1vw,1rem)]" href="userprofile.php"><span>Back</span><img src="/assets/icons/back-icon.svg" alt="back-icon"></a>
 <main
     class="uppercase mt-22 px-8.5 ">
     <table class="w-full poppins">
@@ -63,7 +63,7 @@ if (!isset($_SESSION['username'])) {
         <tbody class="text-left [&>tr]:odd:bg-[#a8a8a829] [&>tr>td]:px-4 [&>tr>td]:py-4.5">
 
             <?php
-            include("../../config/database.php");
+            include("config/database.php");
 
             $firstname = $_SESSION['firstname'];
             $lastname = $_SESSION['lastname'];
@@ -106,7 +106,7 @@ if (!isset($_SESSION['username'])) {
     </table>
 </main>
 
-<script src="../script/navbaruser.js"></script>
+<script src="/script/navbaruser.js"></script>
 </body>
 
 </html>

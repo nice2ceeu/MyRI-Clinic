@@ -6,6 +6,6 @@ if (isset($_POST["submit"])) {
     $_SESSION = [];
     session_destroy();
 
-    header("Location: ../../pages/index.php");
+    header("Location: pages/index.php");
     exit();
 }

@@ -1,9 +1,9 @@
 <?php
-require '../vendor/autoload.php';
+require '/vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
-include('../config/database.php');
+include('/config/database.php');
 
 if (isset($_POST['upload'])) {
     if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
@@ -29,7 +29,7 @@ if (isset($_POST['upload'])) {
                 session_start();
                 $_SESSION['modal_title'] = 'Invalid File Format';
                 $_SESSION['modal_message'] = "Row $index is missing required data (Firstname, Lastname, Username).";
-                header("Location: ../../view/pages/enrolledstudentlist.php");
+                header("Location: view/pages/enrolledstudentlist.php");
                 exit;
             }
 
@@ -69,7 +69,7 @@ if (isset($_POST['upload'])) {
             $_SESSION['modal_message'] = 'All student records uploaded successfully.';
         }
 
-        header("Location: ../../view/pages/enrolledstudentlist.php");
+        header("Location: view/pages/enrolledstudentlist.php");
         exit;
     } else {
         echo "File upload failed.";

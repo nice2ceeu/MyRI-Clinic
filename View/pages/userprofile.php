@@ -6,7 +6,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 } else {
 
-    include('../../config/database.php');
+    include('config/database.php');
 
     $firstname = $_SESSION['firstname'];
     $lastname = $_SESSION['lastname'];
@@ -34,7 +34,7 @@ if (!isset($_SESSION['username'])) {
 
 
 <?php
-include('../components/body.php');
+include('/components/body.php');
 ?>
 
 
@@ -44,7 +44,7 @@ include('../components/body.php');
     <img
         id="home-btn"
         class="size-12 cursor-pointer"
-        src="../assets/icons/school-icon.svg"
+        src="/assets/icons/school-icon.svg"
         alt="" />
 
     <h1 id="home-btn" class="cursor-pointer">MyRi Clinic</h1>
@@ -52,7 +52,7 @@ include('../components/body.php');
     <img
         id="menu-btn"
         class="z-21 size-9 cursor-pointer invert"
-        src="../assets/icons/menu-icon.svg"
+        src="/assets/icons/menu-icon.svg"
         alt="menu-btn" />
 </header>
 <nav
@@ -64,7 +64,7 @@ include('../components/body.php');
             class="row-start-1 invisible md:visible cursor-pointer shadow-2xl bg-secondary flex items-center justify-center text-2xl krona">
             <img
                 class="md:block size-12 lg:hidden"
-                src="../assets/icons/school-icon.svg"
+                src="/assets/icons/school-icon.svg"
                 alt="school-img" />
             <h1 class="md:hidden text-3xl lg:block">MyRi Clinic</h1>
         </section>
@@ -76,8 +76,8 @@ include('../components/body.php');
             <!-- studnet info -->
             <a
                 class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
-                href="../pages/userformview.php">
-                <img src="../assets/icons/medicalform-icon.svg" alt="medicalform-icon" />
+                href="/pages/userformview.php">
+                <img src="/assets/icons/medicalform-icon.svg" alt="medicalform-icon" />
                 <p class="md:hidden lg:block">My medical form</p>
             </a>
 
@@ -86,8 +86,8 @@ include('../components/body.php');
 
             <a
                 class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
-                href="../pages/userhistory.php">
-                <img src="../assets/icons/history-icon.svg" alt="visitor-icon" />
+                href="/pages/userhistory.php">
+                <img src="/assets/icons/history-icon.svg" alt="visitor-icon" />
                 <p class="md:hidden lg:block">My history</p>
             </a>
 
@@ -97,8 +97,8 @@ include('../components/body.php');
             <section class="mt-auto ">
                 <a
                     class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] items-center rounded-lg md:flex md:justify-center lg:justify-start"
-                    href="../pages/changepass.php">
-                    <img class="size-7" src="../assets/icons/manage-pass-icon.svg" alt="visitor-icon" />
+                    href="/pages/changepass.php">
+                    <img class="size-7" src="/assets/icons/manage-pass-icon.svg" alt="visitor-icon" />
                     <p class="md:hidden text-[16px] lg:block">Manage account</p>
                 </a>
 
@@ -107,8 +107,8 @@ include('../components/body.php');
                 <a
 
                     class="flex gap-x-4 px-3.5 uppercase py-3.5 leading-6 rounded-lg md:flex md:justify-center lg:justify-start lg:items-center mt-3 "
-                    href="../pages/userprofile.php">
-                    <img class=" size-6 " src=" ../assets/icons/user-icon.svg" alt="visitor-icon" />
+                    href="/pages/userprofile.php">
+                    <img class=" size-6 " src=" /assets/icons/user-icon.svg" alt="visitor-icon" />
                     <div class="md:hidden lg:block flex flex-col">
                         <?php
                         echo "
@@ -127,13 +127,13 @@ include('../components/body.php');
             class="rounded-bl-2xl  md:rounded-none row-start-3 bg-secondary poppins   flex text-lg w-full items-center  gap-x-5">
 
             <!-- logout -->
-            <form class="w-full px-3.5  " action="../../controller/logout.php" method="POST">
+            <form class="w-full px-3.5  " action="/controller/logout.php" method="POST">
                 <button
                     id="logout-btn"
                     type="submit"
                     name="submit"
                     class="flex gap-x-4 px-3.5  poppins  rounded-lg md:flex md:justify-center lg:justify-start lg:items-center w-full cursor-pointer"
-                    href="../pages/index.php"><img class="size-6" src="../assets/icons/exit-icon.svg" alt="inforamation-icon" />
+                    href="/pages/index.php"><img class="size-6" src="/assets/icons/exit-icon.svg" alt="inforamation-icon" />
                     <p class="md:hidden lg:block">Logout</p>
                 </button>
             </form>
@@ -143,12 +143,12 @@ include('../components/body.php');
 <!-- navvvvvvvvvvv -->
 
 <main class="md:sm:ml-24 h-dvh lg:ml-72 md:h-dvh xl:lg:ml-82  overflow-x-hidden bg-gradient-to-b from-[#edf3f2] to-[#626de2] ">
-    <img src="../public/ri-img.png" class="h-52 object-cover w-full" alt="">
+    <img src="/public/ri-img.png" class="h-52 object-cover w-full" alt="">
 
 
     <section class="flex flex-col  w-full ">
         <section class="flex flex-col md:flex-row poppins">
-            <img src="../assets/icons/user-icon.svg" class="invert mx-10 size-32" alt="user-icon" />
+            <img src="/assets/icons/user-icon.svg" class="invert mx-10 size-32" alt="user-icon" />
             <div class="md:mt-auto mx-10 md:mx-0  space-y-2">
                 <h1 class="text-nowrap text-[min(5vw,2rem)] capitalize font-semibold"><?php echo $firstname . " " . $lastname ?></h1>
                 <p class="text-lg">LRN: <?php echo $username ?></p>
@@ -173,7 +173,7 @@ include('../components/body.php');
 
 </main>
 
-<script src="../script/navbaruser.js"></script>
+<script src="/script/navbaruser.js"></script>
 </body>
 
 </html>

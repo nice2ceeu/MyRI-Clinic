@@ -7,8 +7,8 @@ if (!isset($_SESSION['username'])) {
 }
 ?>
 <?php
-include('../components/body.php');
-include('../components/navbar.php');
+include('/components/body.php');
+include('/components/navbar.php');
 ?>
 
 <section class="md:sm:ml-24 lg:ml-72 md:h-dvh xl:lg:ml-82 uppercase">
@@ -48,7 +48,7 @@ include('../components/navbar.php');
         class="bg-[#06118e] text-white poppins uppercase flex justify-evenly gap-2.5 px-10 cursor-pointer py-2.5 rounded-lg">
         <p>Search</p>
 
-        <img src="../assets/icons/search-icon.svg" />
+        <img src="/assets/icons/search-icon.svg" />
       </button>
     </form>
     <form class="ml-auto md:ml-0" action="" method="POST">
@@ -63,10 +63,10 @@ include('../components/navbar.php');
     <div id="blur" class="fixed h-dvh backdrop-blur-xs top-0 bg-white/30 z-20 w-full"> </div>
     <!-- btn -->
 
-    <button id="file-upload" class=" lg:ml-auto ml-0 bg-[#06118e] text-nowrap text-white md:mx-8.5 poppins uppercase flex justify-evenly gap-2.5 px-10 mx-8.5 cursor-pointer py-2.5 rounded-lg ">upload a file <img src="../assets/icons/file-upload-icon.svg" alt=""></button>
+    <button id="file-upload" class=" lg:ml-auto ml-0 bg-[#06118e] text-nowrap text-white md:mx-8.5 poppins uppercase flex justify-evenly gap-2.5 px-10 mx-8.5 cursor-pointer py-2.5 rounded-lg ">upload a file <img src="/assets/icons/file-upload-icon.svg" alt=""></button>
     <!--up form  -->
-    <form id="upload" class="flex invisible flex-col gap-5 z-20 bg-white justify-center items-center size-100 absolute border-1 border-dashed top-1/3 right-1/5" action="../../controller/uploadform.php" method="POST" enctype="multipart/form-data">
-      <img id="close" class="invert absolute z-10  top-1.5 right-1.5 cursor-pointer" src="../assets/icons/close-icon.svg" alt="close-icon">
+    <form id="upload" class="flex invisible flex-col gap-5 z-20 bg-white justify-center items-center size-100 absolute border-1 border-dashed top-1/3 right-1/5" action="/controller/uploadform.php" method="POST" enctype="multipart/form-data">
+      <img id="close" class="invert absolute z-10  top-1.5 right-1.5 cursor-pointer" src="/assets/icons/close-icon.svg" alt="close-icon">
       <div class="flex flex-col items-center pt-12">
         <h1 id="file-choose" class="font-semibold text-2xl">Choose a File</h1>
         <h6 class="opacity-80 text-sm">XLS, XLSX, XLSM, XLTX and XLTM</h6>
@@ -82,7 +82,7 @@ include('../components/navbar.php');
 
     <a class="bg-[#06118e] text-nowrap text-white  md:mx-8.5 poppins  uppercase flex justify-evenly gap-2.5 px-10 mx-8.5 cursor-pointer py-2.5 rounded-lg"
       href="view-download.php">My downloads
-      <img src="../assets/icons/my-download-icon.svg" alt="my-download-icon">
+      <img src="/assets/icons/my-download-icon.svg" alt="my-download-icon">
     </a>
   </section>
 
@@ -92,7 +92,7 @@ include('../components/navbar.php');
 
   <?php
 
-  include("../../View/modal/alert.php");
+  include("View/modal/alert.php");
   if (isset($_SESSION['modal_message'])) {
     $msg = $_SESSION['modal_message'];
     $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -105,7 +105,7 @@ include('../components/navbar.php');
   }
 
 
-  include('../components/body.php');
+  include('/components/body.php');
   ?>
   <main
     class="uppercase mt-22 py-10 px-8.5 w-full max-w-full overflow-x-auto">
@@ -132,7 +132,7 @@ include('../components/navbar.php');
 
         <body>
           <?php
-          include('../../config/database.php');
+          include('config/database.php');
 
           if (isset($_POST['search'])) {
             $fullname = $_POST['fullname'];
@@ -165,18 +165,18 @@ include('../components/navbar.php');
                   echo "<td>" . htmlspecialchars($row['guardian']) . "</td>";
                   echo "<td>" . htmlspecialchars($row['contact']) . "</td>";
 
-                  echo   "<td><form action='../pages/medicalinformation.php' method='POST'>
+                  echo   "<td><form action='/pages/medicalinformation.php' method='POST'>
                 <input type='hidden' name='id' value='" . $_id . "'>
                 <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span>View Form</span></button>
                 </form></td>";
 
-                  echo   "<td><form action='../../controller/studenthistory.php' method='POST'>
+                  echo   "<td><form action='/controller/studenthistory.php' method='POST'>
                 <input type='hidden' name='fname' value='" . $_firstname . "'>
                 <input type='hidden' name='lname' value='" . $_lastname . "'>
                 <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span>View History</span></button>
                 </form></td>";
 
-                  echo "<td><form action='../../controller/delete.php' method='POST'>
+                  echo "<td><form action='/controller/delete.php' method='POST'>
                 <input type='hidden' name='id' value='$_id'>
                 <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='form-del'>REMOVE FORM</button>
                 </form></td>";
@@ -210,18 +210,18 @@ include('../components/navbar.php');
                     echo "<td>" . htmlspecialchars($row['guardian']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['contact']) . "</td>";
 
-                    echo   "<td><form action='../pages/medicalinformation.php' method='POST'>
+                    echo   "<td><form action='/pages/medicalinformation.php' method='POST'>
                   <input type='hidden' name='id' value='" . $_id . "'>
                   <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span>View Form</span></button>
                   </form></td>";
 
-                    echo   "<td><form action='../../controller/studenthistory.php' method='POST'>
+                    echo   "<td><form action='/controller/studenthistory.php' method='POST'>
                   <input type='hidden' name='fname' value='" . $_firstname . "'>
                   <input type='hidden' name='lname' value='" . $_lastname . "'>
                   <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span>View History</span></button>
                   </form></td>";
 
-                    echo "<td><form action='../../controller/delete.php' method='POST'>
+                    echo "<td><form action='/controller/delete.php' method='POST'>
                   <input type='hidden' name='id' value='$_id'>
                   <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='form-del'>REMOVE FORM</button>
                   </form></td>";

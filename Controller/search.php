@@ -1,5 +1,5 @@
 <?php
-include('../view/components/body.php');
+include('/view/components/body.php');
 
 
 
@@ -10,7 +10,7 @@ include('../view/components/body.php');
 
     <?php
     //for current patients
-    include('../config/database.php');
+    include('/config/database.php');
     if (isset($_POST['submit'])) {
         $fullname = $_POST['fullname'];
         $name = explode(',', $fullname);
@@ -52,7 +52,7 @@ include('../view/components/body.php');
                     echo  "<td>  
                                 <button onclick='showPopup()' class='bg-primary text-white rounded-lg uppercase  py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>
                                     <p>Patient out</p>
-                                    <img class='w-4 h-4' src='../view/assets/icons/out-icon.svg' alt='check icon' />
+                                    <img class='w-4 h-4' src='/view/assets/icons/out-icon.svg' alt='check icon' />
                                 </button>
                             </td>";
                     echo "</tr>";
@@ -67,7 +67,7 @@ include('../view/components/body.php');
             echo "Error: " . $e->getMessage();
         }
     } else {
-        include('../View/components/body.php');
+        include('/View/components/body.php');
 
     ?>
 <tbody
@@ -75,7 +75,7 @@ include('../view/components/body.php');
 
 <?php
 
-        include('../config/database.php');
+        include('/config/database.php');
         $fullname = $_POST['fullname'];
         $name = explode(',', $fullname);
 
@@ -116,7 +116,7 @@ include('../view/components/body.php');
                     echo "<td>" . htmlspecialchars($row['guardian']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['contact']) . "</td>";
 
-                    echo   "<td><form action='../view/pages/medicalinformation.php' method='POST'>
+                    echo   "<td><form action='/view/pages/medicalinformation.php' method='POST'>
                         <input type='hidden' name='id' value='" . $id  . "'>
                         <button type='submit' name='view-form'><span style='color: green;'>View Form</span></button>
                         </form>

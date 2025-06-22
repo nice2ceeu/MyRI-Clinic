@@ -5,14 +5,14 @@
   <img
     id="home-btn"
     class="size-12 cursor-pointer"
-    src="../assets/icons/school-icon.svg"
+    src="/assets/icons/school-icon.svg"
     alt="" />
 
   <h1 id="home-btn" class="cursor-pointer">MyRI Clinic</h1>
   <img
     id="menu-btn"
     class="z-60 size-9 cursor-pointer invert"
-    src="../assets/icons/menu-icon.svg"
+    src="/assets/icons/menu-icon.svg"
     alt="menu-btn" />
 </header>
 
@@ -25,7 +25,7 @@
       class="row-start-1 invisible md:visible cursor-pointer shadow-2xl bg-secondary flex items-center justify-center text-2xl krona">
       <img
         class="md:block size-12 lg:hidden"
-        src="../assets/icons/school-icon.svg"
+        src="/assets/icons/school-icon.svg"
         alt="school-img" />
       <h1 class="md:hidden text-3xl lg:block">MyRI Clinic</h1>
     </section>
@@ -36,21 +36,21 @@
       <!-- visitor link -->
       <a
         class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start "
-        href="../pages/Clinic-Patient.php"><img src="../assets/icons/visit-icon.svg" alt="visitor-icon" />
+        href="/pages/Clinic-Patient.php"><img src="/assets/icons/visit-icon.svg" alt="visitor-icon" />
         <p class="md:hidden lg:block">Clinic patient</p>
       </a>
 
       <!-- current patientn in clinic link -->
       <a
         class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
-        href="../pages/Current-Patients.php"><img src="../assets/icons/current-icon.svg" alt="visitor-icon" />
+        href="/pages/Current-Patients.php"><img src="/assets/icons/current-icon.svg" alt="visitor-icon" />
         <p class="md:hidden lg:block">Current patients</p>
       </a>
 
       <!-- visit history -->
       <a
         class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
-        href="../pages/Patient-History.php"><img src="../assets/icons/history-icon.svg" alt="history-icon" />
+        href="/pages/Patient-History.php"><img src="/assets/icons/history-icon.svg" alt="history-icon" />
         <p class="md:hidden lg:block">Visitor history</p>
       </a>
 
@@ -58,21 +58,21 @@
       <!-- enrolled info -->
       <a
         class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
-        href="../pages/enrolledstudentlist.php"><img src="../assets/icons/enroll-icon.svg" alt="inforamation-icon" />
+        href="/pages/enrolledstudentlist.php"><img src="/assets/icons/enroll-icon.svg" alt="inforamation-icon" />
         <p class="md:hidden lg:block">Enrolled students</p>
       </a>
 
       <!-- medical forn  -->
       <a
         class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
-        href="../pages/medicalform.php"><img src="../assets/icons/medicalform-icon.svg" alt="inforamation-icon" />
+        href="/pages/medicalform.php"><img src="/assets/icons/medicalform-icon.svg" alt="inforamation-icon" />
         <p class="md:hidden lg:block">Medical form</p>
       </a>
 
       <!-- student info -->
       <a
         class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
-        href="../pages/studentlist.php"><img src="../assets/icons/student-icon.svg" alt="inforamation-icon" />
+        href="/pages/studentlist.php"><img src="/assets/icons/student-icon.svg" alt="inforamation-icon" />
         <p class="md:hidden lg:block">Student form list</p>
       </a>
 
@@ -81,7 +81,7 @@
 
       <a
         class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
-        href="../pages/inventory.php"><img src="../assets/icons/inventory-icon.svg" alt="inforamation-icon" />
+        href="/pages/inventory.php"><img src="/assets/icons/inventory-icon.svg" alt="inforamation-icon" />
         <p class="md:hidden lg:block">Medicine Inventory</p>
       </a>
 
@@ -91,15 +91,15 @@
 
         <a
           class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] items-center rounded-lg md:flex md:justify-center lg:justify-start"
-          href="../pages/changepass.php">
-          <img class="size-7" src="../assets/icons/manage-pass-icon.svg" alt="visitor-icon" />
+          href="/pages/changepass.php">
+          <img class="size-7" src="/assets/icons/manage-pass-icon.svg" alt="visitor-icon" />
           <p class="md:hidden text-[16px] lg:block">Manage account</p>
         </a>
         <hr class="text-[#f5f5f565]  w-full">
         <a
           class="flex gap-x-4 px-3.5 py-3.5 leading-6 rounded-lg md:flex md:justify-center lg:justify-start lg:items-center mt-3 hover:bg-[#ffffff1f]"
           href="">
-          <img class="size-6 " src="../assets/icons/user-icon.svg" alt="visitor-icon" />
+          <img class="size-6 " src="/assets/icons/user-icon.svg" alt="visitor-icon" />
           <div class="md:hidden lg:block flex flex-col">
             <?php
             echo "
@@ -120,13 +120,13 @@
       class="rounded-bl-2xl  md:rounded-none row-start-3 bg-secondary poppins   flex text-lg w-full items-center  gap-x-5">
 
       <!-- logout -->
-      <form class="w-full px-3.5" action="../../controller/logout.php" method="POST">
+      <form class="w-full px-3.5" action="/controller/logout.php" method="POST">
         <button
           id="logout-btn"
           type="submit"
           name="submit"
           class="flex gap-x-4 px-3.5 leading-5 poppins  rounded-lg md:flex md:justify-center lg:justify-start lg:items-center w-full cursor-pointer"
-          href="../pages/index.php"><img class="size-6" src="../assets/icons/exit-icon.svg" alt="inforamation-icon" />
+          href="/pages/index.php"><img class="size-6" src="/assets/icons/exit-icon.svg" alt="inforamation-icon" />
           <p class="md:hidden lg:block">Logout</p>
         </button>
       </form>
@@ -136,5 +136,5 @@
 
 
 </body>
-<script src="../script/navbar.js"></script>
+<script src="/script/navbar.js"></script>
 </head>
