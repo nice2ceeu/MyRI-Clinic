@@ -1,33 +1,47 @@
 <?php
 
-$url = "localhost";
-$user = "root";
-$pass = "";
-$db = "ridb";
+// $url = "localhost";
+// $user = "root";
+// $pass = "";
+// $db = "ridb";
 
-$conn = mysqli_connect($url, $user, $pass, $db);
+// $conn = mysqli_connect($url, $user, $pass, $db);
+
+// if (!$conn) {
+
+//     die("The connection is not established" . mysqli_connect_error());
+// }
+
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+// Load .env file
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+// Retrieve .env values and cast to string
+$name   = (string) $_ENV['DB_SERVER'];
+$user   = (string) $_ENV['DB_UID'];
+$pass   = (string) $_ENV['DB_PWD'];
+$dbname = (string) $_ENV['DB_NAME'];
+
+
+
+$serverName = "tcp:krissslazarte.database.windows.net,1433";
+$connectionInfo = array(
+    "UID" => "CloudSA38c8fe9d",
+    "PWD" => "B09120146995b",
+    "Database" => "ridb",
+    "LoginTimeout" => 30,
+    "Encrypt" => 1,
+    "TrustServerCertificate" => 0
+);
+
+// Try connecting
+$conn = sqlsrv_connect($serverName, $connectionInfo);
 
 if (!$conn) {
-
-    die("The connection is not established" . mysqli_connect_error());
+    echo "❌ Connection failed.<br>";
+    die(print_r(sqlsrv_errors(), true));
 }
 
-
-// $serverName = "tcp:krissslazarte.database.windows.net,1433";
-// $connectionInfo = array(
-//     "UID" => "CloudSA38c8fe9d",
-//     "PWD" => "B09120146995b",  // <-- Must NOT be empty!
-//     "Database" => "ridb",
-//     "LoginTimeout" => 30,
-//     "Encrypt" => 1,
-//     "TrustServerCertificate" => 0
-// );
-
-// $conn = sqlsrv_connect($serverName, $connectionInfo);
-
-// if ($conn) {
-//     echo "✅ Connection successful.";
-// } else {
-//     echo "❌ Connection failed.<br>";
-//     die(print_r(sqlsrv_errors(), true));
-// }

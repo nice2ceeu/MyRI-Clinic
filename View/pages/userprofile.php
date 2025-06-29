@@ -5,28 +5,33 @@ if (!isset($_SESSION['username'])) {
     header("Location: index.php");
     exit();
 } else {
+
     include('../../config/database.php');
 
     $firstname = $_SESSION['firstname'];
     $lastname = $_SESSION['lastname'];
     $username = $_SESSION['username'];
 
-
     try {
-        $stmt = $conn->prepare("SELECT COUNT(*) AS count FROM visitor WHERE firstname = ? AND lastname = ? ");
-        $stmt->bind_param("ss", $firstname, $lastname);
-        $stmt->execute();
+        $query = "SELECT COUNT(*) AS count FROM visitor WHERE firstname = ? AND lastname = ?";
+        $params = array($firstname, $lastname);
+        $stmt = sqlsrv_prepare($conn, $query, $params);
 
-        $result = $stmt->get_result();
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $count = htmlspecialchars($row['count']);
+        if ($stmt && sqlsrv_execute($stmt)) {
+            $result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+            if ($result) {
+                $count = htmlspecialchars($result['count']);
+            }
+        } else {
+            echo "<p>Error executing statement.</p>";
         }
-    } catch (mysqli_sql_exception $e) {
+    } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
 }
 ?>
+
+
 
 <?php
 include('../components/body.php');
@@ -122,7 +127,7 @@ include('../components/body.php');
             class="rounded-bl-2xl  md:rounded-none row-start-3 bg-secondary poppins   flex text-lg w-full items-center  gap-x-5">
 
             <!-- logout -->
-            <form class="w-full px-3.5  " action="../../Controller/logout.php" method="POST">
+            <form class="w-full px-3.5  " action="../../controller/logout.php" method="POST">
                 <button
                     id="logout-btn"
                     type="submit"

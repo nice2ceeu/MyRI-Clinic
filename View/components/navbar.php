@@ -36,21 +36,21 @@
       <!-- visitor link -->
       <a
         class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start "
-        href="../pages/Clinic-Patient.php"><img src="../assets/icons/visit-icon.svg" alt="visitor-icon" />
+        href="../pages/clinic-patient.php"><img src="../assets/icons/visit-icon.svg" alt="visitor-icon" />
         <p class="md:hidden lg:block">Clinic patient</p>
       </a>
 
       <!-- current patientn in clinic link -->
       <a
         class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
-        href="../pages/Current-Patients.php"><img src="../assets/icons/current-icon.svg" alt="visitor-icon" />
+        href="../pages/current-patients.php"><img src="../assets/icons/current-icon.svg" alt="visitor-icon" />
         <p class="md:hidden lg:block">Current patients</p>
       </a>
 
       <!-- visit history -->
       <a
         class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
-        href="../pages/Patient-History.php"><img src="../assets/icons/history-icon.svg" alt="history-icon" />
+        href="../pages/patient-history.php"><img src="../assets/icons/history-icon.svg" alt="history-icon" />
         <p class="md:hidden lg:block">Visitor history</p>
       </a>
 
@@ -120,7 +120,7 @@
       class="rounded-bl-2xl  md:rounded-none row-start-3 bg-secondary poppins   flex text-lg w-full items-center  gap-x-5">
 
       <!-- logout -->
-      <form class="w-full px-3.5" action="../../Controller/logout.php" method="POST">
+      <form class="w-full px-3.5" action="../../controller/logout.php" method="POST">
         <button
           id="logout-btn"
           type="submit"

@@ -1,46 +1,40 @@
-
 <?php
-include("../config/database.php");
+include("../config/database.php"); // Assumes $conn from sqlsrv_connect()
 
 if (isset($_POST['delete'])) {
     $id = $_POST['id'];
 
-    $stmt = $conn->prepare("Delete FROM meds WHERE id = ?");
-    $stmt->bind_param("i", $id);
+    $sql = "DELETE FROM meds WHERE id = ?";
+    $params = array($id);
+    $stmt = sqlsrv_prepare($conn, $sql, $params);
 
-    if ($stmt->execute()) {
-
-
+    if ($stmt && sqlsrv_execute($stmt)) {
         session_start();
         $_SESSION['modal_title'] = 'Alert';
         $_SESSION['modal_message'] = 'Medicine removed successfully.';
         header("Location: ../view/pages/inventory.php");
         exit;
     } else {
-
         session_start();
         $_SESSION['modal_title'] = 'Alert';
         $_SESSION['modal_message'] = 'Failed to Delete the Medicine';
         header("Location: ../view/pages/inventory.php");
         exit;
     }
-
-    $stmt->close();
 } else if (isset($_POST['delete-form'])) {
     $id = $_POST['id'];
-    $stmt = $conn->prepare("Delete FROM admin WHERE username = ?");
-    $stmt->bind_param("i", $id);
 
-    if ($stmt->execute()) {
+    $sql = "DELETE FROM admin WHERE username = ?";
+    $params = array($id); // ⚠️ username should likely be a string
+    $stmt = sqlsrv_prepare($conn, $sql, $params);
 
-
+    if ($stmt && sqlsrv_execute($stmt)) {
         session_start();
         $_SESSION['modal_title'] = 'Alert';
         $_SESSION['modal_message'] = 'A record is removed successfully.';
         header("Location: ../view/pages/enrolledstudentlist.php");
         exit;
     } else {
-
         session_start();
         $_SESSION['modal_title'] = 'Alert';
         $_SESSION['modal_message'] = 'Failed to Delete the record';
@@ -49,19 +43,18 @@ if (isset($_POST['delete'])) {
     }
 } else if (isset($_POST['form-del'])) {
     $id = $_POST['id'];
-    $stmt = $conn->prepare("Delete FROM medforms WHERE id = ?");
-    $stmt->bind_param("i", $id);
 
-    if ($stmt->execute()) {
+    $sql = "DELETE FROM medforms WHERE id = ?";
+    $params = array($id);
+    $stmt = sqlsrv_prepare($conn, $sql, $params);
 
-
+    if ($stmt && sqlsrv_execute($stmt)) {
         session_start();
         $_SESSION['modal_title'] = 'Alert';
         $_SESSION['modal_message'] = 'A form is removed successfully.';
         header("Location: ../view/pages/studentlist.php");
         exit;
     } else {
-
         session_start();
         $_SESSION['modal_title'] = 'Alert';
         $_SESSION['modal_message'] = 'Failed to Delete the form';
@@ -69,4 +62,3 @@ if (isset($_POST['delete'])) {
         exit;
     }
 }
-?>

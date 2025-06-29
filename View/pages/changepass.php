@@ -8,7 +8,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-include("../../View/modal/alert.php");
+include("../../view/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
     $msg = $_SESSION['modal_message'];
     $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -35,7 +35,7 @@ if (!isset($_SESSION['username'])) {
 }
 ?>
 <main class="flex items-center justify-center w-lvw h-dvh">
-    <form class="z-10 popppins bg-white gap-7.5 p-6.5 flex flex-col justify-center shadow-[5px_5px_10px_rgba(0,0,0,0.1)] rounded-lg items-center" action='../../Controller/resetpassword.php' method='POST'>
+    <form class="z-10 popppins bg-white gap-7.5 p-6.5 flex flex-col justify-center shadow-[5px_5px_10px_rgba(0,0,0,0.1)] rounded-lg items-center" action='../../controller/resetpassword.php' method='POST'>
 
         <h3 class="text-4xl font-bold opacity-90">CHANGE PASSWORD</h3>
 
@@ -80,7 +80,7 @@ if (!isset($_SESSION['username'])) {
         <div class="flex items-center gap-5">
             <button class="poppins py-3.5 px-4.5 w-[80%] p-[8px] mt-3 rounded-lg bg-[#06118E] text-amber-50 hover:bg-[#2532CA] shadow-2xl duration-[0.1s] cursor-pointer" type='submit' name='reset-password'>Confirm</button>
             <a class="poppins py-3.5 px-4.5 w-[80%] p-[8px] mt-3 rounded-lg bg-red-500 text-white shadow-2xl duration-[0.1s] cursor-pointer" <?php if ($_SESSION['user_role'] == 'admin') {
-                                                                                                                                                    echo "href='Clinic-Patient.php'";
+                                                                                                                                                    echo "href='clinic-patient.php'";
                                                                                                                                                 } else {
                                                                                                                                                     echo "href='userprofile.php'";
                                                                                                                                                 } ?>>cancel</a>

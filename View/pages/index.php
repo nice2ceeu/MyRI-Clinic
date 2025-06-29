@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include("../../View/modal/alert.php");
+include("../../view/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
   $msg = $_SESSION['modal_message'];
   $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -34,7 +34,7 @@ if (isset($_SESSION['username'])) {
 
 <body class="flex items-center justify-center w-lvw h-dvh">
   <form
-    action="../../Controller/login.php"
+    action="../../controller/login.php"
     method="POST"
     class="z-10 gap-5 p-6.5 flex flex-col justify-center shadow-[5px_5px_10px_rgba(0,0,0,0.1)] rounded-lg items-center">
     <section>
@@ -56,6 +56,7 @@ if (isset($_SESSION['username'])) {
       type="password"
       name="password"
       placeholder="PASSWORD"
+      autocomplete="false"
       required />
     <button
       action="submit"
@@ -68,7 +69,7 @@ if (isset($_SESSION['username'])) {
       <p class="inline px-2  z-20">OR</p>
       <hr class="absolute right-0  top-3 w-24 ">
     </section>
-    <p>Don't Have An Account? <a href="./signIn.php" class="text-blue-500">Sign up</a></p>
+    <p>Don't Have An Account? <a href="./signup.php" class="text-blue-500">Sign up</a></p>
   </form>
 
   <img

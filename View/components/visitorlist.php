@@ -46,10 +46,10 @@
             echo "<td>" . $treatment . "</td>";
             echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
             echo "<td>
-                        <form action='../../Controller/studenthistory.php' method='POST'>
+                        <form action='../../controller/studenthistory.php' method='POST'>
                           <input type='hidden' name='fname' value='" . $_firstname . "'>
                           <input type='hidden' name='lname' value='" . $_lastname . "'>
-                          <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><p class='hidden lg:block'>View History </p> <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'></button>
+                          <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><p class='hidden lg:block'>view History </p> <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'></button>
                         </form>
                   </td>";
             echo "</tr>";

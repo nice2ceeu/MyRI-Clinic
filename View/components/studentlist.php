@@ -1,6 +1,6 @@
 <?php
 
-include("../../View/modal/alert.php");
+include("../../view/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
   $msg = $_SESSION['modal_message'];
   $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -70,14 +70,14 @@ include('../components/body.php');
               echo   "<td><form  action='../pages/medicalinformation.php' method='POST'>
                         
                         <input type='hidden' name='id' value='" . $_id . "'>
-                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span '>View Form</span></button>
+                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span '>view Form</span></button>
                         
                         </form>
                         </td>";
-              echo   "<td><form action='../../Controller/studenthistory.php' method='POST'>
+              echo   "<td><form action='../../controller/studenthistory.php' method='POST'>
                         <input type='hidden' name='fname' value='" . $_firstname . "'>
                         <input type='hidden' name='lname' value='" . $_lastname . "'>
-                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span '>View History</span></button>
+                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span '>view History</span></button>
                         </form>
                         </td>";
             } else {
@@ -112,14 +112,14 @@ include('../components/body.php');
                 echo   "<td><form  action='../pages/medicalinformation.php' method='POST'>
                         
                         <input type='hidden' name='id' value='" . $_id . "'>
-                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span '>View Form</span></button>
+                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span '>view Form</span></button>
                         
                         </form>
                         </td>";
-                echo   "<td><form action='../../Controller/studenthistory.php' method='POST'>
+                echo   "<td><form action='../../controller/studenthistory.php' method='POST'>
                         <input type='hidden' name='fname' value='" . $_firstname . "'>
                         <input type='hidden' name='lname' value='" . $_lastname . "'>
-                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span '>View History</span></button>
+                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span '>view History</span></button>
                         </form>
                         </td>";
 

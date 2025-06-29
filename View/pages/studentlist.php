@@ -65,7 +65,7 @@ include('../components/navbar.php');
 
     <button id="file-upload" class=" lg:ml-auto ml-0 bg-[#06118e] text-nowrap text-white md:mx-8.5 poppins uppercase flex justify-evenly gap-2.5 px-10 mx-8.5 cursor-pointer py-2.5 rounded-lg ">upload a file <img src="../assets/icons/file-upload-icon.svg" alt=""></button>
     <!--up form  -->
-    <form id="upload" class="flex invisible flex-col gap-5 z-20 bg-white justify-center items-center size-100 absolute border-1 border-dashed top-1/3 right-1/5" action="../../Controller/uploadform.php" method="POST" enctype="multipart/form-data">
+    <form id="upload" class="flex invisible flex-col gap-5 z-20 bg-white justify-center items-center size-100 absolute border-1 border-dashed top-1/3 right-1/5" action="../../controller/uploadform.php" method="POST" enctype="multipart/form-data">
       <img id="close" class="invert absolute z-10  top-1.5 right-1.5 cursor-pointer" src="../assets/icons/close-icon.svg" alt="close-icon">
       <div class="flex flex-col items-center pt-12">
         <h1 id="file-choose" class="font-semibold text-2xl">Choose a File</h1>
@@ -92,7 +92,7 @@ include('../components/navbar.php');
 
   <?php
 
-  include("../../View/modal/alert.php");
+  include("../../view/modal/alert.php");
   if (isset($_SESSION['modal_message'])) {
     $msg = $_SESSION['modal_message'];
     $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -133,120 +133,111 @@ include('../components/navbar.php');
         <body>
           <?php
           include('../../config/database.php');
+
           if (isset($_POST['search'])) {
             $fullname = $_POST['fullname'];
             $name = explode(',', $fullname);
 
             $lastname = strtolower($name[0]);
             $firstname = strtolower(trim($name[1] ?? ''));
-            //modal
+
             if ($firstname == '') {
               echo "<script>alert('Invalid Format. It should be (Lastname, Firstname)');
-              window.location.href = window.location.pathname;</script>";
+    window.location.href = window.location.pathname;</script>";
             }
 
             try {
-              $stmt = $conn->prepare("SELECT * FROM medforms WHERE firstname = ? AND lastname = ?");
-              $stmt->bind_param("ss", $firstname, $lastname);
-              $stmt->execute();
-              $result = $stmt->get_result();
-              if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
+              $query = "SELECT * FROM medforms WHERE firstname = ? AND lastname = ?";
+              $params = array($firstname, $lastname);
+              $stmt = sqlsrv_prepare($conn, $query, $params);
 
+              if ($stmt && sqlsrv_execute($stmt)) {
+                if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                  $_id = htmlspecialchars($row['id']);
+                  $_firstname = htmlspecialchars($row['firstname']);
+                  $_lastname = htmlspecialchars($row['lastname']);
 
-                $_id = htmlspecialchars($row['id']);
-                $_firstname = htmlspecialchars($row['firstname']);
-                $_lastname = htmlspecialchars($row['lastname']);
-                echo "<tr class=''>";
-                echo "<td>" . $_id . "</td>";
-                echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['gender']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['citizenship']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['guardian']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['contact']) . "</td>";
+                  echo "<tr class=''>";
+                  echo "<td>" . $_id . "</td>";
+                  echo "<td>" . $_firstname . " " . $_lastname . "</td>";
+                  echo "<td>" . htmlspecialchars($row['gender']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['citizenship']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['guardian']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['contact']) . "</td>";
 
-                echo   "<td><form  action='../pages/medicalinformation.php' method='POST'>
-                        
-                        <input type='hidden' name='id' value='" . $_id . "'>
-                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span '>View Form</span></button>
-                        
-                        </form>
-                        </td>";
-                echo   "<td><form action='../../Controller/studenthistory.php' method='POST'>
-                        <input type='hidden' name='fname' value='" . $_firstname . "'>
-                        <input type='hidden' name='lname' value='" . $_lastname . "'>
-                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span '>View History</span></button>
-                        </form>
-                        </td>";
-                echo "<td>" .
-                  "<form action='../../Controller/delete.php' method='POST'>
-                                    <input type='hidden' name='id' value='$_id'>
-                                    <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='form-del'>REMOVE FORM</button>
-                                </form></td>";
+                  echo   "<td><form action='../pages/medicalinformation.php' method='POST'>
+                <input type='hidden' name='id' value='" . $_id . "'>
+                <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span>view Form</span></button>
+                </form></td>";
 
-                echo "</tr>";
-              } else {
-                echo "<script>alert('No User Found ?');
-                            window.location.href = 'studentlist.php';
-                        </script>";
+                  echo   "<td><form action='../../controller/studenthistory.php' method='POST'>
+                <input type='hidden' name='fname' value='" . $_firstname . "'>
+                <input type='hidden' name='lname' value='" . $_lastname . "'>
+                <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span>view History</span></button>
+                </form></td>";
+
+                  echo "<td><form action='../../controller/delete.php' method='POST'>
+                <input type='hidden' name='id' value='$_id'>
+                <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='form-del'>REMOVE FORM</button>
+                </form></td>";
+
+                  echo "</tr>";
+                } else {
+                  echo "<script>alert('No User Found ?');
+                window.location.href = 'studentlist.php';</script>";
+                }
               }
-            } catch (mysqli_sql_exception $e) {
+            } catch (Exception $e) {
               echo "Error: " . $e->getMessage();
             }
           } else {
-            include("../../config/database.php");
             if (isset($_POST['search-all']) || !isset($_POST['search-all'])) {
-
               try {
-                $query = "SELECT * FROM medforms order by firstname asc";
-                $result = $conn->query($query);
+                $query = "SELECT * FROM medforms ORDER BY firstname ASC";
+                $stmt = sqlsrv_query($conn, $query);
 
-                if ($result->num_rows > 0) {
-
-                  while ($row = $result->fetch_assoc()) {
+                if ($stmt) {
+                  while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                     $_id = htmlspecialchars($row['id']);
                     $_firstname = htmlspecialchars($row['firstname']);
                     $_lastname = htmlspecialchars($row['lastname']);
+
                     echo "<tr>";
                     echo "<td>" . $_id . "</td>";
-                    echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
+                    echo "<td>" . $_firstname . " " . $_lastname . "</td>";
                     echo "<td>" . htmlspecialchars($row['gender']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['citizenship']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['guardian']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['contact']) . "</td>";
 
-                    echo   "<td><form  action='../pages/medicalinformation.php' method='POST'>
-                        
-                        <input type='hidden' name='id' value='" . $_id . "'>
-                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span '>View Form</span></button>
-                        
-                        </form>
-                        </td>";
-                    echo   "<td><form action='../../Controller/studenthistory.php' method='POST'>
-                        <input type='hidden' name='fname' value='" . $_firstname . "'>
-                        <input type='hidden' name='lname' value='" . $_lastname . "'>
-                        <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span '>View History</span></button>
-                        </form>
-                        </td>";
-                    echo "<td>" .
-                      "<form action='../../Controller/delete.php' method='POST'>
-                                    <input type='hidden' name='id' value='$_id'>
-                                    <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='form-del'>REMOVE FORM</button>
-                                </form></td>";
+                    echo   "<td><form action='../pages/medicalinformation.php' method='POST'>
+                  <input type='hidden' name='id' value='" . $_id . "'>
+                  <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span>view Form</span></button>
+                  </form></td>";
+
+                    echo   "<td><form action='../../controller/studenthistory.php' method='POST'>
+                  <input type='hidden' name='fname' value='" . $_firstname . "'>
+                  <input type='hidden' name='lname' value='" . $_lastname . "'>
+                  <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span>view History</span></button>
+                  </form></td>";
+
+                    echo "<td><form action='../../controller/delete.php' method='POST'>
+                  <input type='hidden' name='id' value='$_id'>
+                  <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='form-del'>REMOVE FORM</button>
+                  </form></td>";
 
                     echo "</tr>";
                   }
                 } else {
-                  echo "<tr>";
-                  echo "<td colspan='8' class='text-center bg-[#d4d4d40c]'>" . "No data available." . "</td>";
-                  echo "</tr>";
+                  echo "<tr><td colspan='8' class='text-center bg-[#d4d4d40c]'>No data available.</td></tr>";
                 }
-              } catch (mysqli_sql_exception $e) {
+              } catch (Exception $e) {
                 echo "Error: " . $e->getMessage();
               }
             }
           }
           ?>
+
           <!--  -->
 
 

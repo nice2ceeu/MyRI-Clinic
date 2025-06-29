@@ -10,28 +10,33 @@ if (!isset($_SESSION['username'])) {
     header("Location: index.php");
     exit();
 } else {
+
     include('../../config/database.php');
 
     $firstname = $_SESSION['firstname'];
     $lastname = $_SESSION['lastname'];
     $username = $_SESSION['username'];
 
-
     try {
-        $stmt = $conn->prepare("SELECT COUNT(*) AS count FROM visitor WHERE firstname = ? AND lastname = ? ");
-        $stmt->bind_param("ss", $firstname, $lastname);
-        $stmt->execute();
+        $query = "SELECT COUNT(*) AS count FROM visitor WHERE firstname = ? AND lastname = ?";
+        $params = array($firstname, $lastname);
+        $stmt = sqlsrv_prepare($conn, $query, $params);
 
-        $result = $stmt->get_result();
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $count = htmlspecialchars($row['count']);
+        if ($stmt && sqlsrv_execute($stmt)) {
+            $result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+            if ($result) {
+                $count = htmlspecialchars($result['count']);
+            }
+        } else {
+            echo "<p>Error executing statement.</p>";
         }
-    } catch (mysqli_sql_exception $e) {
+    } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
 }
 ?>
+
+
 
 
 <nav class="poppins uppercase font-semibold text-white text-center py-5 bg-[#06118e] text-[max(2vw,3rem)] w-full">Visit History</nav>
@@ -65,20 +70,19 @@ if (!isset($_SESSION['username'])) {
 
 
             try {
-                $stmt = $conn->prepare("SELECT * FROM visitor where firstname =? AND lastname =? order by id desc");
-                $stmt->execute([$firstname, $lastname]);
-                $result = $stmt->get_result();
+                $query = "SELECT * FROM visitor WHERE firstname = ? AND lastname = ? ORDER BY id DESC";
+                $params = array($firstname, $lastname);
+                $stmt = sqlsrv_prepare($conn, $query, $params);
 
-                if ($result->num_rows > 0) {
-
-                    while ($row = $result->fetch_assoc()) {
+                if ($stmt && sqlsrv_execute($stmt)) {
+                    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                         $treatment = htmlspecialchars($row['medicine']) ?: htmlspecialchars($row['physical_treatment']);
                         $_firstname = htmlspecialchars($row['firstname']);
                         $_lastname = htmlspecialchars($row['lastname']);
 
                         echo "<tr class=''>";
                         echo "<td>" . htmlspecialchars($row['id']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
+                        echo "<td>" . $_firstname . " " . $_lastname . "</td>";
                         echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
@@ -90,10 +94,10 @@ if (!isset($_SESSION['username'])) {
                     }
                 } else {
                     echo "<tr>";
-                    echo "<td colspan='9' class='text-center bg-[#d4d4d40c]'>" . "No Visit Records." . "</td>";
+                    echo "<td colspan='9' class='text-center bg-[#d4d4d40c]'>No Visit Records.</td>";
                     echo "</tr>";
                 }
-            } catch (mysqli_sql_exception $e) {
+            } catch (Exception $e) {
                 echo "Error: " . $e->getMessage();
             }
             ?>

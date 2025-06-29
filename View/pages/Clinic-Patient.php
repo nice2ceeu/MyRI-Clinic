@@ -2,7 +2,7 @@
 
 session_start();
 
-include("../../View/modal/alert.php");
+include("../../view/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
   $msg = $_SESSION['modal_message'];
   $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -34,7 +34,7 @@ include('../components/navbar.php');
   </section>
   <!-- visitor form  -->
   <form
-    action="../../Controller/addvisitor.php"
+    action="../../controller/addvisitor.php"
     method="POST"
     class="px-8.5 mt-5 gap-3.5 uppercase flex justify-center flex-wrap lg:flex-nowrap min-[200px]:w-[90%]">
 
@@ -228,43 +228,61 @@ include('../components/navbar.php');
         include("../../config/database.php");
         include('../components/body.php');
 
-        if (isset($_POST['filter'])) {
 
+
+        if (isset($_POST['filter'])) {
           $studentGrade = $_POST['studentGrade'];
           $studentSection = $_POST['studentSection'];
 
           if ($studentGrade != '' && $studentSection != '') {
-            // grade and seciton
-            $stmt = $conn->prepare("SELECT * FROM visitor WHERE grade = ? AND section = ? AND _date = CURDATE() order by id desc");
-            $stmt->bind_param("ss", $studentGrade, $studentSection);
+            // grade and section
+            $sql = "SELECT * FROM visitor WHERE grade = ? AND section = ? AND _date = CAST(GETDATE() AS DATE) ORDER BY id DESC";
+            $params = [$studentGrade, $studentSection];
           } else if ($studentGrade == '' && $studentSection != '') {
-            //section lang
-            $stmt = $conn->prepare("SELECT * FROM visitor WHERE section = ? AND _date = CURDATE() order by id desc");
-            $stmt->bind_param("s", $studentSection);
+            // section only
+            $sql = "SELECT * FROM visitor WHERE section = ? AND _date = CAST(GETDATE() AS DATE) ORDER BY id DESC";
+            $params = [$studentSection];
           } else if ($studentGrade != '' && $studentSection == '') {
-            // grade lang
-            $stmt = $conn->prepare("SELECT * FROM visitor WHERE grade = ? AND _date = CURDATE() order by id desc");
-            $stmt->bind_param("s", $studentGrade);
+            // grade only
+            $sql = "SELECT * FROM visitor WHERE grade = ? AND _date = CAST(GETDATE() AS DATE) ORDER BY id DESC";
+            $params = [$studentGrade];
           } else {
-            // wala lahat
-            $stmt = $conn->prepare("SELECT * FROM visitor");
+            // none
+            $sql = "SELECT * FROM visitor";
+            $params = [];
           }
 
-          if ($stmt) {
-            $stmt->execute();
-            $result = $stmt->get_result();
+          $stmt = sqlsrv_prepare($conn, $sql, $params);
+          if ($stmt && sqlsrv_execute($stmt)) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+              $status = empty($row['checkout']) ? "On Treatment" : "Treated";
+              $color = empty($row['checkout']) ? " text-yellow-600" : " text-green-500";
 
-            if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
-                if (htmlspecialchars($row['checkout']) == "") {
-                  $status = "On Treatment";
-                  $color = " text-yellow-600";
-                } else {
-                  $status = "Treated";
-                  $color = " text-green-500";
-                }
+              echo "<tr class=''>";
+              echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
+              echo "<td class='{$color}'>" . $status . "</td>";
+              echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
+              echo "</tr>";
+            }
+          } else {
+            echo "<td colspan='9' class='text-center bg-[#d4d4d433]'>No Patient Found.</td>";
+          }
+        } else {
+          if (isset($_POST['show-all']) || !isset($_POST['show-all'])) {
+            $sql = "SELECT * FROM visitor WHERE _date = CAST(GETDATE() AS DATE) ORDER BY id DESC";
+            $stmt = sqlsrv_query($conn, $sql);
+
+            if ($stmt && sqlsrv_has_rows($stmt)) {
+              while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $status = empty($row['checkout']) ? "On Treatment" : "Treated";
+                $color = empty($row['checkout']) ? " text-yellow-600" : " text-green-500";
+
                 echo "<tr class=''>";
-                echo "<td >" . htmlspecialchars($row['id']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['id']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
@@ -274,53 +292,12 @@ include('../components/navbar.php');
                 echo "</tr>";
               }
             } else {
-              echo "<td colspan='9' class='text-center bg-[#d4d4d433]'>" . "No Patient Found." . "</td>";
-            }
-
-            $stmt->close();
-          } else {
-            echo "<p>Error preparing the statement: " . $conn->error . "</p>";
-          }
-
-          $conn->close();
-        } else {
-          if (isset($_POST['show-all']) || !isset($_POST['show-all'])) {
-
-            try {
-              $query = "SELECT * FROM visitor where _date = CURDATE() order by id desc";
-              $result = $conn->query($query);
-
-              if ($result->num_rows > 0) {
-
-                while ($row = $result->fetch_assoc()) {
-                  if (htmlspecialchars($row['checkout']) == "") {
-                    $status = "On Treatment";
-                    $color = " text-yellow-600";
-                  } else {
-                    $status = "Treated";
-                    $color = " text-green-500";
-                  }
-
-                  echo "<tr class=''>";
-                  echo "<td >" . htmlspecialchars($row['id']) . "</td>";
-                  echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
-                  echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
-                  echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
-                  echo "<td class='{$color}'>" . $status . "</td>";
-                  echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
-                  echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
-                  echo "</tr>";
-                }
-              } else {
-                echo "<tr '>";
-                echo "<td colspan='9' class='text-center bg-[#d4d4d44d]'>" . "No Current Patient." . "</td>";
-                echo "</tr>";
-              }
-            } catch (mysqli_sql_exception $e) {
-              echo "Error: " . $e->getMessage();
+              echo "<tr><td colspan='9' class='text-center bg-[#d4d4d44d]'>No Current Patient.</td></tr>";
             }
           }
         }
+
+
         ?>
 
       </tbody>

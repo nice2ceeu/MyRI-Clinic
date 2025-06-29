@@ -67,7 +67,7 @@ include('../view/components/body.php');
             echo "Error: " . $e->getMessage();
         }
     } else {
-        include('../View/components/body.php');
+        include('../view/components/body.php');
 
     ?>
 <tbody
@@ -118,14 +118,14 @@ include('../view/components/body.php');
 
                     echo   "<td><form action='../view/pages/medicalinformation.php' method='POST'>
                         <input type='hidden' name='id' value='" . $id  . "'>
-                        <button type='submit' name='view-form'><span style='color: green;'>View Form</span></button>
+                        <button type='submit' name='view-form'><span style='color: green;'>view Form</span></button>
                         </form>
                         </td>";
                     echo   "<td><form action='studenthistory.php' method='POST'>
                         <input type='hidden' name='fname' value='" . $_firstname . "'>
                         <input type='hidden' name='lname' value='" . $_lastname . "'>
                         
-                        <button type='submit' name='view-history'><span style='color: blue;'>View History</span></button>
+                        <button type='submit' name='view-history'><span style='color: blue;'>view History</span></button>
                         </form>
                         </td>";
                 }

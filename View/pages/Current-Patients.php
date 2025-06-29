@@ -5,7 +5,7 @@ include("../components/body.php");
 
 
 session_start();
-include("../../View/modal/alert.php");
+include("../../view/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
     $msg = $_SESSION['modal_message'];
     $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -188,174 +188,139 @@ include('../components/navbar.php');
             <tbody class="text-left [&>tr]:odd:bg-[#a8a8a829] [&>tr>td]:px-4 [&>tr>td]:py-4.5">
 
                 <?php
-                include("../../config/database.php");
+             
+include("../../config/database.php");
 
-                if (isset($_POST['current-filter'])) {
-                    $studentGrade = $_POST['studentGrade'];
-                    $studentSection = $_POST['studentSection'];
+if (isset($_POST['current-filter'])) {
+    $studentGrade = $_POST['studentGrade'];
+    $studentSection = $_POST['studentSection'];
 
+    try {
+        if ($studentGrade != '' && $studentSection != '') {
+            $query = "SELECT * FROM visitor WHERE grade = ? AND section = ? AND (checkout IS NULL OR checkout = '') ORDER BY id DESC";
+            $params = [$studentGrade, $studentSection];
+        } else if ($studentGrade == '' && $studentSection != '') {
+            $query = "SELECT * FROM visitor WHERE section = ? AND (checkout IS NULL OR checkout = '') ORDER BY id DESC";
+            $params = [$studentSection];
+        } else if ($studentGrade != '' && $studentSection == '') {
+            $query = "SELECT * FROM visitor WHERE grade = ? AND (checkout IS NULL OR checkout = '') ORDER BY id DESC";
+            $params = [$studentGrade];
+        } else {
+            $query = "SELECT * FROM visitor ORDER BY id DESC";
+            $params = [];
+        }
 
-                    try {
+        $stmt = sqlsrv_prepare($conn, $query, $params);
 
+        if ($stmt && sqlsrv_execute($stmt)) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $id = htmlspecialchars($row['id']);
+                echo "<tr class=''>";
+                echo "<td >" . $id . "</td>";
+                echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
+                echo "<td>  ";
+                echo "<button onclick='showPopup($id)' class='bg-primary text-white rounded-lg uppercase py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>";
+                echo "<p>Patient out</p>";
+                echo "<img class='size-5' src='../assets/icons/out-icon.svg' alt='check icon' />";
+                echo "</button>";
+                echo "</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<td colspan='9' class='text-center bg-[#d4d4d40c]'> No Patient Found.</td>";
+        }
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
+} else if (isset($_POST['submit'])) {
+    include('../../config/database.php');
+    $fullname = $_POST['fullname'];
+    $name = explode(',', $fullname);
 
-                        if ($studentGrade != '' && $studentSection != '') {
-                            // grade and seciton
-                            $stmt = $conn->prepare("SELECT * FROM visitor WHERE grade = ? AND section = ? AND checkout = '' order by id desc");
-                            $stmt->bind_param("ss", $studentGrade, $studentSection);
-                        } else if ($studentGrade == '' && $studentSection != '') {
-                            //section lang
-                            $stmt = $conn->prepare("SELECT * FROM visitor WHERE section = ? AND checkout = '' order by id desc");
-                            $stmt->bind_param("s", $studentSection);
-                        } else if ($studentGrade != '' && $studentSection == '') {
-                            // grade lang
-                            $stmt = $conn->prepare("SELECT * FROM visitor WHERE grade = ? AND checkout = '' order by id desc");
-                            $stmt->bind_param("s", $studentGrade);
-                        } else {
-                            // wala lahat
-                            $stmt = $conn->prepare("SELECT * FROM visitor");
-                        }
+    $lastname = strtolower($name[0]);
+    $firstname = strtolower(trim($name[1] ?? ''));
+    if ($firstname == '') {
+        echo "<script>alert('Invalid Format. It should be (Lastname, Firstname)'); window.location.href = window.location.pathname;</script>";
+    }
 
-                        if ($stmt) {
-                            $stmt->execute();
-                            $result = $stmt->get_result();
+    try {
+        $query = "SELECT * FROM visitor WHERE firstname = ? AND lastname = ? AND (checkout IS NULL OR checkout = '') ORDER BY id DESC";
+        $params = [$firstname, $lastname];
+        $stmt = sqlsrv_prepare($conn, $query, $params);
 
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
+        if ($stmt && sqlsrv_execute($stmt)) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $id = htmlspecialchars($row['id']);
+                echo "<tr class=''>";
+                echo "<td >" . $id . "</td>";
+                echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
+                echo "<td>  ";
+                echo "<button onclick='showPopup()' class='bg-primary text-white rounded-lg uppercase py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>";
+                echo "<p>Patient out</p>";
+                echo "<img class='size-5' src='../assets/icons/out-icon.svg' alt='check icon' />";
+                echo "</button>";
+                echo "</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<td colspan='9' class='text-center bg-[#d4d4d40c]'>Patient Not Found.</td>";
+        }
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
+} else {
+    try {
+        $query = "SELECT * FROM visitor WHERE (checkout IS NULL OR checkout = '') ORDER BY id DESC";
+        $stmt = sqlsrv_prepare($conn, $query);
 
-                                    $id = htmlspecialchars($row['id']);
-                                    echo "<tr class=''>";
-                                    echo "<td >" . $id . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
+        if ($stmt && sqlsrv_execute($stmt)) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $id = htmlspecialchars($row['id']);
+                echo "<tr class=''>";
+                echo "<td >" . $id . "</td>";
+                echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
+                echo "<td>  ";
+                echo "<button onclick='showPopup($id)' class='bg-primary text-white rounded-lg uppercase py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>";
+                echo "<p>Patient out</p>";
+                echo "<img class='size-5' src='../assets/icons/out-icon.svg' alt='check icon' />";
+                echo "</button>";
+                echo "</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<td colspan='9' class='text-center bg-[#d4d4d40c]'>No Current Patient.</td>";
+        }
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}
 
-                                    echo  "<td>  
-                                    <button onclick='showPopup($id)' class='bg-primary text-white rounded-lg uppercase py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>
-                                        <p>Patient out</p>
-                                        <img class='size-5' src='../assets/icons/out-icon.svg' alt='check icon' />
-                                    </button>
-                                </td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<td colspan='9' class='text-center bg-[#d4d4d40c]'>" . " No Patient Found." . "</td>";
-                            }
+// Fetch medicine options once
+$medOptions = "";
+$dateNow = date('Y-m-d');
+$query = "SELECT DISTINCT Medicine_Name FROM meds WHERE Med_Quantity > 0 AND Expiration_Date > ?";
+$params = [$dateNow];
+$stmt = sqlsrv_prepare($conn, $query, $params);
 
-                            $stmt->close();
-                        } else {
-                            echo "<p>Error preparing the statement: " . $conn->error . "</p>";
-                        }
+if ($stmt && sqlsrv_execute($stmt)) {
+    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+        $med = htmlspecialchars($row['Medicine_Name']);
+        $medOptions .= "<option value='$med'>$med</option>";
+    }
+}
 
-                        $conn->close();
-                    } catch (mysqli_sql_exception $e) {
-                        echo "Error: " . $e->getMessage();
-                    }
-                } else if (isset($_POST['submit'])) {
-
-                    include('../../config/database.php');
-                    if (isset($_POST['submit'])) {
-                        $fullname = $_POST['fullname'];
-                        $name = explode(',', $fullname);
-
-                        $lastname = strtolower($name[0]);
-                        $firstname = strtolower(trim($name[1] ?? ''));
-                        if ($firstname == '') {
-                            //modal
-                            echo "<script>alert('Invalid Format. It should be (Lastname, Firstname)');
-                            window.location.href = window.location.pathname;</script>";
-                        }
-
-                        try {
-                            $stmt = $conn->prepare("SELECT * FROM visitor WHERE firstname = ? AND lastname = ? AND checkout='' order by id desc");
-                            $stmt->bind_param("ss", $firstname, $lastname);
-                            $stmt->execute();
-                            $result = $stmt->get_result();
-
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    $id = htmlspecialchars($row['id']);
-                                    echo "<tr class=''>";
-                                    echo "<td >" . $id . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
-
-                                    echo  "<td>  
-                                <button onclick='showPopup()' class='bg-primary text-white rounded-lg uppercase  py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>
-                                    <p>Patient out</p>
-                                    <img class='size-5' src='../assets/icons/out-icon.svg' alt='check icon' />
-                                </button>
-                            </td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr '>";
-                                echo "<td colspan='9' class='text-center bg-[#d4d4d40c]'>" . "Patient Not Found." . "</td>";
-                                echo "</tr>";
-                            }
-                        } catch (mysqli_sql_exception $e) {
-                            //Invalid input format
-                            echo "Error: " . $e->getMessage();
-                        }
-                    }
-                } else {
-                    if (isset($_POST['show-all']) || !isset($_POST['show-all'])) {
-                        try {
-
-                            $query = "SELECT * FROM visitor where checkout = '' order by id desc";
-                            $result = $conn->query($query);
-
-                            if ($result->num_rows > 0) {
-
-                                while ($row = $result->fetch_assoc()) {
-                                    $id = htmlspecialchars($row['id']);
-                                    echo "<tr class=''>";
-                                    echo "<td >" . $id . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
-
-                                    echo  "<td>  
-                                    <button onclick='showPopup($id)' class='bg-primary text-white rounded-lg uppercase py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>
-                                        <p>Patient out</p>
-                                        <img class='size-5' src='../assets/icons/out-icon.svg' alt='check icon' />
-                                    </button>
-                                </td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr '>";
-                                echo "<td colspan='9' class='text-center bg-[#d4d4d40c]'>" . "No Current Patient." . "</td>";
-                                echo "</tr>";
-                            }
-                        } catch (mysqli_sql_exception $e) {
-                            echo "Error: " . $e->getMessage();
-                        }
-                    }
-                }
-
-                ?>
-
-                <?php
-                include('../../config/database.php');
-                // Fetch medicine options once
-                $medOptions = "";
-                $dateNow = date('Y-m-d');
-                $query = "SELECT DISTINCT Medicine_Name FROM meds where Med_Quantity > 0 AND Expiration_Date > '$dateNow'";
-                $result = $conn->query($query);
-
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        $med = htmlspecialchars($row['Medicine_Name']);
-                        $medOptions .= "<option value='$med'>$med</option>";
-                    }
-                }
                 ?>
                 <!-- Popup Overlay -->
                 <?php echo "           
@@ -367,7 +332,7 @@ include('../components/navbar.php');
                     </h1>
                     <img class='absolute right-1.5 top-1.5 invert cursor-pointer' onclick='hidePopup()' src='../assets/icons/close-icon.svg'>
 
-                    <form class='text-nowrap relative' action='../../Controller/release.php' method='POST'>
+                    <form class='text-nowrap relative' action='../../controller/release.php' method='POST'>
                         <div class='flex items-center gap-2'>
                             <input class='appearance-none checked:bg-[#06118e8a] w-5 h-5 border border-gray-500' type='radio' id='with-medicine' name='treatment' value='yes' onclick='toggleMedSection()' required>
                             <label for='with-medicine'>Medicinal Treatment</label>

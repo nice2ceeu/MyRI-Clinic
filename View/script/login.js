@@ -1,5 +1,5 @@
-const signIn = document.getElementById("signIn-btn");
+const signup = document.getElementById("signup-btn");
 
-signIn.addEventListener("click", () => {
+signup.addEventListener("click", () => {
   window.location = "../pages/visitor.php";
 });
