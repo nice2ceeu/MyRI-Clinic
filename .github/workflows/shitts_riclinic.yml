@@ -62,4 +62,4 @@ jobs:
           app-name: 'RIClinic'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F8D8513718F3475FA317CD76E689BDF1 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0F4426F9088246C6852EE8B358FE55A1 }}
