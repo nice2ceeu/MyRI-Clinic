@@ -7,8 +7,8 @@ if (!isset($_SESSION['username'])) {
 }
 ?>
 <?php
-include('../components/body.php');
-include('../components/navbar.php');
+include('/components/body.php');
+include('/components/navbar.php');
 ?>
 
 
@@ -18,7 +18,7 @@ include('../components/navbar.php');
   <div id="bgFade" class="fixed top-0 w-full h-full -z-10  bg-[#5858582f] overflow-auto"></div>
 
   <div class="flex relative">
-    <a class="flex bg-[#06118e]  text-white poppins uppercase font-semibold  w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly text-[max(1vw,1rem)]" href="studentlist.php"><span>Back</span><img class="size-6.5" src="../assets/icons/back-icon.svg" alt="back-icon"></a>
+    <a class="flex bg-[#06118e]  text-white poppins uppercase font-semibold  w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly text-[max(1vw,1rem)]" href="studentlist.php"><span>Back</span><img class="size-6.5" src="/assets/icons/back-icon.svg" alt="back-icon"></a>
 
     <!-- edit button -->
     <div class="">
@@ -26,7 +26,7 @@ include('../components/navbar.php');
         id="editBtn"
         class="border-1 poppins my-5 place-self-center mt-5 justify-center cursor-pointer  px-5 py-3 flex gap-x-3 rounded-lg">
         <p>Edit</p>
-        <img class="invert size-5" src="../assets/icons/edit-icon.svg" alt="check-icon" />
+        <img class="invert size-5" src="/assets/icons/edit-icon.svg" alt="check-icon" />
       </button>
     </div>
     <!-- save and cancel -->
@@ -56,7 +56,7 @@ include('../components/navbar.php');
   </section>
 
   <?php
-  include('../../config/database.php');
+  include('/config/database.php');
 
   if (isset($_POST['view-form'])) {
     $id = $_POST['id'];
@@ -148,7 +148,7 @@ include('../components/navbar.php');
   ?>
 
   <fieldset id="myFieldset" disabled>
-    <form action="../../controller/medform.php" method="POST">
+    <form action="/controller/medform.php" method="POST">
       <!-- form for student information........ -->
       <section
         class="poppins my-7.5 flex flex-col md:flex-row md:flex-wrap gap-4 px-3 uppercase">
@@ -808,7 +808,7 @@ include('../components/navbar.php');
       <!-- SUBMIT BUTTON FOR MEDICAL FORM  -->
     </form>
   </fieldset>
-  <form class="" action="../../controller/download.php" method="POST">
+  <form class="" action="/controller/download.php" method="POST">
     <input type="hidden" name="id" value="<?php echo $id ?>">
     <button
 
@@ -816,7 +816,7 @@ include('../components/navbar.php');
       name='download'
       class="bg-primary poppins my-5 place-self-center mt-5 w-1/3 md:w-1/5 justify-center cursor-pointer text-white px-5 py-3 flex gap-x-3 rounded-lg">
       <p>Download</p>
-      <img src="../assets/icons/check-icon.svg" alt="check-icon" />
+      <img src="/assets/icons/check-icon.svg" alt="check-icon" />
 
     </button>
 
@@ -825,7 +825,7 @@ include('../components/navbar.php');
 
 
 </body>
-<script src="../script/medformEdit.js" defer></script>
+<script src="/script/medformEdit.js" defer></script>
 <script>
   const edit = document.getElementById("editBtn")
   const container = document.getElementById("actionBtn")
@@ -940,7 +940,7 @@ include('../components/navbar.php');
       .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
       .join("&");
 
-    fetch("../../controller/update.php", {
+    fetch("/controller/update.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"

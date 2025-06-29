@@ -3,7 +3,7 @@ session_start();
 
 
 
-include("../../view/modal/alert.php");
+include("/view/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
     $msg = $_SESSION['modal_message'];
     $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -26,8 +26,8 @@ if (!isset($_SESSION['username'])) {
 ?>
 
 <?php
-include('../components/body.php');
-include('../components/navbar.php');
+include('/components/body.php');
+include('/components/navbar.php');
 ?>
 
 
@@ -74,7 +74,7 @@ include('../components/navbar.php');
                     name="submit"
                     class="uppercase w-full py-2.5 px-9 flex gap-5 items-center justify-evenly cursor-pointer">
                     <p>Search</p>
-                    <img clas src="../assets/icons/search-icon.svg" alt="" />
+                    <img clas src="/assets/icons/search-icon.svg" alt="" />
                 </button>
 
 
@@ -85,7 +85,7 @@ include('../components/navbar.php');
             id="file-upload"
             class="bg-[#06118e] text-nowrap text-white  poppins uppercase flex justify-between gap-2.5 px-10 mx-8.5 cursor-pointer py-2.5 rounded-lg">
             Upload a file
-            <img src="../assets/icons/file-upload-icon.svg" alt="">
+            <img src="/assets/icons/file-upload-icon.svg" alt="">
         </button>
 
 
@@ -96,9 +96,9 @@ include('../components/navbar.php');
 
     <div id="blur" class="fixed h-dvh backdrop-blur-xs top-0 bg-white/30 z-20 w-full"></div>
 
-    <form id="upload" class="border-dotted absolute left-12.5 md:left-[30%] top-1/3 size-100 md:w-1/2 z-30 invisible shadow-xl bg-white border-3 border-[#8080808e] rounded-lg  flex flex-col items-center justify-between p-10 " action="../../controller//uploadStudent.php" method="POST" enctype="multipart/form-data">
+    <form id="upload" class="border-dotted absolute left-12.5 md:left-[30%] top-1/3 size-100 md:w-1/2 z-30 invisible shadow-xl bg-white border-3 border-[#8080808e] rounded-lg  flex flex-col items-center justify-between p-10 " action="/controller//uploadStudent.php" method="POST" enctype="multipart/form-data">
 
-        <img id="close" class="invert absolute z-10  top-1.5 right-1.5 cursor-pointer" src="../assets/icons/close-icon.svg" alt="close-icon">
+        <img id="close" class="invert absolute z-10  top-1.5 right-1.5 cursor-pointer" src="/assets/icons/close-icon.svg" alt="close-icon">
         <table class="opacity-70 w-full  uppercase poppins mb-10">
             <tr class="border-1">
                 <th class="text-sm" colspan="4"> excel must contains</th>
@@ -114,7 +114,7 @@ include('../components/navbar.php');
                 <td>11 Digit No.</td>
             </tr>
         </table>
-        <img class="size-7 opacity-70" src="../assets/icons/upload-icon.svg" alt="upload-icon" />
+        <img class="size-7 opacity-70" src="/assets/icons/upload-icon.svg" alt="upload-icon" />
         <div class="h-full w-full  absolute">
             <label for="file">
                 <div class="flex flex-col items-center pt-40">
@@ -176,7 +176,7 @@ include('../components/navbar.php');
                 name="show-filter"
                 class="uppercase bg-primary text-white rounded-lg py-2 px-5 flex gap-5 items-center justify-evenly cursor-pointer">
                 <p>Filter</p>
-                <img class="size-5.5" src="../assets/icons/filter-icon.svg" alt="" />
+                <img class="size-5.5" src="/assets/icons/filter-icon.svg" alt="" />
             </button>
 
 
@@ -247,7 +247,7 @@ include('../components/navbar.php');
 
 
                 <?php
-                include("../../config/database.php");
+                include("/config/database.php");
 
                 if (isset($_POST['submit'])) {
                     $fullname = $_POST['fullname'];
@@ -280,13 +280,13 @@ include('../components/navbar.php');
                             if ($password === '' || $password === null) {
                                 echo "<td>Unavailable</td>";
                             } else {
-                                echo "<td><form action='../../controller/resetpassword.php' method='POST'>
+                                echo "<td><form action='/controller/resetpassword.php' method='POST'>
                 <input type='hidden' name='id' value='$id'>
                 <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-orange-500 cursor-pointer text-white' type='submit' name='reset'>RESET PASSWORD</button>
                 </form></td>";
                             }
 
-                            echo "<td><form action='../../controller/delete.php' method='POST'>
+                            echo "<td><form action='/controller/delete.php' method='POST'>
             <input type='hidden' name='id' value='$user'>
             <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete-form'>REMOVE RECORD</button>
             </form></td>";
@@ -318,13 +318,13 @@ include('../components/navbar.php');
                             if ($password === '' || $password === null) {
                                 echo "<td>Unavailable</td>";
                             } else {
-                                echo "<td><form action='../../controller/resetpassword.php' method='POST'>
+                                echo "<td><form action='/controller/resetpassword.php' method='POST'>
                 <input type='hidden' name='id' value='$id'>
                 <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-orange-500 cursor-pointer text-white' type='submit' name='reset'>RESET PASSWORD</button>
                 </form></td>";
                             }
 
-                            echo "<td><form action='../../controller/delete.php' method='POST'>
+                            echo "<td><form action='/controller/delete.php' method='POST'>
             <input type='hidden' name='id' value='$user'>
             <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete-form'>REMOVE RECORD</button>
             </form></td>";
@@ -354,13 +354,13 @@ include('../components/navbar.php');
                                 if ($password === '' || $password === null) {
                                     echo "<td>Unavailable</td>";
                                 } else {
-                                    echo "<td><form action='../../controller/resetpassword.php' method='POST'>
+                                    echo "<td><form action='/controller/resetpassword.php' method='POST'>
                     <input type='hidden' name='id' value='$id'>
                     <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-orange-500 cursor-pointer text-white' type='submit' name='reset'>RESET PASSWORD</button>
                     </form></td>";
                                 }
 
-                                echo "<td><form action='../../controller/delete.php' method='POST'>
+                                echo "<td><form action='/controller/delete.php' method='POST'>
                 <input type='hidden' name='id' value='$user'>
                 <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete-form'>REMOVE RECORD</button>
                 </form></td>";

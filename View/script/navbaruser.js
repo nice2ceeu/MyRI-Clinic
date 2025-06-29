@@ -13,6 +13,6 @@ menuBtn.addEventListener("click", () => {
 });
 window.addEventListener("click", (e) => {
   if (e.target.id == "home-btn") {
-    window.location = "../pages/userprofile.php";
+    window.location = "/pages/userprofile.php";
   }
 });

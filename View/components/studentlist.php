@@ -1,6 +1,6 @@
 <?php
 
-include("../../view/modal/alert.php");
+include("/view/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
   $msg = $_SESSION['modal_message'];
   $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -13,7 +13,7 @@ if (isset($_SESSION['modal_message'])) {
 }
 
 
-include('../components/body.php');
+include('/components/body.php');
 ?>
 <main
   class="uppercase mt-22 py-10 px-8.5 w-full max-w-full overflow-x-auto">
@@ -39,7 +39,7 @@ include('../components/body.php');
 
       <body>
         <?php
-        include('../../config/database.php');
+        include('/config/database.php');
         if (isset($_POST['submit'])) {
           $fullname = $_POST['fullname'];
           $name = explode(',', $fullname);
@@ -67,14 +67,14 @@ include('../components/body.php');
               echo "<td>" . htmlspecialchars($row['guardian']) . "</td>";
               echo "<td>" . htmlspecialchars($row['contact']) . "</td>";
 
-              echo   "<td><form  action='../pages/medicalinformation.php' method='POST'>
+              echo   "<td><form  action='/pages/medicalinformation.php' method='POST'>
                         
                         <input type='hidden' name='id' value='" . $_id . "'>
                         <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span '>view Form</span></button>
                         
                         </form>
                         </td>";
-              echo   "<td><form action='../../controller/studenthistory.php' method='POST'>
+              echo   "<td><form action='/controller/studenthistory.php' method='POST'>
                         <input type='hidden' name='fname' value='" . $_firstname . "'>
                         <input type='hidden' name='lname' value='" . $_lastname . "'>
                         <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span '>view History</span></button>
@@ -82,14 +82,14 @@ include('../components/body.php');
                         </td>";
             } else {
               echo "<script>alert('No User Found');
-                            window.location.href = '../view/pages/studentlist.php';
+                            window.location.href = '/view/pages/studentlist.php';
                         </script>";
             }
           } catch (mysqli_sql_exception $e) {
             echo "Error: " . $e->getMessage();
           }
         } else {
-          include("../../config/database.php");
+          include("/config/database.php");
 
           try {
             $query = "SELECT * FROM medforms order by firstname asc";
@@ -109,14 +109,14 @@ include('../components/body.php');
                 echo "<td>" . htmlspecialchars($row['guardian']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['contact']) . "</td>";
 
-                echo   "<td><form  action='../pages/medicalinformation.php' method='POST'>
+                echo   "<td><form  action='/pages/medicalinformation.php' method='POST'>
                         
                         <input type='hidden' name='id' value='" . $_id . "'>
                         <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span '>view Form</span></button>
                         
                         </form>
                         </td>";
-                echo   "<td><form action='../../controller/studenthistory.php' method='POST'>
+                echo   "<td><form action='/controller/studenthistory.php' method='POST'>
                         <input type='hidden' name='fname' value='" . $_firstname . "'>
                         <input type='hidden' name='lname' value='" . $_lastname . "'>
                         <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span '>view History</span></button>

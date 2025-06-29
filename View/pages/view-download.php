@@ -1,5 +1,5 @@
 <?php
-include('../../view/components/body.php');
+include('/view/components/body.php');
 session_start();
 
 if (!isset($_SESSION['username'])) {
@@ -8,7 +8,7 @@ if (!isset($_SESSION['username'])) {
 }
 ?>
 <nav class="poppins uppercase font-semibold text-white text-center py-5 bg-[#06118e] text-[max(2vw,3rem)] w-full">download History</nav>
-<a class="flex bg-[#06118e] poppins uppercase font-semibold text-white w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly text-[max(1vw,1rem)]" href="studentlist.php"><span>Back</span><img src="../assets/icons/back-icon.svg" alt="back-icon"></a>
+<a class="flex bg-[#06118e] poppins uppercase font-semibold text-white w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly text-[max(1vw,1rem)]" href="studentlist.php"><span>Back</span><img src="/assets/icons/back-icon.svg" alt="back-icon"></a>
 <?php
 $folder = "downloads/";
 
@@ -46,7 +46,7 @@ foreach ($items as $item) {
             <form method='POST' style='display:inline'>
                 <input type='hidden' name='item' value='$item'>
                 <button class='poppins cursor-pointer bg-red-500 text-white gap-5 px-2 py-3 rounded-lg flex' type='submit' name='delete' onclick=\"return confirm('Delete $item?')\">
-                    Delete <img src='../assets/icons/delete-icon.svg' />
+                    Delete <img src='/assets/icons/delete-icon.svg' />
                 </button>
             </form>
         </div>";

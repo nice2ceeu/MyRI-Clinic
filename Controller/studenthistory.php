@@ -1,11 +1,11 @@
 <?php
-include('../view/components/body.php');
+include('/view/components/body.php');
 ?>
 
 <nav class="poppins uppercase font-semibold text-white text-center py-5 bg-[#06118e] text-[max(2vw,3rem)] w-full">Visit History</nav>
 <a class="flex bg-[#06118e] poppins uppercase font-semibold text-white w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly text-[max(1vw,1rem)]" href="#" onclick="goBack()">
     <span>Back</span>
-    <img src="../view/assets/icons/back-icon.svg" alt="back-icon">
+    <img src="/view/assets/icons/back-icon.svg" alt="back-icon">
 </a>
 
 <main class="uppercase mt-22 px-8.5">
@@ -25,7 +25,7 @@ include('../view/components/body.php');
         </thead>
         <tbody class="text-left [&>tr]:odd:bg-[#a8a8a829] [&>tr>td]:px-4 [&>tr>td]:py-4.5">
             <?php
-            include('../config/database.php');
+            include('/config/database.php');
 
             if (isset($_POST['view-history'])) {
                 $firstname = $_POST['fname'];
@@ -60,7 +60,7 @@ include('../view/components/body.php');
                     session_start();
                     $_SESSION['modal_title'] = 'Alert';
                     $_SESSION['modal_message'] = 'No History found';
-                    header("Location: ../view/pages/studentlist.php");
+                    header("Location: /view/pages/studentlist.php");
                     exit;
                 }
             }

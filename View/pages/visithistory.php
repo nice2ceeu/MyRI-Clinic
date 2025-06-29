@@ -7,8 +7,8 @@ if (!isset($_SESSION['username'])) {
 }
 ?>
 <?php
-include('../components/body.php');
-include('../components/navbar.php');
+include('/components/body.php');
+include('/components/navbar.php');
 ?>
 
 
@@ -23,7 +23,7 @@ include('../components/navbar.php');
 
 
   <?php
-  include('../components/visitorlist.php');
+  include('/components/visitorlist.php');
   ?>
 </section>
 </body>

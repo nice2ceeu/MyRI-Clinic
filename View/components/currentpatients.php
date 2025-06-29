@@ -23,7 +23,7 @@ include("body.php")
         <tbody class="text-left [&>tr]:odd:bg-[#a8a8a829] [&>tr>td]:px-4 [&>tr>td]:py-4.5">
 
             <?php
-            include("../../config/database.php");
+            include("/config/database.php");
             
             if (isset($_POST['current-filter'])) {
                 $studentGrade = $_POST['studentGrade'];
@@ -69,7 +69,7 @@ include("body.php")
                                 echo  "<td>  
                                     <button onclick='showPopup($id)' class='bg-primary text-white rounded-lg uppercase py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>
                                         <p>Patient out</p>
-                                        <img class='w-4 h-4' src='../assets/icons/out-icon.svg' alt='check icon' />
+                                        <img class='w-4 h-4' src='/assets/icons/out-icon.svg' alt='check icon' />
                                     </button>
                                 </td>";
                                 echo "</tr>";
@@ -109,7 +109,7 @@ include("body.php")
                             echo  "<td>  
                                     <button onclick='showPopup($id)' class='bg-primary text-white rounded-lg uppercase py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>
                                         <p>Patient out</p>
-                                        <img class='w-4 h-4' src='../assets/icons/out-icon.svg' alt='check icon' />
+                                        <img class='w-4 h-4' src='/assets/icons/out-icon.svg' alt='check icon' />
                                     </button>
                                 </td>";
                             echo "</tr>";
@@ -126,7 +126,7 @@ include("body.php")
             ?>
 
             <?php
-            include('../../config/database.php');
+            include('/config/database.php');
             // Fetch medicine options once
             $medOptions = "";
             $dateNow = date('Y-m-d');
@@ -149,9 +149,9 @@ include("body.php")
                         Type of treatment given
                     </h1>
 
-                    <img class='absolute right-1.5 top-1.5 invert cursor-pointer' onclick='hidePopup()' src='../assets/icons/close-icon.svg'>
+                    <img class='absolute right-1.5 top-1.5 invert cursor-pointer' onclick='hidePopup()' src='/assets/icons/close-icon.svg'>
 
-                    <form class='text-nowrap relative' action='../../controller/release.php' method='POST'>
+                    <form class='text-nowrap relative' action='/controller/release.php' method='POST'>
                         <div class='flex items-center gap-2'>
                             <input class='appearance-none checked:bg-[#06118e8a] w-5 h-5 border border-gray-500' type='radio' id='with-medicine' name='treatment' value='yes' onclick='toggleMedSection()' required>
                             <label for='with-medicine'>Medicinal Treatment</label>
@@ -178,9 +178,9 @@ include("body.php")
                         </div>
                         <input type='hidden' id='id' name='user_id'>
                         <div class='flex gap-5'>
-                            <button class='flex px-5 py-3 gap-5 rounded-lg cursor-pointer bg-green-500 text-white  justify-evenly' type='submit' name='release'>RELEASE <img class='invert' src='../assets/icons/release-icon.svg'></button>
+                            <button class='flex px-5 py-3 gap-5 rounded-lg cursor-pointer bg-green-500 text-white  justify-evenly' type='submit' name='release'>RELEASE <img class='invert' src='/assets/icons/release-icon.svg'></button>
 
-                            <div class='flex px-5 py-3 gap-5 rounded-lg cursor-pointer bg-red-500 text-white  justify-evenly' onclick='hidePopup()'>Cancel <img class='' src='../assets/icons/close-icon.svg'></div>
+                            <div class='flex px-5 py-3 gap-5 rounded-lg cursor-pointer bg-red-500 text-white  justify-evenly' onclick='hidePopup()'>Cancel <img class='' src='/assets/icons/close-icon.svg'></div>
                         </div>
                     </form>
                 </div>

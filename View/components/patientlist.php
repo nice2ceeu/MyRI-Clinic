@@ -16,8 +16,8 @@
 
             <?php
 
-            include("../../config/database.php");
-            include('../components/body.php');
+            include("/config/database.php");
+            include('/components/body.php');
 
             if (isset($_POST['filter'])) {
 

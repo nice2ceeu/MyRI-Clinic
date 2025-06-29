@@ -7,8 +7,8 @@ if (!isset($_SESSION['username'])) {
 }
 ?>
 <?php
-include('../components/body.php');
-include('../components/navbar.php');
+include('/components/body.php');
+include('/components/navbar.php');
 ?>
 
 
@@ -54,7 +54,7 @@ include('../components/navbar.php');
         name="submit"
         class="uppercase w-full py-2.5 px-9 flex gap-5 items-center justify-evenly cursor-pointer">
         <p>Search</p>
-        <img clas src="../assets/icons/search-icon.svg" alt="" />
+        <img clas src="/assets/icons/search-icon.svg" alt="" />
       </button>
     </section>
   </form>
@@ -106,7 +106,7 @@ include('../components/navbar.php');
         id="view-history"
         class="uppercase bg-primary text-white rounded-lg py-2 px-5 flex gap-5 items-center justify-evenly cursor-pointer">
         <p>Filter</p>
-        <img class="size-5.5" src="../assets/icons/filter-icon.svg" alt="" />
+        <img class="size-5.5" src="/assets/icons/filter-icon.svg" alt="" />
       </button>
       <script>
         const gradeInput = document.getElementById('studentGrade');
@@ -170,7 +170,7 @@ include('../components/navbar.php');
 
       <tbody class="text-left [&>tr]:odd:bg-[#a8a8a829] [&>tr>td]:px-4 [&>tr>td]:py-4.5">
         <?php
-        include("../../config/database.php");
+        include("/config/database.php");
 
         if (isset($_POST['view-history'])) {
           $studentGrade = $_POST['studentGrade'];
@@ -208,12 +208,12 @@ include('../components/navbar.php');
               echo "<td>" . $treatment . "</td>";
               echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
               echo "<td>
-              <form action='../../controller/studenthistory.php' method='POST'>
+              <form action='/controller/studenthistory.php' method='POST'>
                 <input type='hidden' name='fname' value='" . $_firstname . "'>
                 <input type='hidden' name='lname' value='" . $_lastname . "'>
                 <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'>
                   <p class='hidden lg:block'>view History</p>
-                  <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'>
+                  <img class='lg:hidden size-5 block' src='/assets/icons/view-icon.svg'>
                 </button>
               </form>
             </td>";
@@ -254,12 +254,12 @@ include('../components/navbar.php');
               echo "<td>" . $treatment . "</td>";
               echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
               echo "<td>
-              <form action='../../controller/studenthistory.php' method='POST'>
+              <form action='/controller/studenthistory.php' method='POST'>
                 <input type='hidden' name='fname' value='" . $_firstname . "'>
                 <input type='hidden' name='lname' value='" . $_lastname . "'>
                 <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'>
                   <p class='hidden lg:block'>view History</p>
-                  <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'>
+                  <img class='lg:hidden size-5 block' src='/assets/icons/view-icon.svg'>
                 </button>
               </form>
             </td>";
@@ -289,12 +289,12 @@ include('../components/navbar.php');
               echo "<td>" . $treatment . "</td>";
               echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
               echo "<td>
-              <form action='../../controller/studenthistory.php' method='POST'>
+              <form action='/controller/studenthistory.php' method='POST'>
                 <input type='hidden' name='fname' value='" . $_firstname . "'>
                 <input type='hidden' name='lname' value='" . $_lastname . "'>
                 <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'>
                   <p class='hidden lg:block'>view History</p>
-                  <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'>
+                  <img class='lg:hidden size-5 block' src='/assets/icons/view-icon.svg'>
                 </button>
               </form>
             </td>";

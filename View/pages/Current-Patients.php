@@ -1,11 +1,11 @@
 <?php
 
 
-include("../components/body.php");
+include("/components/body.php");
 
 
 session_start();
-include("../../view/modal/alert.php");
+include("/view/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
     $msg = $_SESSION['modal_message'];
     $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -26,8 +26,8 @@ if (!isset($_SESSION['username'])) {
 
 
 <?php
-include('../components/body.php');
-include('../components/navbar.php');
+include('/components/body.php');
+include('/components/navbar.php');
 ?>
 <section class="md:sm:ml-24 lg:ml-72 md:h-dvh xl:lg:ml-82">
     <section class="relative mt-5 text-[max(3vw,2rem)] ">
@@ -70,7 +70,7 @@ include('../components/navbar.php');
                 name="submit"
                 class="uppercase w-full py-2.5 px-9 flex gap-5 items-center justify-evenly cursor-pointer">
                 <p>Search</p>
-                <img clas src="../assets/icons/search-icon.svg" alt="" />
+                <img clas src="/assets/icons/search-icon.svg" alt="" />
             </button>
         </section>
     </form>
@@ -123,7 +123,7 @@ include('../components/navbar.php');
                 id="current-filter"
                 class="uppercase bg-primary text-white rounded-lg py-2 px-5 flex gap-5 items-center justify-evenly cursor-pointer">
                 <p>Filter</p>
-                <img class="size-5.5" src="../assets/icons/filter-icon.svg" alt="" />
+                <img class="size-5.5" src="/assets/icons/filter-icon.svg" alt="" />
             </button>
         </form>
         <form action="" method="POST">
@@ -189,7 +189,7 @@ include('../components/navbar.php');
 
                 <?php
              
-include("../../config/database.php");
+include("/config/database.php");
 
 if (isset($_POST['current-filter'])) {
     $studentGrade = $_POST['studentGrade'];
@@ -225,7 +225,7 @@ if (isset($_POST['current-filter'])) {
                 echo "<td>  ";
                 echo "<button onclick='showPopup($id)' class='bg-primary text-white rounded-lg uppercase py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>";
                 echo "<p>Patient out</p>";
-                echo "<img class='size-5' src='../assets/icons/out-icon.svg' alt='check icon' />";
+                echo "<img class='size-5' src='/assets/icons/out-icon.svg' alt='check icon' />";
                 echo "</button>";
                 echo "</td>";
                 echo "</tr>";
@@ -237,7 +237,7 @@ if (isset($_POST['current-filter'])) {
         echo "Error: " . $e->getMessage();
     }
 } else if (isset($_POST['submit'])) {
-    include('../../config/database.php');
+    include('/config/database.php');
     $fullname = $_POST['fullname'];
     $name = explode(',', $fullname);
 
@@ -265,7 +265,7 @@ if (isset($_POST['current-filter'])) {
                 echo "<td>  ";
                 echo "<button onclick='showPopup()' class='bg-primary text-white rounded-lg uppercase py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>";
                 echo "<p>Patient out</p>";
-                echo "<img class='size-5' src='../assets/icons/out-icon.svg' alt='check icon' />";
+                echo "<img class='size-5' src='/assets/icons/out-icon.svg' alt='check icon' />";
                 echo "</button>";
                 echo "</td>";
                 echo "</tr>";
@@ -294,7 +294,7 @@ if (isset($_POST['current-filter'])) {
                 echo "<td>  ";
                 echo "<button onclick='showPopup($id)' class='bg-primary text-white rounded-lg uppercase py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>";
                 echo "<p>Patient out</p>";
-                echo "<img class='size-5' src='../assets/icons/out-icon.svg' alt='check icon' />";
+                echo "<img class='size-5' src='/assets/icons/out-icon.svg' alt='check icon' />";
                 echo "</button>";
                 echo "</td>";
                 echo "</tr>";
@@ -330,9 +330,9 @@ if ($stmt && sqlsrv_execute($stmt)) {
                     <h1 class='poppins  font-[500] bg-white text-nowrap mt-5 text-[min(4.5vw,2rem)]'>
                         Type of treatment given
                     </h1>
-                    <img class='absolute right-1.5 top-1.5 invert cursor-pointer' onclick='hidePopup()' src='../assets/icons/close-icon.svg'>
+                    <img class='absolute right-1.5 top-1.5 invert cursor-pointer' onclick='hidePopup()' src='/assets/icons/close-icon.svg'>
 
-                    <form class='text-nowrap relative' action='../../controller/release.php' method='POST'>
+                    <form class='text-nowrap relative' action='/controller/release.php' method='POST'>
                         <div class='flex items-center gap-2'>
                             <input class='appearance-none checked:bg-[#06118e8a] w-5 h-5 border border-gray-500' type='radio' id='with-medicine' name='treatment' value='yes' onclick='toggleMedSection()' required>
                             <label for='with-medicine'>Medicinal Treatment</label>
@@ -359,9 +359,9 @@ if ($stmt && sqlsrv_execute($stmt)) {
                         </div>
                         <input type='hidden' id='id' name='user_id'>
                         <div class='flex gap-5'>
-                            <button class='flex px-5 py-3 gap-5 rounded-lg cursor-pointer bg-green-500 text-white  justify-evenly' type='submit' name='release'>RELEASE <img class='invert' src='../assets/icons/release-icon.svg'></button>
+                            <button class='flex px-5 py-3 gap-5 rounded-lg cursor-pointer bg-green-500 text-white  justify-evenly' type='submit' name='release'>RELEASE <img class='invert' src='/assets/icons/release-icon.svg'></button>
 
-                            <div class='flex px-5 py-3 gap-5 rounded-lg cursor-pointer bg-red-500 text-white  justify-evenly' onclick='hidePopup()'>Cancel <img class='' src='../assets/icons/close-icon.svg'></div>
+                            <div class='flex px-5 py-3 gap-5 rounded-lg cursor-pointer bg-red-500 text-white  justify-evenly' onclick='hidePopup()'>Cancel <img class='' src='/assets/icons/close-icon.svg'></div>
                         </div>
                     </form>
                 </div>
