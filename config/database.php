@@ -20,18 +20,18 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '//');
 $dotenv->load();
 
 // Retrieve .env values and cast to string
-$name   = (string) $_ENV['DB_SERVER'];
-$user   = (string) $_ENV['DB_UID'];
-$pass   = (string) $_ENV['DB_PWD'];
-$dbname = (string) $_ENV['DB_NAME'];
+// $name   = (string) $_ENV['DB_SERVER'];
+// $user   = (string) $_ENV['DB_UID'];
+// $pass   = (string) $_ENV['DB_PWD'];
+// $dbname = (string) $_ENV['DB_NAME'];
 
 
 
-$serverName = $name;
+$serverName = "tcp:krissslazarte.database.windows.net,1433";
 $connectionInfo = array(
-    "UID" => $user,
-    "PWD" => $pass,
-    "Database" => $dbname,
+    "UID" => "CloudSA38c8fe9d",
+    "PWD" => "B09120146995b",
+    "Database" => "ridb",
     "LoginTimeout" => 30,
     "Encrypt" => 1,
     "TrustServerCertificate" => 0
