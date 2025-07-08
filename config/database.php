@@ -27,11 +27,11 @@ $dbname = (string) $_ENV['DB_NAME'];
 
 
 
-$serverName = "tcp:krissslazarte.database.windows.net,1433";
+$serverName = $name;
 $connectionInfo = array(
-    "UID" => "CloudSA38c8fe9d",
-    "PWD" => "B09120146995b",
-    "Database" => "ridb",
+    "UID" => $user,
+    "PWD" => $pass,
+    "Database" => $dbname,
     "LoginTimeout" => 30,
     "Encrypt" => 1,
     "TrustServerCertificate" => 0
