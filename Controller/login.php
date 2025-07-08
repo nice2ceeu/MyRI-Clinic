@@ -27,18 +27,18 @@ if (isset($_POST["submit"])) {
                     $_SESSION['user_role'] = $user['user_role'];
 
                     if ($_SESSION['user_role'] === "admin") {
-                        header("Location: /View/pages/clinic-patient.php");
-                        exit();
+                        echo "<script>window.location.href='/View/pages/clinic-patient.php';</script>";
+                        exit;
                     } elseif ($_SESSION['user_role'] === "student") {
-                        header("Location: /View/pages/userprofile.php");
-                        exit();
+                        echo "<script>window.location.href='/View/pages/userprofile.php';</script>";
+                        exit;
                     }
                 } else {
                     session_start();
                     $_SESSION['modal_title'] = 'Alert';
                     $_SESSION['modal_message'] = 'Invalid Password';
-                    header("Location: /View/pages/index.php");
-                    exit();
+                    echo "<script>window.location.href='/View/pages/index.php';</script>";
+                    exit;
                 }
             } else {
                 session_start();
