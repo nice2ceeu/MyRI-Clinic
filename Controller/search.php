@@ -1,5 +1,5 @@
 <?php
-include('/view/components/body.php');
+include('/View/components/body.php');
 
 
 
@@ -52,7 +52,7 @@ include('/view/components/body.php');
                     echo  "<td>  
                                 <button onclick='showPopup()' class='bg-primary text-white rounded-lg uppercase  py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>
                                     <p>Patient out</p>
-                                    <img class='w-4 h-4' src='/view/assets/icons/out-icon.svg' alt='check icon' />
+                                    <img class='w-4 h-4' src='/View/assets/icons/out-icon.svg' alt='check icon' />
                                 </button>
                             </td>";
                     echo "</tr>";
@@ -67,7 +67,7 @@ include('/view/components/body.php');
             echo "Error: " . $e->getMessage();
         }
     } else {
-        include('/view/components/body.php');
+        include('/View/components/body.php');
 
     ?>
 <tbody
@@ -116,16 +116,16 @@ include('/view/components/body.php');
                     echo "<td>" . htmlspecialchars($row['guardian']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['contact']) . "</td>";
 
-                    echo   "<td><form action='/view/pages/medicalinformation.php' method='POST'>
+                    echo   "<td><form action='/View/pages/medicalinformation.php' method='POST'>
                         <input type='hidden' name='id' value='" . $id  . "'>
-                        <button type='submit' name='view-form'><span style='color: green;'>view Form</span></button>
+                        <button type='submit' name='View-form'><span style='color: green;'>View Form</span></button>
                         </form>
                         </td>";
                     echo   "<td><form action='studenthistory.php' method='POST'>
                         <input type='hidden' name='fname' value='" . $_firstname . "'>
                         <input type='hidden' name='lname' value='" . $_lastname . "'>
                         
-                        <button type='submit' name='view-history'><span style='color: blue;'>view History</span></button>
+                        <button type='submit' name='View-history'><span style='color: blue;'>View History</span></button>
                         </form>
                         </td>";
                 }

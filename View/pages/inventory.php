@@ -10,7 +10,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-include("/view/modal/alert.php");
+include("/View/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
     $msg = $_SESSION['modal_message'];
     $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -39,7 +39,7 @@ include('/components/navbar.php');
 
     <section class="flex gap-5 mt-5 items-center flex-wrap poppins uppercase  py-3.5  w-full">
         <form
-            action="/controller/addmeds.php"
+            action="/Controller/addmeds.php"
             method="POST"
             class="mx-8.5 gap-3.5 uppercase flex  flex-wrap w-full md:basis-[73%] ">
             <section class="relative basis-xm  ">
@@ -100,10 +100,10 @@ include('/components/navbar.php');
         </form>
 
         <button
-            id="view-comsume"
+            id="View-comsume"
             class="uppercase bg-primary text-white border-1 rounded-lg py-2.5 px-5  flex gap-5 items-center justify-evenly cursor-pointer">
-            <p class="text-nowrap">view comsume</p>
-            <img class="size-5.5" src="/assets/icons/view-icon.svg" alt="" />
+            <p class="text-nowrap">View comsume</p>
+            <img class="size-5.5" src="/assets/icons/View-icon.svg" alt="" />
         </button>
     </section>
 
@@ -237,7 +237,7 @@ include('/components/navbar.php');
 
                                 echo "<td>" . $row['issued'] . "</td>";
                                 echo "<td>
-                        <form action='/controller/delete.php' method='POST'>
+                        <form action='/Controller/delete.php' method='POST'>
                             <input type='hidden' name='id' value='$_id'>
                             <button class='flex rounded-lg gap-5 px-7 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete'>
                                 <span>Delete</span>
@@ -282,7 +282,7 @@ include('/components/navbar.php');
 
                                 echo "<td>" . $row['issued'] . "</td>";
                                 echo "<td>
-                        <form action='/controller/delete.php' method='POST'>
+                        <form action='/Controller/delete.php' method='POST'>
                             <input type='hidden' name='id' value='$_id'>
                             <button class='flex rounded-lg gap-5 px-7 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete'>
                                 <span>Delete</span>
@@ -307,7 +307,7 @@ include('/components/navbar.php');
     </div>
 
 
-    <!-- pop of view consume -->
+    <!-- pop of View consume -->
 
 
 
@@ -372,7 +372,7 @@ include('/components/navbar.php');
 </section>
 </body>
 <script>
-    const view = document.getElementById("view-comsume")
+    const View = document.getElementById("View-comsume")
     const container = document.getElementById("consumed-medicine")
     const blur = document.getElementById("blur")
     const close = document.getElementById("close")
@@ -380,7 +380,7 @@ include('/components/navbar.php');
     container.classList.add("hidden")
     blur.classList.add("hidden")
 
-    view.addEventListener("click", (e) => {
+    View.addEventListener("click", (e) => {
         e.preventDefault()
         if (!click) {
             container.classList.remove("hidden")

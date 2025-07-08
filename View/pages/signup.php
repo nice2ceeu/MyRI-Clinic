@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include("/view/modal/alert.php");
+include("/View/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
   $msg = $_SESSION['modal_message'];
   $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -28,7 +28,7 @@ include('/components/body.php');
 
 <body class="flex items-center justify-center w-lvw h-dvh">
   <form
-    action="/controller/studentreg.php"
+    action="/Controller/studentreg.php"
     method="POST"
     class="z-10 gap-5 p-6.5 flex flex-col flex-wrap justify-center shadow-[5px_5px_10px_rgba(0,0,0,0.1)] md:w-88 rounded-lg [&>input]:uppercase items-center">
     <section>

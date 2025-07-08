@@ -3,7 +3,7 @@ session_start();
 
 
 
-include("/view/modal/alert.php");
+include("/View/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
   $msg = $_SESSION['modal_message'];
   $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -34,7 +34,7 @@ include('/components/navbar.php');
     <hr class="absolute z-[-1] w-full top-1/2" />
   </section>
 
-  <form action="/controller/medform.php" method="POST">
+  <form action="/Controller/medform.php" method="POST">
     <!-- form for student information........ -->
     <section
       class="poppins flex flex-col md:flex-row md:flex-wrap gap-4 px-3 uppercase">

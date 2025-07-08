@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include("/view/modal/alert.php");
+include("/View/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
   $msg = $_SESSION['modal_message'];
   $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -24,17 +24,17 @@ if (isset($_SESSION['username'])) {
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="Viewport" content="width=device-width, initial-scale=1.0" />
   <title>MyRI Clinic</title>
   <link href="/style/output.css" rel="stylesheet" />
   <link href="/style/index.css" rel="stylesheet" />
-  <link rel="icon" type="/favicon.svg" href="/view/assets/icons/school-icon.svg">
+  <link rel="icon" type="/favicon.svg" href="/View/assets/icons/school-icon.svg">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body class="flex items-center justify-center w-lvw h-dvh">
   <form
-    action="/controller/login.php"
+    action="/Controller/login.php"
     method="POST"
     class="z-10 gap-5 p-6.5 flex flex-col justify-center shadow-[5px_5px_10px_rgba(0,0,0,0.1)] rounded-lg items-center">
     <section>

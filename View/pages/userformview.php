@@ -24,91 +24,91 @@ include('/components/body.php');
 
 
     try {
-    $query = "SELECT * FROM medforms WHERE firstname = ? AND lastname = ?";
-    $params = array($firstname, $lastname);
-    $stmt = sqlsrv_prepare($conn, $query, $params);
+        $query = "SELECT * FROM medforms WHERE firstname = ? AND lastname = ?";
+        $params = array($firstname, $lastname);
+        $stmt = sqlsrv_prepare($conn, $query, $params);
 
-    if ($stmt && sqlsrv_execute($stmt)) {
-        if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-            $_firstname = htmlspecialchars($row['firstname']);
-            $_lastname = htmlspecialchars($row['lastname']);
+        if ($stmt && sqlsrv_execute($stmt)) {
+            if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $_firstname = htmlspecialchars($row['firstname']);
+                $_lastname = htmlspecialchars($row['lastname']);
 
-            $gender = htmlspecialchars($row['gender']);
-            $_date = htmlspecialchars($row['_date']);
-            $_address = htmlspecialchars($row['_address']);
-            $birthdate = htmlspecialchars($row['birthdate']);
-            $birthplace = htmlspecialchars($row['birthplace']);
-            $religion = htmlspecialchars($row['religion']);
-            $citizenship = htmlspecialchars($row['citizenship']);
-            $guardian = htmlspecialchars($row['guardian']);
-            $relationship = htmlspecialchars($row['relationship']);
-            $contact = htmlspecialchars($row['contact']);
+                $gender = htmlspecialchars($row['gender']);
+                $_date = htmlspecialchars($row['_date']);
+                $_address = htmlspecialchars($row['_address']);
+                $birthdate = htmlspecialchars($row['birthdate']);
+                $birthplace = htmlspecialchars($row['birthplace']);
+                $religion = htmlspecialchars($row['religion']);
+                $citizenship = htmlspecialchars($row['citizenship']);
+                $guardian = htmlspecialchars($row['guardian']);
+                $relationship = htmlspecialchars($row['relationship']);
+                $contact = htmlspecialchars($row['contact']);
 
-            $adhd = htmlspecialchars($row['adhd']);
-            $asthma = htmlspecialchars($row['asthma']);
-            $anemia = htmlspecialchars($row['anemia']);
-            $bleeding = htmlspecialchars($row['bleeding']);
-            $cancer = htmlspecialchars($row['cancer']);
-            $chestpain = htmlspecialchars($row['chestpain']);
-            $diabetes = htmlspecialchars($row['diabetes']);
-            $fainting = htmlspecialchars($row['fainting']);
-            $fracture = htmlspecialchars($row['fracture']);
-            $hearing_speech = htmlspecialchars($row['hearing_speach']);
-            $heart_condition = htmlspecialchars($row['heart_condition']);
-            $lung_prob = htmlspecialchars($row['lung_prob']);
-            $mental_prob = htmlspecialchars($row['mental_prob']);
-            $migraine = htmlspecialchars($row['migraine']);
-            $seizure = htmlspecialchars($row['seizure']);
-            $tubercolosis = htmlspecialchars($row['tubercolosis']);
-            $hernia = htmlspecialchars($row['hernia']);
-            $kidney_prob = htmlspecialchars($row['kidney_prob']);
-            $vision = htmlspecialchars($row['vision']);
-            $other = htmlspecialchars($row['other']);
-            $specify = htmlspecialchars($row['specify']);
+                $adhd = htmlspecialchars($row['adhd']);
+                $asthma = htmlspecialchars($row['asthma']);
+                $anemia = htmlspecialchars($row['anemia']);
+                $bleeding = htmlspecialchars($row['bleeding']);
+                $cancer = htmlspecialchars($row['cancer']);
+                $chestpain = htmlspecialchars($row['chestpain']);
+                $diabetes = htmlspecialchars($row['diabetes']);
+                $fainting = htmlspecialchars($row['fainting']);
+                $fracture = htmlspecialchars($row['fracture']);
+                $hearing_speech = htmlspecialchars($row['hearing_speach']);
+                $heart_condition = htmlspecialchars($row['heart_condition']);
+                $lung_prob = htmlspecialchars($row['lung_prob']);
+                $mental_prob = htmlspecialchars($row['mental_prob']);
+                $migraine = htmlspecialchars($row['migraine']);
+                $seizure = htmlspecialchars($row['seizure']);
+                $tubercolosis = htmlspecialchars($row['tubercolosis']);
+                $hernia = htmlspecialchars($row['hernia']);
+                $kidney_prob = htmlspecialchars($row['kidney_prob']);
+                $vision = htmlspecialchars($row['vision']);
+                $other = htmlspecialchars($row['other']);
+                $specify = htmlspecialchars($row['specify']);
 
-            $medication_treatment = htmlspecialchars($row['medication_treatment']);
-            $medication_past = htmlspecialchars($row['medication_past']);
-            $current_medication = htmlspecialchars($row['current_medication']);
+                $medication_treatment = htmlspecialchars($row['medication_treatment']);
+                $medication_past = htmlspecialchars($row['medication_past']);
+                $current_medication = htmlspecialchars($row['current_medication']);
 
-            $allergy = htmlspecialchars($row['allergy']);
-            $if_yes = htmlspecialchars($row['if_yes']);
-            $childhood_illness = htmlspecialchars($row['childhood_illness']);
+                $allergy = htmlspecialchars($row['allergy']);
+                $if_yes = htmlspecialchars($row['if_yes']);
+                $childhood_illness = htmlspecialchars($row['childhood_illness']);
 
-            $_bcg = htmlspecialchars($row['bcg']);
-            $_dpt = htmlspecialchars($row['dpt']);
-            $_opv = htmlspecialchars($row['opv']);
-            $_hepb = htmlspecialchars($row['hepb']);
-            $_measleVac = htmlspecialchars($row['measleVac']);
-            $_flu_vaccine = htmlspecialchars($row['fluVaccine']);
-            $_varicella = htmlspecialchars($row['varicella']);
-            $_mmr = htmlspecialchars($row['mmr']);
-            $_etc = htmlspecialchars($row['etc']);
-            $tetanus = htmlspecialchars($row['tetanus']);
-            $_vaccineName = htmlspecialchars($row['vaccineName']);
-            $date_last_given = htmlspecialchars($row['date_last_given']);
-            $hospitalize_before = htmlspecialchars($row['hospitalize_before']);
-            $_year = htmlspecialchars($row['_year']);
-            $reason = htmlspecialchars($row['reason']);
-            $family_med_history = htmlspecialchars($row['family_med_history']);
+                $_bcg = htmlspecialchars($row['bcg']);
+                $_dpt = htmlspecialchars($row['dpt']);
+                $_opv = htmlspecialchars($row['opv']);
+                $_hepb = htmlspecialchars($row['hepb']);
+                $_measleVac = htmlspecialchars($row['measleVac']);
+                $_flu_vaccine = htmlspecialchars($row['fluVaccine']);
+                $_varicella = htmlspecialchars($row['varicella']);
+                $_mmr = htmlspecialchars($row['mmr']);
+                $_etc = htmlspecialchars($row['etc']);
+                $tetanus = htmlspecialchars($row['tetanus']);
+                $_vaccineName = htmlspecialchars($row['vaccineName']);
+                $date_last_given = htmlspecialchars($row['date_last_given']);
+                $hospitalize_before = htmlspecialchars($row['hospitalize_before']);
+                $_year = htmlspecialchars($row['_year']);
+                $reason = htmlspecialchars($row['reason']);
+                $family_med_history = htmlspecialchars($row['family_med_history']);
 
-            $fem_height = htmlspecialchars($row['fem_height']);
-            $fem_weight = htmlspecialchars($row['fem_weight']);
-            $first_menstrual = htmlspecialchars($row['first_menstrual']);
+                $fem_height = htmlspecialchars($row['fem_height']);
+                $fem_weight = htmlspecialchars($row['fem_weight']);
+                $first_menstrual = htmlspecialchars($row['first_menstrual']);
 
-            $first_dose_date = htmlspecialchars($row['first_dose_date']);
-            $second_dose_date = htmlspecialchars($row['second_dose_date']);
-            $vaccine_manufacturer = htmlspecialchars($row['vaccine_manufacturer']);
-            $booster = htmlspecialchars($row['booster']);
-            $plus_covid_date = htmlspecialchars($row['plus_covid_date']);
-        } else {
-            echo "<script>alert('No record Exists. Please Visit Clinic');
+                $first_dose_date = htmlspecialchars($row['first_dose_date']);
+                $second_dose_date = htmlspecialchars($row['second_dose_date']);
+                $vaccine_manufacturer = htmlspecialchars($row['vaccine_manufacturer']);
+                $booster = htmlspecialchars($row['booster']);
+                $plus_covid_date = htmlspecialchars($row['plus_covid_date']);
+            } else {
+                echo "<script>alert('No record Exists. Please Visit Clinic');
             window.location.href ='userprofile.php';
             </script>";
+            }
         }
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
     }
-} catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
-}
     ?>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
@@ -157,7 +157,7 @@ include('/components/body.php');
                 <!-- studnet info -->
                 <a
                     class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
-                    href="/pages/userformview.php">
+                    href="/pages/userformView.php">
                     <img src="/assets/icons/medicalform-icon.svg" alt="medicalform-icon" />
                     <p class="md:hidden lg:block">My medical form</p>
                 </a>
@@ -208,7 +208,7 @@ include('/components/body.php');
                 class="rounded-bl-2xl  md:rounded-none row-start-3 bg-secondary poppins   flex text-lg w-full items-center  gap-x-5">
 
                 <!-- logout -->
-                <form class="w-full px-3.5  " action="/controller/logout.php" method="POST">
+                <form class="w-full px-3.5  " action="/Controller/logout.php" method="POST">
                     <button
                         id="logout-btn"
                         type="submit"
@@ -223,7 +223,7 @@ include('/components/body.php');
     </nav>
     <!-- navvvvvvvvvvv -->
     <fieldset id="myFieldset" disabled>
-        <form action="/controller/medform.php" method="POST">
+        <form action="/Controller/medform.php" method="POST">
             <!-- form for student information........ -->
             <section
                 class="poppins flex flex-col md:flex-row md:flex-wrap gap-4 px-3 uppercase">
@@ -882,7 +882,7 @@ include('/components/body.php');
             <!-- SUBMIT BUTTON FOR MEDICAL FORM  -->
         </form>
     </fieldset>
-    <form action="/controller/download.php" method="POST">
+    <form action="/Controller/download.php" method="POST">
         <input type="hidden" name="firstname" value="<?php echo $firstname ?>">
         <input type="hidden" name="lastname" value="<?php echo $lastname ?>">
         <button

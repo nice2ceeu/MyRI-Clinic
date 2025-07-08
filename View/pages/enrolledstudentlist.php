@@ -3,7 +3,7 @@ session_start();
 
 
 
-include("/view/modal/alert.php");
+include("/View/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
     $msg = $_SESSION['modal_message'];
     $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -96,7 +96,7 @@ include('/components/navbar.php');
 
     <div id="blur" class="fixed h-dvh backdrop-blur-xs top-0 bg-white/30 z-20 w-full"></div>
 
-    <form id="upload" class="border-dotted absolute left-12.5 md:left-[30%] top-1/3 size-100 md:w-1/2 z-30 invisible shadow-xl bg-white border-3 border-[#8080808e] rounded-lg  flex flex-col items-center justify-between p-10 " action="/controller//uploadStudent.php" method="POST" enctype="multipart/form-data">
+    <form id="upload" class="border-dotted absolute left-12.5 md:left-[30%] top-1/3 size-100 md:w-1/2 z-30 invisible shadow-xl bg-white border-3 border-[#8080808e] rounded-lg  flex flex-col items-center justify-between p-10 " action="/Controller//uploadStudent.php" method="POST" enctype="multipart/form-data">
 
         <img id="close" class="invert absolute z-10  top-1.5 right-1.5 cursor-pointer" src="/assets/icons/close-icon.svg" alt="close-icon">
         <table class="opacity-70 w-full  uppercase poppins mb-10">
@@ -280,13 +280,13 @@ include('/components/navbar.php');
                             if ($password === '' || $password === null) {
                                 echo "<td>Unavailable</td>";
                             } else {
-                                echo "<td><form action='/controller/resetpassword.php' method='POST'>
+                                echo "<td><form action='/Controller/resetpassword.php' method='POST'>
                 <input type='hidden' name='id' value='$id'>
                 <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-orange-500 cursor-pointer text-white' type='submit' name='reset'>RESET PASSWORD</button>
                 </form></td>";
                             }
 
-                            echo "<td><form action='/controller/delete.php' method='POST'>
+                            echo "<td><form action='/Controller/delete.php' method='POST'>
             <input type='hidden' name='id' value='$user'>
             <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete-form'>REMOVE RECORD</button>
             </form></td>";
@@ -318,13 +318,13 @@ include('/components/navbar.php');
                             if ($password === '' || $password === null) {
                                 echo "<td>Unavailable</td>";
                             } else {
-                                echo "<td><form action='/controller/resetpassword.php' method='POST'>
+                                echo "<td><form action='/Controller/resetpassword.php' method='POST'>
                 <input type='hidden' name='id' value='$id'>
                 <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-orange-500 cursor-pointer text-white' type='submit' name='reset'>RESET PASSWORD</button>
                 </form></td>";
                             }
 
-                            echo "<td><form action='/controller/delete.php' method='POST'>
+                            echo "<td><form action='/Controller/delete.php' method='POST'>
             <input type='hidden' name='id' value='$user'>
             <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete-form'>REMOVE RECORD</button>
             </form></td>";
@@ -354,13 +354,13 @@ include('/components/navbar.php');
                                 if ($password === '' || $password === null) {
                                     echo "<td>Unavailable</td>";
                                 } else {
-                                    echo "<td><form action='/controller/resetpassword.php' method='POST'>
+                                    echo "<td><form action='/Controller/resetpassword.php' method='POST'>
                     <input type='hidden' name='id' value='$id'>
                     <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-orange-500 cursor-pointer text-white' type='submit' name='reset'>RESET PASSWORD</button>
                     </form></td>";
                                 }
 
-                                echo "<td><form action='/controller/delete.php' method='POST'>
+                                echo "<td><form action='/Controller/delete.php' method='POST'>
                 <input type='hidden' name='id' value='$user'>
                 <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete-form'>REMOVE RECORD</button>
                 </form></td>";

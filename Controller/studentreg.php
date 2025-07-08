@@ -13,7 +13,7 @@ if (isset($_POST['register'])) {
         session_start();
         $_SESSION['modal_title'] = 'Alert';
         $_SESSION['modal_message'] = 'Password too short. Must be at least 8 characters long.';
-        header("Location: /view/pages/signup.php");
+        header("Location: /View/pages/signup.php");
         exit;
     }
 
@@ -21,7 +21,7 @@ if (isset($_POST['register'])) {
         session_start();
         $_SESSION['modal_title'] = 'Alert';
         $_SESSION['modal_message'] = 'Passwords do not match. Please try again.';
-        header("Location: /view/pages/signup.php");
+        header("Location: /View/pages/signup.php");
         exit;
     }
 
@@ -42,7 +42,7 @@ if (isset($_POST['register'])) {
             session_start();
             $_SESSION['modal_title'] = 'Alert';
             $_SESSION['modal_message'] = 'Already Registered. Please sign in.';
-            header("Location: /view/pages/index.php");
+            header("Location: /View/pages/index.php");
             exit;
         } else {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -57,7 +57,7 @@ if (isset($_POST['register'])) {
             session_start();
             $_SESSION['modal_title'] = 'Success';
             $_SESSION['modal_message'] = 'Registration successful. You may now sign in.';
-            header("Location: /view/pages/index.php");
+            header("Location: /View/pages/index.php");
             exit;
         }
     }
@@ -66,7 +66,7 @@ if (isset($_POST['register'])) {
         session_start();
         $_SESSION['modal_title'] = 'Alert';
         $_SESSION['modal_message'] = 'The student is not currently enrolled. Please contact the administrator.';
-        header("Location: /view/pages/signup.php");
+        header("Location: /View/pages/signup.php");
         exit;
     }
 }

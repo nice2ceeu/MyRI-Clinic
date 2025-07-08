@@ -76,7 +76,7 @@ include('/components/body.php');
             <!-- studnet info -->
             <a
                 class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start"
-                href="/pages/userformview.php">
+                href="/pages/userformView.php">
                 <img src="/assets/icons/medicalform-icon.svg" alt="medicalform-icon" />
                 <p class="md:hidden lg:block">My medical form</p>
             </a>
@@ -127,7 +127,7 @@ include('/components/body.php');
             class="rounded-bl-2xl  md:rounded-none row-start-3 bg-secondary poppins   flex text-lg w-full items-center  gap-x-5">
 
             <!-- logout -->
-            <form class="w-full px-3.5  " action="/controller/logout.php" method="POST">
+            <form class="w-full px-3.5  " action="/Controller/logout.php" method="POST">
                 <button
                     id="logout-btn"
                     type="submit"

@@ -2,7 +2,7 @@
 
 session_start();
 
-include("/view/modal/alert.php");
+include("/View/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
   $msg = $_SESSION['modal_message'];
   $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -34,7 +34,7 @@ include('/components/navbar.php');
   </section>
   <!-- visitor form  -->
   <form
-    action="/controller/addvisitor.php"
+    action="/Controller/addvisitor.php"
     method="POST"
     class="px-8.5 mt-5 gap-3.5 uppercase flex justify-center flex-wrap lg:flex-nowrap min-[200px]:w-[90%]">
 

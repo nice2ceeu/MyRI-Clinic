@@ -58,7 +58,7 @@ include('/components/navbar.php');
   <?php
   include('/config/database.php');
 
-  if (isset($_POST['view-form'])) {
+  if (isset($_POST['View-form'])) {
     $id = $_POST['id'];
 
     try {
@@ -148,7 +148,7 @@ include('/components/navbar.php');
   ?>
 
   <fieldset id="myFieldset" disabled>
-    <form action="/controller/medform.php" method="POST">
+    <form action="/Controller/medform.php" method="POST">
       <!-- form for student information........ -->
       <section
         class="poppins my-7.5 flex flex-col md:flex-row md:flex-wrap gap-4 px-3 uppercase">
@@ -808,7 +808,7 @@ include('/components/navbar.php');
       <!-- SUBMIT BUTTON FOR MEDICAL FORM  -->
     </form>
   </fieldset>
-  <form class="" action="/controller/download.php" method="POST">
+  <form class="" action="/Controller/download.php" method="POST">
     <input type="hidden" name="id" value="<?php echo $id ?>">
     <button
 
@@ -940,7 +940,7 @@ include('/components/navbar.php');
       .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
       .join("&");
 
-    fetch("/controller/update.php", {
+    fetch("/Controller/update.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"

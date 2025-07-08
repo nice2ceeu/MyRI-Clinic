@@ -102,8 +102,8 @@ include('/components/navbar.php');
       <button
         disabled
         type="submit"
-        name="view-history"
-        id="view-history"
+        name="View-history"
+        id="View-history"
         class="uppercase bg-primary text-white rounded-lg py-2 px-5 flex gap-5 items-center justify-evenly cursor-pointer">
         <p>Filter</p>
         <img class="size-5.5" src="/assets/icons/filter-icon.svg" alt="" />
@@ -111,7 +111,7 @@ include('/components/navbar.php');
       <script>
         const gradeInput = document.getElementById('studentGrade');
         const sectionInput = document.getElementById('studentSection');
-        const filterButton = document.getElementById('view-history');
+        const filterButton = document.getElementById('View-history');
 
         function checkInputs() {
           const grade = gradeInput.value.trim();
@@ -162,7 +162,7 @@ include('/components/navbar.php');
           <th>DATE</th>
           <th>Treatment</th>
           <th>Qty.</th>
-          <th>Preview</th>
+          <th>PreView</th>
         </tr>
 
       </thead>
@@ -172,7 +172,7 @@ include('/components/navbar.php');
         <?php
         include("/config/database.php");
 
-        if (isset($_POST['view-history'])) {
+        if (isset($_POST['View-history'])) {
           $studentGrade = $_POST['studentGrade'];
           $studentSection = $_POST['studentSection'];
 
@@ -208,12 +208,12 @@ include('/components/navbar.php');
               echo "<td>" . $treatment . "</td>";
               echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
               echo "<td>
-              <form action='/controller/studenthistory.php' method='POST'>
+              <form action='/Controller/studenthistory.php' method='POST'>
                 <input type='hidden' name='fname' value='" . $_firstname . "'>
                 <input type='hidden' name='lname' value='" . $_lastname . "'>
-                <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'>
-                  <p class='hidden lg:block'>view History</p>
-                  <img class='lg:hidden size-5 block' src='/assets/icons/view-icon.svg'>
+                <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='View-history'>
+                  <p class='hidden lg:block'>View History</p>
+                  <img class='lg:hidden size-5 block' src='/assets/icons/View-icon.svg'>
                 </button>
               </form>
             </td>";
@@ -254,12 +254,12 @@ include('/components/navbar.php');
               echo "<td>" . $treatment . "</td>";
               echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
               echo "<td>
-              <form action='/controller/studenthistory.php' method='POST'>
+              <form action='/Controller/studenthistory.php' method='POST'>
                 <input type='hidden' name='fname' value='" . $_firstname . "'>
                 <input type='hidden' name='lname' value='" . $_lastname . "'>
-                <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'>
-                  <p class='hidden lg:block'>view History</p>
-                  <img class='lg:hidden size-5 block' src='/assets/icons/view-icon.svg'>
+                <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='View-history'>
+                  <p class='hidden lg:block'>View History</p>
+                  <img class='lg:hidden size-5 block' src='/assets/icons/View-icon.svg'>
                 </button>
               </form>
             </td>";
@@ -289,12 +289,12 @@ include('/components/navbar.php');
               echo "<td>" . $treatment . "</td>";
               echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
               echo "<td>
-              <form action='/controller/studenthistory.php' method='POST'>
+              <form action='/Controller/studenthistory.php' method='POST'>
                 <input type='hidden' name='fname' value='" . $_firstname . "'>
                 <input type='hidden' name='lname' value='" . $_lastname . "'>
-                <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'>
-                  <p class='hidden lg:block'>view History</p>
-                  <img class='lg:hidden size-5 block' src='/assets/icons/view-icon.svg'>
+                <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='View-history'>
+                  <p class='hidden lg:block'>View History</p>
+                  <img class='lg:hidden size-5 block' src='/assets/icons/View-icon.svg'>
                 </button>
               </form>
             </td>";

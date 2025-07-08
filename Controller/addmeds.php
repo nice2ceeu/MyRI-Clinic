@@ -36,7 +36,7 @@ if (isset($_POST['add'])) {
             session_start();
             $_SESSION['modal_title'] = 'Success';
             $_SESSION['modal_message'] = 'Medicine quantity updated successfully.';
-            header("Location: /view/pages/inventory.php");
+            header("Location: /View/pages/inventory.php");
             exit;
         } else {
             // 🆕 3. Insert new medicine record
@@ -51,7 +51,7 @@ if (isset($_POST['add'])) {
             session_start();
             $_SESSION['modal_title'] = 'New Medicine';
             $_SESSION['modal_message'] = 'New medicine added to inventory.';
-            header("Location: /view/pages/inventory.php");
+            header("Location: /View/pages/inventory.php");
             exit;
         }
     } catch (Exception $e) {

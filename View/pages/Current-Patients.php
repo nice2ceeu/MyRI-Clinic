@@ -5,7 +5,7 @@ include("/components/body.php");
 
 
 session_start();
-include("/view/modal/alert.php");
+include("/View/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
     $msg = $_SESSION['modal_message'];
     $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -188,138 +188,138 @@ include('/components/navbar.php');
             <tbody class="text-left [&>tr]:odd:bg-[#a8a8a829] [&>tr>td]:px-4 [&>tr>td]:py-4.5">
 
                 <?php
-             
-include("/config/database.php");
 
-if (isset($_POST['current-filter'])) {
-    $studentGrade = $_POST['studentGrade'];
-    $studentSection = $_POST['studentSection'];
+                include("/config/database.php");
 
-    try {
-        if ($studentGrade != '' && $studentSection != '') {
-            $query = "SELECT * FROM visitor WHERE grade = ? AND section = ? AND (checkout IS NULL OR checkout = '') ORDER BY id DESC";
-            $params = [$studentGrade, $studentSection];
-        } else if ($studentGrade == '' && $studentSection != '') {
-            $query = "SELECT * FROM visitor WHERE section = ? AND (checkout IS NULL OR checkout = '') ORDER BY id DESC";
-            $params = [$studentSection];
-        } else if ($studentGrade != '' && $studentSection == '') {
-            $query = "SELECT * FROM visitor WHERE grade = ? AND (checkout IS NULL OR checkout = '') ORDER BY id DESC";
-            $params = [$studentGrade];
-        } else {
-            $query = "SELECT * FROM visitor ORDER BY id DESC";
-            $params = [];
-        }
+                if (isset($_POST['current-filter'])) {
+                    $studentGrade = $_POST['studentGrade'];
+                    $studentSection = $_POST['studentSection'];
 
-        $stmt = sqlsrv_prepare($conn, $query, $params);
+                    try {
+                        if ($studentGrade != '' && $studentSection != '') {
+                            $query = "SELECT * FROM visitor WHERE grade = ? AND section = ? AND (checkout IS NULL OR checkout = '') ORDER BY id DESC";
+                            $params = [$studentGrade, $studentSection];
+                        } else if ($studentGrade == '' && $studentSection != '') {
+                            $query = "SELECT * FROM visitor WHERE section = ? AND (checkout IS NULL OR checkout = '') ORDER BY id DESC";
+                            $params = [$studentSection];
+                        } else if ($studentGrade != '' && $studentSection == '') {
+                            $query = "SELECT * FROM visitor WHERE grade = ? AND (checkout IS NULL OR checkout = '') ORDER BY id DESC";
+                            $params = [$studentGrade];
+                        } else {
+                            $query = "SELECT * FROM visitor ORDER BY id DESC";
+                            $params = [];
+                        }
 
-        if ($stmt && sqlsrv_execute($stmt)) {
-            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                $id = htmlspecialchars($row['id']);
-                echo "<tr class=''>";
-                echo "<td >" . $id . "</td>";
-                echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
-                echo "<td>  ";
-                echo "<button onclick='showPopup($id)' class='bg-primary text-white rounded-lg uppercase py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>";
-                echo "<p>Patient out</p>";
-                echo "<img class='size-5' src='/assets/icons/out-icon.svg' alt='check icon' />";
-                echo "</button>";
-                echo "</td>";
-                echo "</tr>";
-            }
-        } else {
-            echo "<td colspan='9' class='text-center bg-[#d4d4d40c]'> No Patient Found.</td>";
-        }
-    } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
-    }
-} else if (isset($_POST['submit'])) {
-    include('/config/database.php');
-    $fullname = $_POST['fullname'];
-    $name = explode(',', $fullname);
+                        $stmt = sqlsrv_prepare($conn, $query, $params);
 
-    $lastname = strtolower($name[0]);
-    $firstname = strtolower(trim($name[1] ?? ''));
-    if ($firstname == '') {
-        echo "<script>alert('Invalid Format. It should be (Lastname, Firstname)'); window.location.href = window.location.pathname;</script>";
-    }
+                        if ($stmt && sqlsrv_execute($stmt)) {
+                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                $id = htmlspecialchars($row['id']);
+                                echo "<tr class=''>";
+                                echo "<td >" . $id . "</td>";
+                                echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
+                                echo "<td>  ";
+                                echo "<button onclick='showPopup($id)' class='bg-primary text-white rounded-lg uppercase py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>";
+                                echo "<p>Patient out</p>";
+                                echo "<img class='size-5' src='/assets/icons/out-icon.svg' alt='check icon' />";
+                                echo "</button>";
+                                echo "</td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<td colspan='9' class='text-center bg-[#d4d4d40c]'> No Patient Found.</td>";
+                        }
+                    } catch (Exception $e) {
+                        echo "Error: " . $e->getMessage();
+                    }
+                } else if (isset($_POST['submit'])) {
+                    include('/config/database.php');
+                    $fullname = $_POST['fullname'];
+                    $name = explode(',', $fullname);
 
-    try {
-        $query = "SELECT * FROM visitor WHERE firstname = ? AND lastname = ? AND (checkout IS NULL OR checkout = '') ORDER BY id DESC";
-        $params = [$firstname, $lastname];
-        $stmt = sqlsrv_prepare($conn, $query, $params);
+                    $lastname = strtolower($name[0]);
+                    $firstname = strtolower(trim($name[1] ?? ''));
+                    if ($firstname == '') {
+                        echo "<script>alert('Invalid Format. It should be (Lastname, Firstname)'); window.location.href = window.location.pathname;</script>";
+                    }
 
-        if ($stmt && sqlsrv_execute($stmt)) {
-            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                $id = htmlspecialchars($row['id']);
-                echo "<tr class=''>";
-                echo "<td >" . $id . "</td>";
-                echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
-                echo "<td>  ";
-                echo "<button onclick='showPopup()' class='bg-primary text-white rounded-lg uppercase py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>";
-                echo "<p>Patient out</p>";
-                echo "<img class='size-5' src='/assets/icons/out-icon.svg' alt='check icon' />";
-                echo "</button>";
-                echo "</td>";
-                echo "</tr>";
-            }
-        } else {
-            echo "<td colspan='9' class='text-center bg-[#d4d4d40c]'>Patient Not Found.</td>";
-        }
-    } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
-    }
-} else {
-    try {
-        $query = "SELECT * FROM visitor WHERE (checkout IS NULL OR checkout = '') ORDER BY id DESC";
-        $stmt = sqlsrv_prepare($conn, $query);
+                    try {
+                        $query = "SELECT * FROM visitor WHERE firstname = ? AND lastname = ? AND (checkout IS NULL OR checkout = '') ORDER BY id DESC";
+                        $params = [$firstname, $lastname];
+                        $stmt = sqlsrv_prepare($conn, $query, $params);
 
-        if ($stmt && sqlsrv_execute($stmt)) {
-            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                $id = htmlspecialchars($row['id']);
-                echo "<tr class=''>";
-                echo "<td >" . $id . "</td>";
-                echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
-                echo "<td>  ";
-                echo "<button onclick='showPopup($id)' class='bg-primary text-white rounded-lg uppercase py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>";
-                echo "<p>Patient out</p>";
-                echo "<img class='size-5' src='/assets/icons/out-icon.svg' alt='check icon' />";
-                echo "</button>";
-                echo "</td>";
-                echo "</tr>";
-            }
-        } else {
-            echo "<td colspan='9' class='text-center bg-[#d4d4d40c]'>No Current Patient.</td>";
-        }
-    } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
-    }
-}
+                        if ($stmt && sqlsrv_execute($stmt)) {
+                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                $id = htmlspecialchars($row['id']);
+                                echo "<tr class=''>";
+                                echo "<td >" . $id . "</td>";
+                                echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
+                                echo "<td>  ";
+                                echo "<button onclick='showPopup()' class='bg-primary text-white rounded-lg uppercase py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>";
+                                echo "<p>Patient out</p>";
+                                echo "<img class='size-5' src='/assets/icons/out-icon.svg' alt='check icon' />";
+                                echo "</button>";
+                                echo "</td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<td colspan='9' class='text-center bg-[#d4d4d40c]'>Patient Not Found.</td>";
+                        }
+                    } catch (Exception $e) {
+                        echo "Error: " . $e->getMessage();
+                    }
+                } else {
+                    try {
+                        $query = "SELECT * FROM visitor WHERE (checkout IS NULL OR checkout = '') ORDER BY id DESC";
+                        $stmt = sqlsrv_prepare($conn, $query);
 
-// Fetch medicine options once
-$medOptions = "";
-$dateNow = date('Y-m-d');
-$query = "SELECT DISTINCT Medicine_Name FROM meds WHERE Med_Quantity > 0 AND Expiration_Date > ?";
-$params = [$dateNow];
-$stmt = sqlsrv_prepare($conn, $query, $params);
+                        if ($stmt && sqlsrv_execute($stmt)) {
+                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                $id = htmlspecialchars($row['id']);
+                                echo "<tr class=''>";
+                                echo "<td >" . $id . "</td>";
+                                echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
+                                echo "<td>  ";
+                                echo "<button onclick='showPopup($id)' class='bg-primary text-white rounded-lg uppercase py-2.5 px-5 flex gap-5 items-center justify-evenly cursor-pointer'>";
+                                echo "<p>Patient out</p>";
+                                echo "<img class='size-5' src='/assets/icons/out-icon.svg' alt='check icon' />";
+                                echo "</button>";
+                                echo "</td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<td colspan='9' class='text-center bg-[#d4d4d40c]'>No Current Patient.</td>";
+                        }
+                    } catch (Exception $e) {
+                        echo "Error: " . $e->getMessage();
+                    }
+                }
 
-if ($stmt && sqlsrv_execute($stmt)) {
-    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-        $med = htmlspecialchars($row['Medicine_Name']);
-        $medOptions .= "<option value='$med'>$med</option>";
-    }
-}
+                // Fetch medicine options once
+                $medOptions = "";
+                $dateNow = date('Y-m-d');
+                $query = "SELECT DISTINCT Medicine_Name FROM meds WHERE Med_Quantity > 0 AND Expiration_Date > ?";
+                $params = [$dateNow];
+                $stmt = sqlsrv_prepare($conn, $query, $params);
+
+                if ($stmt && sqlsrv_execute($stmt)) {
+                    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                        $med = htmlspecialchars($row['Medicine_Name']);
+                        $medOptions .= "<option value='$med'>$med</option>";
+                    }
+                }
 
                 ?>
                 <!-- Popup Overlay -->
@@ -332,7 +332,7 @@ if ($stmt && sqlsrv_execute($stmt)) {
                     </h1>
                     <img class='absolute right-1.5 top-1.5 invert cursor-pointer' onclick='hidePopup()' src='/assets/icons/close-icon.svg'>
 
-                    <form class='text-nowrap relative' action='/controller/release.php' method='POST'>
+                    <form class='text-nowrap relative' action='/Controller/release.php' method='POST'>
                         <div class='flex items-center gap-2'>
                             <input class='appearance-none checked:bg-[#06118e8a] w-5 h-5 border border-gray-500' type='radio' id='with-medicine' name='treatment' value='yes' onclick='toggleMedSection()' required>
                             <label for='with-medicine'>Medicinal Treatment</label>

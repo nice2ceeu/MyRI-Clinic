@@ -8,7 +8,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-include("/view/modal/alert.php");
+include("/View/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
     $msg = $_SESSION['modal_message'];
     $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -35,7 +35,7 @@ if (!isset($_SESSION['username'])) {
 }
 ?>
 <main class="flex items-center justify-center w-lvw h-dvh">
-    <form class="z-10 popppins bg-white gap-7.5 p-6.5 flex flex-col justify-center shadow-[5px_5px_10px_rgba(0,0,0,0.1)] rounded-lg items-center" action='/controller/resetpassword.php' method='POST'>
+    <form class="z-10 popppins bg-white gap-7.5 p-6.5 flex flex-col justify-center shadow-[5px_5px_10px_rgba(0,0,0,0.1)] rounded-lg items-center" action='/Controller/resetpassword.php' method='POST'>
 
         <h3 class="text-4xl font-bold opacity-90">CHANGE PASSWORD</h3>
 

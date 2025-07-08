@@ -24,7 +24,7 @@ include("body.php")
 
             <?php
             include("/config/database.php");
-            
+
             if (isset($_POST['current-filter'])) {
                 $studentGrade = $_POST['studentGrade'];
                 $studentSection = $_POST['studentSection'];
@@ -88,7 +88,7 @@ include("body.php")
                     echo "Error: " . $e->getMessage();
                 }
             } else {
-                
+
                 try {
 
                     $query = "SELECT * FROM visitor where checkout = '' order by checkin desc";
@@ -151,7 +151,7 @@ include("body.php")
 
                     <img class='absolute right-1.5 top-1.5 invert cursor-pointer' onclick='hidePopup()' src='/assets/icons/close-icon.svg'>
 
-                    <form class='text-nowrap relative' action='/controller/release.php' method='POST'>
+                    <form class='text-nowrap relative' action='/Controller/release.php' method='POST'>
                         <div class='flex items-center gap-2'>
                             <input class='appearance-none checked:bg-[#06118e8a] w-5 h-5 border border-gray-500' type='radio' id='with-medicine' name='treatment' value='yes' onclick='toggleMedSection()' required>
                             <label for='with-medicine'>Medicinal Treatment</label>
