@@ -82,7 +82,7 @@ if (isset($_SESSION['username'])) {
 </html>
 
 <?php
-include("../../config/database.php"); // assumes $conn is your sqlsrv_connect() connection
+include("/config/database.php"); // assumes $conn is your sqlsrv_connect() connection
 
 if (isset($_POST["submit"])) {
     $username = $_POST["username"];
