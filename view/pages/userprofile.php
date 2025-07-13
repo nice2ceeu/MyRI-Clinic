@@ -1,10 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['username'])) {
-    header("Location: index.php");
-    exit();
-} else {
+
 
     include('../../config/database.php');
 
@@ -28,7 +25,7 @@ if (!isset($_SESSION['username'])) {
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
-}
+
 ?>
 
 
