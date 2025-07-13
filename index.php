@@ -1,3 +1,3 @@
 <?php
-include __DIR__ . '/view/pages/index.php';
+header("Location: view/pages/index.php ");
 exit;
