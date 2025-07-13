@@ -1,4 +1,5 @@
 <?php
+echo "Login script is being accessed.";
 include("../config/database.php"); // assumes $conn is your sqlsrv_connect() connection
 
 if (isset($_POST["submit"])) {
