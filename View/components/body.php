@@ -7,6 +7,6 @@
   <title>MyRi Clinic.</title>
   <link href="../../src/output.css" rel="stylesheet" />
   <link href="../../src/input.css" rel="stylesheet" />
-  <link rel="icon" type="/favicon.svg" href="../../view/assets/icons/school-icon.svg">
+  <link rel="icon" type="/favicon.svg" href="../../View/assets/icons/school-icon.svg">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>

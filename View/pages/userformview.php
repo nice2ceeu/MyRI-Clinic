@@ -208,7 +208,7 @@ include('../components/body.php');
                 class="rounded-bl-2xl  md:rounded-none row-start-3 bg-secondary poppins   flex text-lg w-full items-center  gap-x-5">
 
                 <!-- logout -->
-                <form class="w-full px-3.5  " action="../../controller/logout.php" method="POST">
+                <form class="w-full px-3.5  " action="../../Controller/logout.php" method="POST">
                     <button
                         id="logout-btn"
                         type="submit"
@@ -223,7 +223,7 @@ include('../components/body.php');
     </nav>
     <!-- navvvvvvvvvvv -->
     <fieldset id="myFieldset" disabled>
-        <form action="../../controller/medform.php" method="POST">
+        <form action="../../Controller/medform.php" method="POST">
             <!-- form for student information........ -->
             <section
                 class="poppins flex flex-col md:flex-row md:flex-wrap gap-4 px-3 uppercase">
@@ -882,7 +882,7 @@ include('../components/body.php');
             <!-- SUBMIT BUTTON FOR MEDICAL FORM  -->
         </form>
     </fieldset>
-    <form action="../../controller/download.php" method="POST">
+    <form action="../../Controller/download.php" method="POST">
         <input type="hidden" name="firstname" value="<?php echo $firstname ?>">
         <input type="hidden" name="lastname" value="<?php echo $lastname ?>">
         <button

@@ -12,7 +12,7 @@ if (isset($_POST["submit"])) {
 
     if ($firstname == "" || $lastname == "" || $complaint == "" || $grade == "" || $section == "") {
         echo "<script>alert('Please fill all Fields');
-        window.location.href = '../view/pages/Clinic-Patient.php';
+        window.location.href = '../View/pages/Clinic-Patient.php';
         </script>";
     } else {
         date_default_timezone_set('Asia/Manila');
@@ -35,7 +35,7 @@ if (isset($_POST["submit"])) {
             session_start();
             $_SESSION['modal_title'] = 'Duplicate Entry';
             $_SESSION['modal_message'] = 'Patient is already checked in.';
-            header("Location: ../view/pages/Clinic-Patient.php");
+            header("Location: ../View/pages/Clinic-Patient.php");
             exit();
         }
 
@@ -52,7 +52,7 @@ if (isset($_POST["submit"])) {
         session_start();
         $_SESSION['modal_title'] = 'Success';
         $_SESSION['modal_message'] = 'Patient added';
-        header("Location: ../view/pages/Clinic-Patient.php");
+        header("Location: ../View/pages/Clinic-Patient.php");
         exit();
     }
 }
