@@ -24,16 +24,12 @@ include('../components/body.php');
 
 
     try {
-        $stmt = $conn->prepare("SELECT * FROM medforms WHERE firstname = ? AND lastname = ? ");
-        $stmt->bind_param("ss", $firstname, $lastname);
-        $stmt->execute();
+    $query = "SELECT * FROM medforms WHERE firstname = ? AND lastname = ?";
+    $params = array($firstname, $lastname);
+    $stmt = sqlsrv_prepare($conn, $query, $params);
 
-
-
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
+    if ($stmt && sqlsrv_execute($stmt)) {
+        if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             $_firstname = htmlspecialchars($row['firstname']);
             $_lastname = htmlspecialchars($row['lastname']);
 
@@ -105,16 +101,14 @@ include('../components/body.php');
             $booster = htmlspecialchars($row['booster']);
             $plus_covid_date = htmlspecialchars($row['plus_covid_date']);
         } else {
-
             echo "<script>alert('No record Exists. Please Visit Clinic');
             window.location.href ='userprofile.php';
             </script>";
         }
-    } catch (mysqli_sql_exception $e) {
-        echo "Error: " . $e->getMessage();
     }
-
-
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
     ?>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 

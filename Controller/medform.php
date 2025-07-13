@@ -94,55 +94,44 @@ if (isset($_POST["submit"])) {
         header("Location: ../view/pages/medicalform.php");
         exit;
     }
-    $checkStmt = $conn->prepare("SELECT id FROM medforms WHERE firstname = ? AND lastname = ?");
-    $checkStmt->bind_param("ss", $firstname, $lastname);
-    $checkStmt->execute();
-    $checkStmt->store_result();
+    $sql = "SELECT id FROM medforms WHERE firstname = ? AND lastname = ?";
+    $params = array($firstname, $lastname);
+    $checkStmt = sqlsrv_prepare($conn, $sql, $params);
 
-    if ($checkStmt->num_rows > 0) {
-        echo
-        // ??? not working alert mo 
-        session_start();
-        $_SESSION['modal_title'] = 'Alert';
-        $_SESSION['modal_message'] = 'This patient already exists in the record';
-        header("Location: ../view/pages/medicalform.php");
-        exit;
+    if (!$checkStmt) {
+        die(print_r(sqlsrv_errors(), true));
     }
 
-    $checkStmt->close();
-
-    $stmt = $conn->prepare("INSERT INTO medforms (
-        firstname, lastname, gender, _date, _address, birthdate, birthplace,
-        religion, citizenship, guardian, relationship, contact,
-        adhd, asthma, anemia, bleeding, cancer, chestpain, diabetes, fainting,
-        fracture, hearing_speach, heart_condition, lung_prob, mental_prob, migraine,
-        seizure, tubercolosis, hernia, kidney_prob, vision, other, specify,
-        medication_treatment, medication_past, current_medication,
-        allergy, if_yes, childhood_illness, 
-        bcg, dpt, opv, hepb,measleVac, fluVaccine, varicella,
-        mmr, etc, tetanus, vaccineName,date_last_given,
-        hospitalize_before, _year, reason, family_med_history,
-        fem_height, fem_weight, first_menstrual,
-        first_dose_date, second_dose_date, vaccine_manufacturer,
-        booster, plus_covid_date) 
-        VALUES (?, ?, ?, ?, ?
-        , ?, ?, ?, ?, ?,
-         ?,?, ?, ?, ?,
-          ?, ?, ?, ?, ?,
-           ?, ?, ?, ?, ?,
-            ?, ?, ?, ?, ?,
-             ?, ?, ?, ?, ?,
-              ?, ?, ?, ?, ?,
-               ?, ?, ?, ?, ?,
-                ?, ?, ?, ?, ?,
-                 ?, ?, ?, ?, ?,
-                  ?, ?, ?, ?, ?,
-                  ?, ?, ?)");
-
-    $stmt->bind_param(
-        "sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+    if (sqlsrv_execute($checkStmt)) {
+        if (sqlsrv_fetch($checkStmt)) {
+            session_start();
+            $_SESSION['modal_title'] = 'Alert';
+            $_SESSION['modal_message'] = 'This patient already exists in the record';
+            header("Location: ../view/pages/medicalform.php");
+            exit;
+        }
+    } else {
+        die(print_r(sqlsrv_errors(), true));
+    }
 
 
+    $insertSql = "INSERT INTO medforms (
+    firstname, lastname, gender, _date, _address, birthdate, birthplace,
+    religion, citizenship, guardian, relationship, contact,
+    adhd, asthma, anemia, bleeding, cancer, chestpain, diabetes, fainting,
+    fracture, hearing_speach, heart_condition, lung_prob, mental_prob, migraine,
+    seizure, tubercolosis, hernia, kidney_prob, vision, other, specify,
+    medication_treatment, medication_past, current_medication,
+    allergy, if_yes, childhood_illness, 
+    bcg, dpt, opv, hepb, measleVac, fluVaccine, varicella,
+    mmr, etc, tetanus, vaccineName, date_last_given,
+    hospitalize_before, _year, reason, family_med_history,
+    fem_height, fem_weight, first_menstrual,
+    first_dose_date, second_dose_date, vaccine_manufacturer,
+    booster, plus_covid_date
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    $insertParams = array(
         $firstname,
         $lastname,
         $gender,
@@ -207,12 +196,28 @@ if (isset($_POST["submit"])) {
         $booster,
         $plus_covid_date
     );
-    $stmt->execute();
-    echo
-    session_start();
-    // ??? not working alert mo 
-    $_SESSION['modal_title'] = 'successfull';
-    $_SESSION['modal_message'] = 'Patient record updated. You can check it in the Enrolled';
-    header("Location: ../view/pages/medicalform.php");
+
+    $insertStmt = sqlsrv_prepare($conn, $insertSql, $insertParams);
+
+    if (!$insertStmt) {
+        die(print_r(sqlsrv_errors(), true));
+    }
+
+    if (sqlsrv_execute($insertStmt)) {
+        session_start();
+        $_SESSION['modal_title'] = 'Successful';
+        $_SESSION['modal_message'] = 'Patient record updated. You can check it in the Enrolled';
+        header("Location: ../view/pages/medicalform.php");
+        exit;
+    } else {
+        die(print_r(sqlsrv_errors(), true));
+    }
+
+    // echo
+    // session_start();
+    // // ??? not working alert mo 
+    // $_SESSION['modal_title'] = 'successfull';
+    // $_SESSION['modal_message'] = 'Patient record updated. You can check it in the Enrolled';
+    // header("Location: ../view/pages/medicalform.php");
 }
 ?>

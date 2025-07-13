@@ -1,11 +1,7 @@
 <?php
 
-
-use BcMath\Number;
-
-include("../config/database.php");
+include("../config/database.php"); // should contain sqlsrv_connect()
 include("../View/modal/alert.php");
-
 
 if (isset($_POST["submit"])) {
     $firstname = $_POST["firstname"];
@@ -14,14 +10,11 @@ if (isset($_POST["submit"])) {
     $section = $_POST["section"];
     $complaint = $_POST["complaint"];
 
-
-
     if ($firstname == "" || $lastname == "" || $complaint == "" || $grade == "" || $section == "") {
         echo "<script>alert('Please fill all Fields');
         window.location.href = '../view/pages/Clinic-Patient.php';
         </script>";
     } else {
-
         date_default_timezone_set('Asia/Manila');
         $date = date("Y-m-d");
         $lowfirst = strtolower($firstname);
@@ -29,11 +22,16 @@ if (isset($_POST["submit"])) {
         $lowsec = trim(strtolower($section));
         $checkin = date("h:i:s A");
 
-        $patientAlready = $conn->prepare("SELECT * from visitor where firstname =? AND lastname =? AND checkout =''");
-        $patientAlready->execute([$lowfirst, $lowlast]);
-        $existing = $patientAlready->get_result();
+        // 🔍 Check if patient is already checked in
+        $checkSql = "SELECT * FROM visitor WHERE firstname = ? AND lastname = ? AND checkout = ''";
+        $checkParams = array($lowfirst, $lowlast);
+        $checkStmt = sqlsrv_prepare($conn, $checkSql, $checkParams);
 
-        if ($existing->num_rows > 0) {
+        if (!$checkStmt || !sqlsrv_execute($checkStmt)) {
+            die("Check error: " . print_r(sqlsrv_errors(), true));
+        }
+
+        if (sqlsrv_fetch_array($checkStmt, SQLSRV_FETCH_ASSOC)) {
             session_start();
             $_SESSION['modal_title'] = 'Duplicate Entry';
             $_SESSION['modal_message'] = 'Patient is already checked in.';
@@ -41,12 +39,15 @@ if (isset($_POST["submit"])) {
             exit();
         }
 
+        // 📝 Insert patient record
+        
+        $insertSql = "INSERT INTO visitor (firstname, lastname, complaint, grade, section, checkin, _date) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $insertParams = array($lowfirst, $lowlast, $complaint, $grade, $lowsec, $checkin, $date);
+        $insertStmt = sqlsrv_prepare($conn, $insertSql, $insertParams);
 
-
-        $stmt = $conn->prepare("INSERT INTO visitor (firstname, lastname, complaint,grade,section, checkin, _date) VALUES (?, ?, ?, ?, ?,?,?)");
-        $stmt->bind_param("sssisss", $lowfirst, $lowlast, $complaint, $grade, $lowsec, $checkin, $date);
-        $stmt->execute();
-
+        if (!$insertStmt || !sqlsrv_execute($insertStmt)) {
+            die("Insert error: " . print_r(sqlsrv_errors(), true));
+        }
 
         session_start();
         $_SESSION['modal_title'] = 'Success';

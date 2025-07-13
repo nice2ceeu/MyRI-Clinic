@@ -1,5 +1,5 @@
 <?php
-include('../config/database.php');
+include('../config/database.php'); // assumes $conn is sqlsrv_connect()
 
 if (isset($_POST['add'])) {
     $medName = $_POST['medicine_name'];
@@ -10,22 +10,28 @@ if (isset($_POST['add'])) {
         date_default_timezone_set('Asia/Manila');
         $issued = date("Y-m-d");
 
-        // Check if the medicine exists with the same expiration date
-        $checkStmt = $conn->prepare("SELECT Med_Quantity FROM meds WHERE LOWER(Medicine_Name) = LOWER(?) AND Expiration_Date = ?");
-        $checkStmt->bind_param("ss", $medName, $medExpiration);
-        $checkStmt->execute();
-        $result = $checkStmt->get_result();
+        // 🔍 1. Check if medicine already exists with same expiration
+        $checkSql = "SELECT Med_Quantity FROM meds WHERE LOWER(Medicine_Name) = LOWER(?) AND Expiration_Date = ?";
+        $checkParams = array($medName, $medExpiration);
+        $checkStmt = sqlsrv_prepare($conn, $checkSql, $checkParams);
 
-        if ($result->num_rows > 0) {
-            // Medicine with same name and expiration exists — update quantity
-            $row = $result->fetch_assoc();
+        if (!$checkStmt || !sqlsrv_execute($checkStmt)) {
+            throw new Exception(print_r(sqlsrv_errors(), true));
+        }
+
+        if ($row = sqlsrv_fetch_array($checkStmt, SQLSRV_FETCH_ASSOC)) {
+            // ✅ 2. Medicine exists — update quantity
             $existingQty = (int)$row['Med_Quantity'];
             $incomingQty = (int)$medqty;
             $newQty = $existingQty + $incomingQty;
 
-            $updateStmt = $conn->prepare("UPDATE meds SET Med_Quantity = ?, issued = ? WHERE LOWER(Medicine_Name) = LOWER(?) AND Expiration_Date = ?");
-            $updateStmt->bind_param("isss", $newQty, $issued, $medName, $medExpiration);
-            $updateStmt->execute();
+            $updateSql = "UPDATE meds SET Med_Quantity = ?, issued = ? WHERE LOWER(Medicine_Name) = LOWER(?) AND Expiration_Date = ?";
+            $updateParams = array($newQty, $issued, $medName, $medExpiration);
+            $updateStmt = sqlsrv_prepare($conn, $updateSql, $updateParams);
+
+            if (!$updateStmt || !sqlsrv_execute($updateStmt)) {
+                throw new Exception(print_r(sqlsrv_errors(), true));
+            }
 
             session_start();
             $_SESSION['modal_title'] = 'Success';
@@ -33,10 +39,14 @@ if (isset($_POST['add'])) {
             header("Location: ../view/pages/inventory.php");
             exit;
         } else {
-            // New medicine or different expiration date — insert as new
-            $insertStmt = $conn->prepare("INSERT INTO meds (Medicine_Name, Med_Quantity, Expiration_Date, issued) VALUES (?, ?, ?, ?)");
-            $insertStmt->bind_param("ssss", $medName, $medqty, $medExpiration, $issued);
-            $insertStmt->execute();
+            // 🆕 3. Insert new medicine record
+            $insertSql = "INSERT INTO meds (Medicine_Name, Med_Quantity, Expiration_Date, issued) VALUES (?, ?, ?, ?)";
+            $insertParams = array($medName, $medqty, $medExpiration, $issued);
+            $insertStmt = sqlsrv_prepare($conn, $insertSql, $insertParams);
+
+            if (!$insertStmt || !sqlsrv_execute($insertStmt)) {
+                throw new Exception(print_r(sqlsrv_errors(), true));
+            }
 
             session_start();
             $_SESSION['modal_title'] = 'New Medicine';
@@ -44,7 +54,7 @@ if (isset($_POST['add'])) {
             header("Location: ../view/pages/inventory.php");
             exit;
         }
-    } catch (mysqli_sql_exception $e) {
+    } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
 }

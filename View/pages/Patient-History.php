@@ -169,175 +169,144 @@ include('../components/navbar.php');
 
 
       <tbody class="text-left [&>tr]:odd:bg-[#a8a8a829] [&>tr>td]:px-4 [&>tr>td]:py-4.5">
-
         <?php
         include("../../config/database.php");
-        if (isset($_POST['view-history'])) {
 
+        if (isset($_POST['view-history'])) {
           $studentGrade = $_POST['studentGrade'];
           $studentSection = $_POST['studentSection'];
 
           if ($studentGrade != '' && $studentSection != '') {
-            // grade and seciton
-            $stmt = $conn->prepare("SELECT * FROM visitor WHERE grade = ? AND section = ? AND checkout !='' order by id desc");
-            $stmt->bind_param("ss", $studentGrade, $studentSection);
-          } else if ($studentGrade == '' && $studentSection != '') {
-            //section lang
-            $stmt = $conn->prepare("SELECT * FROM visitor WHERE section = ? AND checkout !='' order by id desc");
-            $stmt->bind_param("s", $studentSection);
-          } else if ($studentGrade != '' && $studentSection == '') {
-            // grade lang
-            $stmt = $conn->prepare("SELECT * FROM visitor WHERE grade = ? AND checkout !='' order by id desc");
-            $stmt->bind_param("s", $studentGrade);
+            $query = "SELECT * FROM visitor WHERE grade = ? AND section = ? AND checkout !='' ORDER BY id DESC";
+            $params = array($studentGrade, $studentSection);
+          } elseif ($studentGrade == '' && $studentSection != '') {
+            $query = "SELECT * FROM visitor WHERE section = ? AND checkout !='' ORDER BY id DESC";
+            $params = array($studentSection);
+          } elseif ($studentGrade != '' && $studentSection == '') {
+            $query = "SELECT * FROM visitor WHERE grade = ? AND checkout !='' ORDER BY id DESC";
+            $params = array($studentGrade);
           } else {
-            // wala lahat
-            $stmt = $conn->prepare("SELECT * FROM visitor order by id desc");
+            $query = "SELECT * FROM visitor ORDER BY id DESC";
+            $params = array();
           }
 
-          if ($stmt) {
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
-                $treatment = htmlspecialchars($row['medicine']) ?: htmlspecialchars($row['physical_treatment']);
-                $_firstname = htmlspecialchars($row['firstname']);
-                $_lastname = htmlspecialchars($row['lastname']);
-                if (htmlspecialchars($row['checkout']) == "") {
-                  $status = "On Treatment";
-                } else {
-                  $status = "Treated";
-                }
-                echo "<tr class=''>";
-                echo "<td >" . htmlspecialchars($row['id']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['checkout']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
-                echo "<td>" . $treatment . "</td>";
-                echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
-                echo "<td>" . "<form action='../../Controller/studenthistory.php' method='POST'>
-                          <input type='hidden' name='fname' value='" . $_firstname . "'>
-                          <input type='hidden' name='lname' value='" . $_lastname . "'>
-                          <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><p class='hidden lg:block'>View History </p> <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'></button>
-                        </form>" . "</td>";
-                echo "</tr>";
-              }
-            } else {
-              echo "<td colspan='10' class='text-center bg-[#d4d4d40c]'>" . "No Patient Found." . "</td>";
-            }
-
-            $stmt->close();
-          } else {
-            echo "<p>Error preparing the statement: " . $conn->error . "</p>";
-          }
-
-          $conn->close();
-        } else if (isset($_POST['submit'])) {
-          $fullname = $_POST['fullname'];
-          $name = explode(',', $fullname);
-
-          $lastname = strtolower($name[0]);
-          $firstname = strtolower(trim($name[1] ?? ''));
-          if ($firstname == '') {
-            //modal
-            echo "<script>alert('Invalid Format. It should be (Lastname, Firstname)');
-              window.location.href = window.location.pathname;</script>";
-          }
-
-          try {
-            $stmt = $conn->prepare("SELECT * FROM visitor WHERE firstname = ? AND lastname = ? AND checkout!='' order by id desc");
-            $stmt->bind_param("ss", $firstname, $lastname);
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
-                $id = htmlspecialchars($row['id']);
-                $treatment = htmlspecialchars($row['medicine']) ?: htmlspecialchars($row['physical_treatment']);
-                $_firstname = htmlspecialchars($row['firstname']);
-                $_lastname = htmlspecialchars($row['lastname']);
-                if (htmlspecialchars($row['checkout']) == "") {
-                  $status = "On Treatment";
-                } else {
-                  $status = "Treated";
-                }
-                echo "<tr class=''>";
-                echo "<td >" . $id . "</td>";
-                echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['checkout']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
-                echo "<td>" . $treatment . "</td>";
-                echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
-
-                echo "<td>" . "<form action='../../Controller/studenthistory.php' method='POST'>
-                          <input type='hidden' name='fname' value='" . $_firstname . "'>
-                          <input type='hidden' name='lname' value='" . $_lastname . "'>
-                          <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><p class='hidden lg:block'>View History </p> <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'></button>
-                        </form>" . "</td>";
-                echo "</tr>";
-              }
-            } else {
-              echo "<tr '>";
-              echo "<td colspan='10' class='text-center bg-[#d4d4d40c]'>" . "Patient Not Found." . "</td>";
+          $stmt = sqlsrv_prepare($conn, $query, $params);
+          if ($stmt && sqlsrv_execute($stmt)) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+              $treatment = htmlspecialchars($row['medicine']) ?: htmlspecialchars($row['physical_treatment']);
+              $_firstname = htmlspecialchars($row['firstname']);
+              $_lastname = htmlspecialchars($row['lastname']);
+              $status = ($row['checkout'] == '') ? "On Treatment" : "Treated";
+              echo "<tr class=''>";
+              echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+              echo "<td>" . $_firstname . " " . $_lastname . "</td>";
+              echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['checkout']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
+              echo "<td>" . $treatment . "</td>";
+              echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
+              echo "<td>
+              <form action='../../Controller/studenthistory.php' method='POST'>
+                <input type='hidden' name='fname' value='" . $_firstname . "'>
+                <input type='hidden' name='lname' value='" . $_lastname . "'>
+                <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'>
+                  <p class='hidden lg:block'>View History</p>
+                  <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'>
+                </button>
+              </form>
+            </td>";
               echo "</tr>";
             }
-          } catch (mysqli_sql_exception $e) {
-            //Invalid input format
-            echo "Error: " . $e->getMessage();
+          } else {
+            echo "<td colspan='10' class='text-center bg-[#d4d4d40c]'>No Patient Found.</td>";
           }
-        } else {
-          include("../../config/database.php");
-          if (isset($_POST['show-all']) || !isset($_POST['show-all'])) {
+        } elseif (isset($_POST['submit'])) {
+          $fullname = $_POST['fullname'];
+          $name = explode(',', $fullname);
+          $lastname = strtolower($name[0]);
+          $firstname = strtolower(trim($name[1] ?? ''));
 
+          if ($firstname == '') {
+            echo "<script>alert('Invalid Format. It should be (Lastname, Firstname)'); window.location.href = window.location.pathname;</script>";
+            exit();
+          }
 
+          $query = "SELECT * FROM visitor WHERE firstname = ? AND lastname = ? AND checkout !='' ORDER BY id DESC";
+          $params = array($firstname, $lastname);
+          $stmt = sqlsrv_prepare($conn, $query, $params);
 
-            try {
-              $query = "SELECT * FROM visitor where checkout != '' order by id desc";
-              $result = $conn->query($query);
-
-              if ($result->num_rows > 0) {
-
-                while ($row = $result->fetch_assoc()) {
-                  $treatment = htmlspecialchars($row['medicine']) ?: htmlspecialchars($row['physical_treatment']);
-                  $_firstname = htmlspecialchars($row['firstname']);
-                  $_lastname = htmlspecialchars($row['lastname']);
-
-                  echo "<tr class=''>";
-                  echo "<td>" . htmlspecialchars($row['id']) . "</td>";
-                  echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
-                  echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
-                  echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
-                  echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
-                  echo "<td>" . htmlspecialchars($row['checkout']) . "</td>";
-                  echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
-                  echo "<td>" . $treatment . "</td>";
-                  echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
-                  echo "<td>
-                        <form action='../../Controller/studenthistory.php' method='POST'>
-                          <input type='hidden' name='fname' value='" . $_firstname . "'>
-                          <input type='hidden' name='lname' value='" . $_lastname . "'>
-                          <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><p class='hidden lg:block'>View History </p> <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'></button>
-                        </form>
-                  </td>";
-                  echo "</tr>";
-                }
-              } else {
-                echo "<tr>";
-                echo "<td colspan='10' class='text-center bg-[#d4d4d40c]'>" . "No Current Patient." . "</td>";
-                echo "</tr>";
-              }
-            } catch (mysqli_sql_exception $e) {
-              echo "Error: " . $e->getMessage();
+          if ($stmt && sqlsrv_execute($stmt)) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+              $treatment = htmlspecialchars($row['medicine']) ?: htmlspecialchars($row['physical_treatment']);
+              $_firstname = htmlspecialchars($row['firstname']);
+              $_lastname = htmlspecialchars($row['lastname']);
+              $status = ($row['checkout'] == '') ? "On Treatment" : "Treated";
+              echo "<tr class=''>";
+              echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+              echo "<td>" . $_firstname . " " . $_lastname . "</td>";
+              echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['checkout']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
+              echo "<td>" . $treatment . "</td>";
+              echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
+              echo "<td>
+              <form action='../../Controller/studenthistory.php' method='POST'>
+                <input type='hidden' name='fname' value='" . $_firstname . "'>
+                <input type='hidden' name='lname' value='" . $_lastname . "'>
+                <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'>
+                  <p class='hidden lg:block'>View History</p>
+                  <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'>
+                </button>
+              </form>
+            </td>";
+              echo "</tr>";
             }
+          } else {
+            echo "<tr><td colspan='10' class='text-center bg-[#d4d4d40c]'>Patient Not Found.</td></tr>";
+          }
+        } elseif (isset($_POST['show-all']) || !isset($_POST['show-all'])) {
+          $query = "SELECT * FROM visitor WHERE checkout != '' ORDER BY id DESC";
+          $stmt = sqlsrv_query($conn, $query);
+
+          if ($stmt) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+              $treatment = htmlspecialchars($row['medicine']) ?: htmlspecialchars($row['physical_treatment']);
+              $_firstname = htmlspecialchars($row['firstname']);
+              $_lastname = htmlspecialchars($row['lastname']);
+
+              echo "<tr class=''>";
+              echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+              echo "<td>" . $_firstname . " " . $_lastname . "</td>";
+              echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['checkout']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
+              echo "<td>" . $treatment . "</td>";
+              echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
+              echo "<td>
+              <form action='../../Controller/studenthistory.php' method='POST'>
+                <input type='hidden' name='fname' value='" . $_firstname . "'>
+                <input type='hidden' name='lname' value='" . $_lastname . "'>
+                <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'>
+                  <p class='hidden lg:block'>View History</p>
+                  <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'>
+                </button>
+              </form>
+            </td>";
+              echo "</tr>";
+            }
+          } else {
+            echo "<tr><td colspan='10' class='text-center bg-[#d4d4d40c]'>No Current Patient.</td></tr>";
           }
         }
         ?>
+
+
 
       </tbody>
     </table>

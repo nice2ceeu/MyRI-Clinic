@@ -8,11 +8,11 @@ use PhpOffice\PhpWord\TemplateProcessor;
 if (isset($_POST['download'])) {
     $id = $_POST['id'];
 
-    $stmt = $conn->prepare("SELECT * from medforms where id=?");
-    $stmt->execute([$id]);
-    $result = $stmt->get_result();
+    $sql = "SELECT * FROM medforms WHERE id = ?";
+    $params = array($id);
+    $stmt = sqlsrv_query($conn, $sql, $params);
 
-    if ($result->num_rows > 0 && ($row = $result->fetch_assoc())) {
+    if ($stmt && ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC))) {
         // Sanitize values
         echo $_firstname = htmlspecialchars($row['firstname']);
         $_lastname = htmlspecialchars($row['lastname']);
@@ -178,12 +178,11 @@ if (isset($_POST['download'])) {
 if (isset($_POST['download-stud'])) {
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
+    $sql = "SELECT * FROM medforms WHERE firstname = ? AND lastname = ?";
+    $params = array($firstname, $lastname);
+    $stmt = sqlsrv_query($conn, $sql, $params);
 
-    $stmt = $conn->prepare("SELECT * from medforms where firstname  =? AND lastname=?");
-    $stmt->execute([$firstname, $lastname]);
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0 && ($row = $result->fetch_assoc())) {
+    if ($stmt && ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC))) {
         // Sanitize values
         echo $_firstname = htmlspecialchars($row['firstname']);
         $_lastname = htmlspecialchars($row['lastname']);

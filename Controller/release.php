@@ -13,33 +13,26 @@ if (isset($_POST['release'])) {
         $medicine = trim($_POST['medicine'] ?? '');
         $quantity = trim($_POST['medicine_qty'] ?? '');
 
-        // || $quantity === ""
-
         if ($medicine === "" || $quantity === "") {
-            echo
             session_start();
             $_SESSION['modal_title'] = 'Alert';
             $_SESSION['modal_message'] = 'Please fill all fields for medicinal treatment.';
             header("Location: ../view/pages/Current-Patients.php");
-
             exit;
         }
 
         $medicineLower = strtolower($medicine);
 
-        // Get current quantity from meds table
-        $getCurrentQty = $conn->prepare("SELECT * FROM meds WHERE Medicine_Name = ?");
-        $getCurrentQty->bind_param("s", $medicineLower);
-        $getCurrentQty->execute();
-        $result = $getCurrentQty->get_result();
+        // Select the medicine with the lowest quantity
+        $query = "SELECT TOP 1 * FROM meds WHERE Medicine_Name = ? ORDER BY Med_Quantity ASC, Expiration_Date ASC";
+        $params = array($medicineLower);
+        $stmt = sqlsrv_query($conn, $query, $params);
 
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
+        if ($stmt && $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             $currQty = (int)$row['Med_Quantity'];
-            $medicine_id = $row['id']; // avoid overwriting $id
+            $medicine_id = $row['id'];
 
             if ($currQty < (int)$quantity) {
-                echo
                 session_start();
                 $_SESSION['modal_title'] = 'Alert';
                 $_SESSION['modal_message'] = 'Not enough stock in medical inventory';
@@ -49,47 +42,38 @@ if (isset($_POST['release'])) {
 
             $newQty = $currQty - (int)$quantity;
 
+            $updateVisitor = "UPDATE visitor SET withMedicine = ?, medicine = ?, Quantity = ?, checkout = ? WHERE id = ?";
+            $paramsVisitor = array($withMedicine, $medicineLower, (int)$quantity, $checkout, (int)$id);
+            sqlsrv_query($conn, $updateVisitor, $paramsVisitor);
 
-            $stmt = $conn->prepare("UPDATE visitor SET withMedicine = ?, medicine = ?, Quantity = ?, checkout = ? WHERE id = ?");
-            $stmt->bind_param("ssisi", $withMedicine, $medicineLower, $quantity, $checkout, $id);
-            $stmt->execute();
+            $updateMeds = "UPDATE meds SET Med_Quantity = ? WHERE id = ?";
+            $paramsMeds = array($newQty, $medicine_id);
+            sqlsrv_query($conn, $updateMeds, $paramsMeds);
 
+            $checkUsed = "SELECT Med_Quantity FROM used_meds WHERE Medicine_name = ?";
+            $paramsCheck = array($medicineLower);
+            $stmtCheck = sqlsrv_query($conn, $checkUsed, $paramsCheck);
 
-            $stmt1 = $conn->prepare("UPDATE meds SET Med_Quantity = ? WHERE Medicine_Name = ? order by Med_Quantity asc limit 1");
-            $stmt1->bind_param("is", $newQty, $medicineLower);
-            $stmt1->execute();
-
-            $stmtCheck = $conn->prepare("SELECT Med_Quantity FROM used_meds WHERE Medicine_name = ?");
-            $stmtCheck->bind_param("s", $medicineLower);
-            $stmtCheck->execute();
-            $resultCheck = $stmtCheck->get_result();
-
-            if ($resultCheck->num_rows > 0) {
-                $row = $resultCheck->fetch_assoc();
-                $updatedQuantity = (int)$quantity + (int)$row['Med_Quantity'];
-
-
-                $stmt3 = $conn->prepare("UPDATE used_meds SET id =?, Med_Quantity = ?, Date_Consumed = ? WHERE Medicine_name = ?");
-                $stmt3->bind_param("siss", $medicine_id, $updatedQuantity, $dateConsumed, $medicineLower);
+            if ($stmtCheck && $rowCheck = sqlsrv_fetch_array($stmtCheck, SQLSRV_FETCH_ASSOC)) {
+                $updatedQuantity = (int)$quantity + (int)$rowCheck['Med_Quantity'];
+                $updateUsed = "UPDATE used_meds SET id = ?, Med_Quantity = ?, Date_Consumed = ? WHERE Medicine_name = ?";
+                $paramsUsed = array($medicine_id, $updatedQuantity, $dateConsumed, $medicineLower);
             } else {
-
-                $stmt3 = $conn->prepare("INSERT INTO used_meds (id, Medicine_name, Med_Quantity, Date_Consumed) VALUES (?, ?, ?, ?)");
-                $stmt3->bind_param("isis", $medicine_id, $medicineLower, $quantity, $dateConsumed);
+                $updateUsed = "INSERT INTO used_meds (id, Medicine_name, Med_Quantity, Date_Consumed) VALUES (?, ?, ?, ?)";
+                $paramsUsed = array($medicine_id, $medicineLower, (int)$quantity, $dateConsumed);
             }
 
-            $stmt3->execute();
+            sqlsrv_query($conn, $updateUsed, $paramsUsed);
 
-            echo
             session_start();
             $_SESSION['modal_title'] = 'successfull';
             $_SESSION['modal_message'] = 'Patient record updated. You can check it in the visitor history';
             header("Location: ../view/pages/Current-Patients.php");
             exit;
         } else {
-            echo
             session_start();
             $_SESSION['modal_title'] = 'ALERT';
-            $_SESSION['modal_message'] = 'Medicine not found in inventor';
+            $_SESSION['modal_message'] = 'Medicine not found in inventory';
             header("Location: ../view/pages/Current-Patients.php");
             exit;
         }
@@ -97,20 +81,17 @@ if (isset($_POST['release'])) {
         $physicalTreatment = trim($_POST['physical-treatment'] ?? '');
 
         if ($physicalTreatment === "") {
-            echo
             session_start();
             $_SESSION['modal_title'] = 'Alert';
             $_SESSION['modal_message'] = 'Please fill all fields for physical treatment.';
             header("Location: ../view/pages/Current-Patients.php");
-
             exit;
         }
 
-        $stmt = $conn->prepare("UPDATE visitor SET physical_treatment = ?, checkout = ? WHERE id = ?");
-        $stmt->bind_param("ssi", $physicalTreatment, $checkout, $id);
-        $stmt->execute();
+        $updateVisitor = "UPDATE visitor SET physical_treatment = ?, checkout = ? WHERE id = ?";
+        $paramsVisitor = array($physicalTreatment, $checkout, (int)$id);
+        sqlsrv_query($conn, $updateVisitor, $paramsVisitor);
 
-        echo
         session_start();
         $_SESSION['modal_title'] = 'successfull';
         $_SESSION['modal_message'] = 'Patient record updated. You can check it in the visitor history';

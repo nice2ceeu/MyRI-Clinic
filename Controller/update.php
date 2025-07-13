@@ -6,14 +6,12 @@ $fullname = $_POST['fullname'];
 
 $nameParts = explode(',', $fullname);
 $lastname = trim(strtolower($nameParts[0]));
-$firstname = trim(strtolower($nameParts[1]) ?? '');
+$firstname = trim(strtolower($nameParts[1] ?? ''));
 
 if ($firstname == '') {
-    //modal
-    echo
     session_start();
     $_SESSION['modal_title'] = 'Invalid Format';
-    $_SESSION['modal_message'] = 'The Fullname Field Must be(Lastname, Firstname)';
+    $_SESSION['modal_message'] = 'The Fullname Field Must be (Lastname, Firstname)';
     header("Location: ../view/pages/medicalinformation.php");
     exit;
 }
@@ -84,90 +82,39 @@ $vaccine_manufacturer = $_POST['vaccine_manufacturer'];
 $booster = $_POST['booster'];
 $plus_covid_date = $_POST['plus_covid_date'];
 
-$stmt = $conn->prepare("UPDATE medforms SET
+$sql = "UPDATE medforms SET
   firstname=?, lastname=?, gender=?, _date=?, _address=?, birthdate=?, birthplace=?, religion=?, citizenship=?, guardian=?, relationship=?, contact=?,
   adhd=?, asthma=?, anemia=?, bleeding=?, cancer=?, chestpain=?, diabetes=?, fainting=?, fracture=?, hearing_speach=?, heart_condition=?,
-   lung_prob=?, mental_prob=?, migraine=?, seizure=?, tubercolosis=?, hernia=?, kidney_prob=?, vision=?, other=?,
+  lung_prob=?, mental_prob=?, migraine=?, seizure=?, tubercolosis=?, hernia=?, kidney_prob=?, vision=?, other=?,
   specify=?, medication_treatment=?, medication_past=?, current_medication=?, allergy=?, if_yes=?, childhood_illness=?,
   bcg=?, dpt=?, opv=?, hepb=?, measleVac=?, fluVaccine=?, varicella=?, mmr=?, etc=?,
   tetanus=?, vaccineName=?, date_last_given=?, hospitalize_before=?, _year=?, reason=?, family_med_history=?, fem_height=?,
-   fem_weight=?, first_menstrual=?, first_dose_date=?, second_dose_date=?, vaccine_manufacturer=?, booster=?, plus_covid_date=?
-  WHERE id=?");
+  fem_weight=?, first_menstrual=?, first_dose_date=?, second_dose_date=?, vaccine_manufacturer=?, booster=?, plus_covid_date=?
+WHERE id = ?";
 
-$stmt->bind_param(
-    str_repeat("s", 63) . "i",
-    $firstname,
-    $lastname,
-    $gender,
-    $_date,
-    $_address,
-    $birthdate,
-    $birthplace,
-    $religion,
-    $citizenship,
-    $guardian,
-    $relationship,
-    $contact,
-    $adhd,
-    $asthma,
-    $anemia,
-    $bleeding,
-    $cancer,
-    $chestpain,
-    $diabetes,
-    $fainting,
-    $fracture,
-    $hearing_speach,
-    $heart_condition,
-    $lung_prob,
-    $mental_prob,
-    $migraine,
-    $seizure,
-    $tubercolosis,
-    $hernia,
-    $kidney_prob,
-    $vision,
-    $other,
-    $specify,
-    $medication_treatment,
-    $medication_past,
-    $current_medication,
-    $allergy,
-    $if_yes,
-    $childhood_illness,
-    $bcg,
-    $dpt,
-    $opv,
-    $hepb,
-    $measleVac,
-    $fluVaccine,
-    $varicella,
-    $mmr,
-    $etc,
-    $tetanus,
-    $vaccineName,
-    $date_last_given,
-    $hospitalize_before,
-    $_year,
-    $reason,
-    $family_med_history,
-    $fem_height,
-    $fem_weight,
-    $first_menstrual,
-    $first_dose_date,
-    $second_dose_date,
-    $vaccine_manufacturer,
-    $booster,
-    $plus_covid_date,
-    $id
-);
+$params = [
+  $firstname, $lastname, $gender, $_date, $_address, $birthdate, $birthplace, $religion, $citizenship, $guardian, $relationship, $contact,
+  $adhd, $asthma, $anemia, $bleeding, $cancer, $chestpain, $diabetes, $fainting, $fracture, $hearing_speach, $heart_condition,
+  $lung_prob, $mental_prob, $migraine, $seizure, $tubercolosis, $hernia, $kidney_prob, $vision, $other,
+  $specify, $medication_treatment, $medication_past, $current_medication, $allergy, $if_yes, $childhood_illness,
+  $bcg, $dpt, $opv, $hepb, $measleVac, $fluVaccine, $varicella, $mmr, $etc,
+  $tetanus, $vaccineName, $date_last_given, $hospitalize_before, $_year, $reason, $family_med_history, $fem_height,
+  $fem_weight, $first_menstrual, $first_dose_date, $second_dose_date, $vaccine_manufacturer, $booster, $plus_covid_date,
+  $id // final WHERE clause
+];
 
-if ($stmt->execute()) {
-    echo "success";
-} else {
-    //
-    echo "error: " . $stmt->error;
+$stmt = sqlsrv_prepare($conn, $sql, $params);
+
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
 }
 
-$stmt->close();
-$conn->close();
+if (sqlsrv_execute($stmt)) {
+    echo "success";
+} else {
+    echo "error: ";
+    print_r(sqlsrv_errors(), true);
+}
+
+sqlsrv_free_stmt($stmt);
+sqlsrv_close($conn);
