@@ -91,7 +91,7 @@ include('../components/body.php');
   </form>
   <img
     class="absolute h-dvh object-cover w-full"
-    src="../public/ri-img.png "
+    src="/public/ri-img.png "
     alt="" />
 </body>
 
