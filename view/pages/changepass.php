@@ -80,7 +80,7 @@ if (!isset($_SESSION['username'])) {
         <div class="flex items-center gap-5">
             <button class="poppins py-3.5 px-4.5 w-[80%] p-[8px] mt-3 rounded-lg bg-[#06118E] text-amber-50 hover:bg-[#2532CA] shadow-2xl duration-[0.1s] cursor-pointer" type='submit' name='reset-password'>Confirm</button>
             <a class="poppins py-3.5 px-4.5 w-[80%] p-[8px] mt-3 rounded-lg bg-red-500 text-white shadow-2xl duration-[0.1s] cursor-pointer" <?php if ($_SESSION['user_role'] == 'admin') {
-                                                                                                                                                    echo "href='Clinic-Patient.php'";
+                                                                                                                                                    echo "href='clinic-patient.php'";
                                                                                                                                                 } else {
                                                                                                                                                     echo "href='userprofile.php'";
                                                                                                                                                 } ?>>cancel</a>

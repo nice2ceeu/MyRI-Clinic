@@ -12,7 +12,7 @@ if (isset($_POST["submit"])) {
 
     if ($firstname == "" || $lastname == "" || $complaint == "" || $grade == "" || $section == "") {
         echo "<script>alert('Please fill all Fields');
-        window.location.href = '../view/pages/Clinic-Patient.php';
+        window.location.href = '../view/pages/clinic-patient.php';
         </script>";
     } else {
         date_default_timezone_set('Asia/Manila');
@@ -35,12 +35,12 @@ if (isset($_POST["submit"])) {
             session_start();
             $_SESSION['modal_title'] = 'Duplicate Entry';
             $_SESSION['modal_message'] = 'Patient is already checked in.';
-            header("Location: ../view/pages/Clinic-Patient.php");
+            header("Location: ../view/pages/clinic-patient.php");
             exit();
         }
 
         // 📝 Insert patient record
-        
+
         $insertSql = "INSERT INTO visitor (firstname, lastname, complaint, grade, section, checkin, _date) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $insertParams = array($lowfirst, $lowlast, $complaint, $grade, $lowsec, $checkin, $date);
         $insertStmt = sqlsrv_prepare($conn, $insertSql, $insertParams);
@@ -52,7 +52,7 @@ if (isset($_POST["submit"])) {
         session_start();
         $_SESSION['modal_title'] = 'Success';
         $_SESSION['modal_message'] = 'Patient added';
-        header("Location: ../view/pages/Clinic-Patient.php");
+        header("Location: ../view/pages/clinic-patient.php");
         exit();
     }
 }
