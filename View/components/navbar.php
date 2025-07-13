@@ -1,5 +1,36 @@
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+<style>
+  body {
+
+    overflow-x: hidden;
+
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #030841;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: white;
+  }
+
+  #SideBar {
+    position: absolute;
+    overflow-x: hidden;
+  }
+
+  @media (min-width: 768px) {
+    #SideBar {
+      position: fixed;
+    }
+  }
+</style>
+
 <header
   class="bg-primary flex poppins text-3xl justify-between px-7 py-4.5 items-center text-white md:hidden">
   <img
@@ -18,21 +49,21 @@
 
 <nav
   id="SideBar"
-  class="z-50 w-62 md:sm:w-24 lg:w-72 md:h-dvh xl:lg:w-82 translate-x-[50rem]  drop-shadow-2xl md:drop-shadow-none   md:translate-x-0  overflow-y-hidden fixed  duration-500 right-0 top-[-17px] md:top-0 md:left-0 md:block">
+  class="z-50 w-62 md:sm:w-24 lg:w-72 md:h-dvh xl:lg:w-82 translate-x-[50rem]  drop-shadow-2xl md:drop-shadow-none h-full md:translate-x-0 duration-500 right-0 top-1 md:top-0 md:left-0 md:block">
   <main
-    class="grid text-white h-[70%] grid-rows-[50px_1fr_60px] md:h-42 ">
+    class="grid text-white h-full grid-rows-[80px_1fr_80px]">
     <section
       class="row-start-1 invisible md:visible cursor-pointer shadow-2xl bg-secondary flex items-center justify-center text-2xl krona">
       <img
         class="md:block size-12 lg:hidden"
         src="../assets/icons/school-icon.svg"
         alt="school-img" />
-      <h1 class="md:hidden text-3xl lg:block">MyRI Clinic</h1>
+      <h1 class="md:hidden text-4xl font-semibold  lg:block">MyRI Clinic</h1>
     </section>
 
     <!-- navlinks -->
     <section
-      class="poppins  row-start-2 bg-primary flex gap-y-3 flex-col  px-3 py-4 text-lg [&>a>img]:size-6 pt-5 [&>a]:text-[16px] [&>a]:lg:items-center [&>a]:tracking-wide">
+      class="poppins overflow-auto scr row-start-2 bg-primary flex gap-y-3 flex-col  px-3 py-4 text-lg [&>a>img]:size-6 pt-5 [&>a]:text-[16px] [&>a]:lg:items-center [&>a]:tracking-wide">
       <!-- visitor link -->
       <a
         class="flex gap-x-4 px-3.5 py-3.5 leading-6 hover:bg-[#ffffff1f] rounded-lg md:flex md:justify-center lg:justify-start "

@@ -18,7 +18,7 @@ include('../components/navbar.php');
   <div id="bgFade" class="fixed top-0 w-full h-full -z-10  bg-[#5858582f] overflow-auto"></div>
 
   <div class="flex relative">
-    <a class="flex bg-[#06118e]  text-white poppins uppercase font-semibold  w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly text-[max(1vw,1rem)]" href="studentlist.php"><span>Back</span><img class="size-6.5" src="../assets/icons/back-icon.svg" alt="back-icon"></a>
+    <a class="flex bg-[#06118e]  text-white poppins uppercase font-semibold  w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly items-center text-[max(0.5vw,1rem)]" href="studentlist.php"><span>Back</span><img class="size-6.5" src="../assets/icons/back-icon.svg" alt="back-icon"></a>
 
     <!-- edit button -->
     <div class="">
@@ -48,7 +48,7 @@ include('../components/navbar.php');
 
   </div>
 
-  <section class="relative -z-20  mt-5 text-[max(3vw,2rem)] ">
+  <section class="relative -z-20  mt-5 text-[max(2.5vw,2rem)]">
     <h1 class="poppins uppercase font-[500] bg-white ml-12  px-5 inline ">
       student information
     </h1>

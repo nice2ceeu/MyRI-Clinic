@@ -36,7 +36,7 @@ if (isset($_SESSION['username'])) {
   <form
     action="../../Controller/login.php"
     method="POST"
-    class="z-10 gap-5 p-6.5 flex flex-col justify-center shadow-[5px_5px_10px_rgba(0,0,0,0.1)] rounded-lg items-center">
+    class="z-10 gap-5 p-6.5 flex flex-col justify-center  shadow-[5px_5px_10px_rgba(0,0,0,0.1)] rounded-lg items-center">
     <section>
       <h1 class="text-center text-[40px] mb-[8px] poppins">MyRi Clinic</h1>
       <h2 class="text-center mb-[30px] text-[20px] poppins">

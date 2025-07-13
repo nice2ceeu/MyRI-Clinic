@@ -30,19 +30,19 @@ include('../components/navbar.php');
 <section class="md:sm:ml-24  lg:ml-72 md:h-dvh xl:lg:ml-82 overflow-x-hidden uppercase">
 
 
-    <section class="relative mt-5 text-[max(3vw,2rem)] ">
+    <section class="relative mt-5 text-[max(2.5vw,2rem)]">
         <h1 class="poppins uppercase font-[500] bg-white ml-12 px-5 inline z-20 ">
             Medicine Inventory
         </h1>
         <hr class="absolute z-[-1] text-[#acacac] top-1/2 w-full" />
     </section>
 
-    <section class="flex gap-5 mt-5 items-center flex-wrap poppins uppercase  py-3.5  w-full">
+    <section class="flex  mt-5 items-center sm:flex-nowrap flex-wrap poppins uppercase  py-3.5  w-full">
         <form
             action="../../Controller/addmeds.php"
             method="POST"
-            class="mx-8.5 gap-3.5 uppercase flex  flex-wrap w-full md:basis-[73%] ">
-            <section class="relative basis-xm  ">
+            class="mx-8.5 gap-3.5 uppercase flex  sm:flex-nowrap flex-wrap ">
+            <section class="relative basis-[10rem]">
                 <label
                     id="medicine"
                     class="absolute text-nowrap inline top-0 bg-white ml-2 px-1 leading-1"
@@ -56,7 +56,7 @@ include('../components/navbar.php');
                     type="text" />
 
             </section>
-            <section class="relative basis-xm ">
+            <section class="relative basis-[7rem]">
                 <label
                     id="medicine_qty"
                     class="absolute inline top-0 bg-white ml-2 px-1 leading-1"
@@ -101,8 +101,8 @@ include('../components/navbar.php');
 
         <button
             id="view-comsume"
-            class="uppercase bg-primary text-white border-1 rounded-lg py-2.5 px-5  flex gap-5 items-center justify-evenly cursor-pointer">
-            <p class="text-nowrap">view comsume</p>
+            class="uppercase bg-primary ml-auto mr-5 text-white border-1 rounded-lg py-2.5 px-5  flex gap-5 items-center justify-evenly cursor-pointer">
+            <p class="text-nowrap ">view comsume</p>
             <img class="size-5.5" src="../assets/icons/view-icon.svg" alt="" />
         </button>
     </section>

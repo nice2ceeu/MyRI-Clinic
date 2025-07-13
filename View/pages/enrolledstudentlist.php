@@ -32,7 +32,7 @@ include('../components/navbar.php');
 
 
 <main class="md:sm:ml-24 lg:ml-72 md:h-dvh xl:lg:ml-82">
-    <section class="relative mt-5 text-[max(3vw,2rem)] ">
+    <section class="relative mt-5 text-[max(2.5vw,2rem)]">
         <h1 class="poppins uppercase font-[500] bg-white ml-12 px-5 inline z-20 ">
             Enrolled Student's
         </h1>
@@ -42,7 +42,7 @@ include('../components/navbar.php');
     <section class="flex gap-5 mt-5 items-center  flex-wrap poppins uppercase  py-3.5  ">
 
         <form
-            class="mx-8.5 gap-3.5 uppercase flex flex-wrap w-full md:basis-[68%] "
+            class="mx-8.5 gap-3.5 uppercase flex"
             action=""
             method="POST">
 
@@ -83,7 +83,7 @@ include('../components/navbar.php');
 
         <button
             id="file-upload"
-            class="bg-[#06118e] text-nowrap text-white  poppins uppercase flex justify-between gap-2.5 px-10 mx-8.5 cursor-pointer py-2.5 rounded-lg">
+            class="bg-[#06118e] text-nowrap text-white  poppins uppercase flex justify-between gap-2.5 px-10 mx-8.5 cursor-pointer py-2.5  ml-auto rounded-lg">
             Upload a file
             <img src="../assets/icons/file-upload-icon.svg" alt="">
         </button>

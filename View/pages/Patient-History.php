@@ -13,7 +13,7 @@ include('../components/navbar.php');
 
 
 <section class="md:sm:ml-24 lg:ml-72 md:h-dvh xl:lg:ml-82">
-  <section class="relative mt-5 text-[max(3vw,2rem)] ">
+  <section class="relative mt-5 text-[max(2.5vw,2rem)]">
     <h1 class="poppins uppercase font-[500] bg-white ml-12 px-5 inline z-20 ">
       Visitor History
     </h1>
@@ -190,6 +190,7 @@ include('../components/navbar.php');
             $params = array();
           }
 
+<<<<<<< HEAD
           $stmt = sqlsrv_prepare($conn, $query, $params);
           if ($stmt && sqlsrv_execute($stmt)) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
@@ -217,6 +218,99 @@ include('../components/navbar.php');
                 </button>
               </form>
             </td>";
+=======
+          if ($stmt) {
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                $treatment = htmlspecialchars($row['medicine']) ?: htmlspecialchars($row['physical_treatment']);
+                $_firstname = htmlspecialchars($row['firstname']);
+                $_lastname = htmlspecialchars($row['lastname']);
+                if (htmlspecialchars($row['checkout']) == "") {
+                  $status = "On Treatment";
+                } else {
+                  $status = "Treated";
+                }
+                echo "<tr class=''>";
+                echo "<td >" . htmlspecialchars($row['id']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['checkout']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
+                echo "<td>" . $treatment . "</td>";
+                echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
+                echo "<td>" . "<form action='../../Controller/studenthistory.php' method='POST'>
+                          <input type='hidden' name='fname' value='" . $_firstname . "'>
+                          <input type='hidden' name='lname' value='" . $_lastname . "'>
+                          <button class='flex rounded-lg gap-5 px-2 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><p class='hidden text-nowrap lg:block'>View History </p> <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'></button>
+                        </form>" . "</td>";
+                echo "</tr>";
+              }
+            } else {
+              echo "<td colspan='10' class='text-center bg-[#d4d4d40c]'>" . "No Patient Found." . "</td>";
+            }
+
+            $stmt->close();
+          } else {
+            echo "<p>Error preparing the statement: " . $conn->error . "</p>";
+          }
+
+          $conn->close();
+        } else if (isset($_POST['submit'])) {
+          $fullname = $_POST['fullname'];
+          $name = explode(',', $fullname);
+
+          $lastname = strtolower($name[0]);
+          $firstname = strtolower(trim($name[1] ?? ''));
+          if ($firstname == '') {
+            //modal
+            echo "<script>alert('Invalid Format. It should be (Lastname, Firstname)');
+              window.location.href = window.location.pathname;</script>";
+          }
+
+          try {
+            $stmt = $conn->prepare("SELECT * FROM visitor WHERE firstname = ? AND lastname = ? AND checkout!='' order by id desc");
+            $stmt->bind_param("ss", $firstname, $lastname);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                $id = htmlspecialchars($row['id']);
+                $treatment = htmlspecialchars($row['medicine']) ?: htmlspecialchars($row['physical_treatment']);
+                $_firstname = htmlspecialchars($row['firstname']);
+                $_lastname = htmlspecialchars($row['lastname']);
+                if (htmlspecialchars($row['checkout']) == "") {
+                  $status = "On Treatment";
+                } else {
+                  $status = "Treated";
+                }
+                echo "<tr class=''>";
+                echo "<td >" . $id . "</td>";
+                echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['checkout']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
+                echo "<td>" . $treatment . "</td>";
+                echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
+
+                echo "<td>" . "<form action='../../Controller/studenthistory.php' method='POST'>
+                          <input type='hidden' name='fname' value='" . $_firstname . "'>
+                          <input type='hidden' name='lname' value='" . $_lastname . "'>
+                          <button class='flex rounded-lg gap-5 px-2 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><p class='hidden text-nowrap lg:block'>View History </p> <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'></button>
+                        </form>" . "</td>";
+                echo "</tr>";
+              }
+            } else {
+              echo "<tr '>";
+              echo "<td colspan='10' class='text-center bg-[#d4d4d40c]'>" . "Patient Not Found." . "</td>";
+>>>>>>> 067f87f4f27c370a3b912a8e512996bcdc01224f
               echo "</tr>";
             }
           } else {
@@ -237,6 +331,7 @@ include('../components/navbar.php');
           $params = array($firstname, $lastname);
           $stmt = sqlsrv_prepare($conn, $query, $params);
 
+<<<<<<< HEAD
           if ($stmt && sqlsrv_execute($stmt)) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
               $treatment = htmlspecialchars($row['medicine']) ?: htmlspecialchars($row['physical_treatment']);
@@ -264,6 +359,45 @@ include('../components/navbar.php');
               </form>
             </td>";
               echo "</tr>";
+=======
+            try {
+              $query = "SELECT * FROM visitor where checkout != '' order by id desc";
+              $result = $conn->query($query);
+
+              if ($result->num_rows > 0) {
+
+                while ($row = $result->fetch_assoc()) {
+                  $treatment = htmlspecialchars($row['medicine']) ?: htmlspecialchars($row['physical_treatment']);
+                  $_firstname = htmlspecialchars($row['firstname']);
+                  $_lastname = htmlspecialchars($row['lastname']);
+
+                  echo "<tr class=''>";
+                  echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['firstname']) . " " . htmlspecialchars($row['lastname']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['grade']) . " - " . htmlspecialchars($row['section']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['complaint']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['checkin']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['checkout']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['_date']) . "</td>";
+                  echo "<td>" . $treatment . "</td>";
+                  echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
+                  echo "<td>
+                        <form action='../../Controller/studenthistory.php' method='POST'>
+                          <input type='hidden' name='fname' value='" . $_firstname . "'>
+                          <input type='hidden' name='lname' value='" . $_lastname . "'>
+                          <button class='flex rounded-lg gap-5 px-2 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><p class='hidden text-nowrap lg:block'>View History </p> <img class='lg:hidden size-5 block' src='../assets/icons/view-icon.svg'></button>
+                        </form>
+                  </td>";
+                  echo "</tr>";
+                }
+              } else {
+                echo "<tr>";
+                echo "<td colspan='10' class='text-center bg-[#d4d4d40c]'>" . "No Current Patient." . "</td>";
+                echo "</tr>";
+              }
+            } catch (mysqli_sql_exception $e) {
+              echo "Error: " . $e->getMessage();
+>>>>>>> 067f87f4f27c370a3b912a8e512996bcdc01224f
             }
           } else {
             echo "<tr><td colspan='10' class='text-center bg-[#d4d4d40c]'>Patient Not Found.</td></tr>";

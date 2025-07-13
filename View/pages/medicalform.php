@@ -27,7 +27,7 @@ include('../components/navbar.php');
 ?>
 
 <section class="overflow-x-hidden md:sm:ml-24 lg:ml-72 md:h-dvh xl:lg:ml-82">
-  <section class="relative my-5 text-[max(3vw,2rem)] ">
+  <section class="relative my-5 text-[max(2.5vw,2rem)]">
     <h1 class="poppins uppercase font-[500] bg-white ml-12 px-5 inline z-20 ">
       student information
     </h1>
