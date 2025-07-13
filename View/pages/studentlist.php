@@ -227,23 +227,6 @@ include('../components/navbar.php');
                     echo "<td>" . htmlspecialchars($row['guardian']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['contact']) . "</td>";
 
-<<<<<<< HEAD
-                    echo   "<td><form action='../pages/medicalinformation.php' method='POST'>
-                  <input type='hidden' name='id' value='" . $_id . "'>
-                  <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-form'><span>View Form</span></button>
-                  </form></td>";
-
-                    echo   "<td><form action='../../controller/studenthistory.php' method='POST'>
-                  <input type='hidden' name='fname' value='" . $_firstname . "'>
-                  <input type='hidden' name='lname' value='" . $_lastname . "'>
-                  <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-primary cursor-pointer text-white' type='submit' name='view-history'><span>View History</span></button>
-                  </form></td>";
-
-                    echo "<td><form action='../../controller/delete.php' method='POST'>
-                  <input type='hidden' name='id' value='$_id'>
-                  <button class='flex rounded-lg gap-5 px-3 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='form-del'>REMOVE FORM</button>
-                  </form></td>";
-=======
                     echo   "<td><form  action='../pages/medicalinformation.php' method='POST'>
                         
                         <input type='hidden' name='id' value='" . $_id . "'>
@@ -262,7 +245,6 @@ include('../components/navbar.php');
                                     <input type='hidden' name='id' value='$_id'>
                                     <button class='flex rounded-lg gap-5 px-3 py-2.5 text-nowrap bg-red-500 cursor-pointer text-white' type='submit' name='form-del'>REMOVE FORM</button>
                                 </form></td>";
->>>>>>> 067f87f4f27c370a3b912a8e512996bcdc01224f
 
                     echo "</tr>";
                   }

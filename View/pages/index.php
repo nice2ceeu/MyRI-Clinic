@@ -69,7 +69,7 @@ if (isset($_SESSION['username'])) {
       <p class="inline px-2  z-20">OR</p>
       <hr class="absolute right-0  top-3 w-24 ">
     </section>
-    <p>Don't Have An Account? <a href="./signIn.php" class="text-blue-500">Sign up</a></p>
+    <p>Don't Have An Account? <a href= "/view/pages/signIn.php" class="text-blue-500">Sign up</a></p>
   </form>
 
   <img
