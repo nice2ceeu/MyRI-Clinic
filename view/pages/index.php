@@ -59,7 +59,7 @@ if (isset($_SESSION['username'])) {
       autocomplete="false"
       required />
     <button
-      action="submit"
+      type="submit"
       name="submit"
       class="poppins py-3.5 px-4.5 w-[80%] p-[8px] mt-3 rounded-lg bg-[#06118E] text-amber-50 hover:bg-[#2532CA] shadow-2xl duration-[0.1s] cursor-pointer">
       SIGN IN

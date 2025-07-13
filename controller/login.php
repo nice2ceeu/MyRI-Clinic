@@ -1,6 +1,6 @@
 <?php
 echo "Login script is being accessed.";
-echo __DIR__;
+
 include(__DIR__ . '/../config/database.php');
 if (isset($_POST["submit"])) {
     $username = $_POST["username"];
