@@ -343,3 +343,4 @@ if (isset($_POST['download-stud'])) {
         exit; // Ensure nothing else runs after file is sent
     }
 }
+?>

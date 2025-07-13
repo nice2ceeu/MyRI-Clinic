@@ -9,3 +9,4 @@ if (isset($_POST["submit"])) {
     header("Location: ../View/pages/index.php");
     exit();
 }
+?>

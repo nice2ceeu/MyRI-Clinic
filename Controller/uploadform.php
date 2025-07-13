@@ -105,3 +105,4 @@ if (isset($_POST['upload'])) {
     <h1 class="text-6xl font-bold poppins">Upload file Failed</h1>
 </div>';
 }
+?>

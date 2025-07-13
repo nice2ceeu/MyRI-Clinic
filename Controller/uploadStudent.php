@@ -75,3 +75,4 @@ if (isset($_POST['upload'])) {
         echo "File upload failed.";
     }
 }
+?>

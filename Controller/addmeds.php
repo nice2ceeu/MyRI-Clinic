@@ -58,3 +58,4 @@ if (isset($_POST['add'])) {
         echo "Error: " . $e->getMessage();
     }
 }
+?>

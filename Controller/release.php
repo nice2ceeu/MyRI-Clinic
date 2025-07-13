@@ -99,3 +99,4 @@ if (isset($_POST['release'])) {
         exit;
     }
 }
+?>
