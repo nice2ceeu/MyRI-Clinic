@@ -127,7 +127,7 @@ include('../components/body.php');
             class="rounded-bl-2xl  md:rounded-none row-start-3 bg-secondary poppins   flex text-lg w-full items-center  gap-x-5">
 
             <!-- logout -->
-            <form class="w-full px-3.5  " action="../../Controller/logout.php" method="POST">
+            <form class="w-full px-3.5  " action="../../controller/logout.php" method="POST">
                 <button
                     id="logout-btn"
                     type="submit"
