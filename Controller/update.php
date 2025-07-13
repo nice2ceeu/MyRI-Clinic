@@ -1,5 +1,5 @@
 <?php
-include('../config/database.php');
+include_once(__DIR__ . '/../config/database.php');
 
 $id = $_POST['id'];
 $fullname = $_POST['fullname'];

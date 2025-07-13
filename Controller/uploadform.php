@@ -4,7 +4,7 @@ require '../vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
-include('../config/database.php');
+include_once(__DIR__ . '/../config/database.php');
 
 if (isset($_POST['upload'])) {
     if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {

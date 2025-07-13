@@ -1,5 +1,5 @@
 <?php
-include('../config/database.php');
+include_once(__DIR__ . '/../config/database.php');
 
 if (isset($_POST['reset'])) {
     $id = $_POST['id'];

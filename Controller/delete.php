@@ -1,5 +1,5 @@
 <?php
-include("../config/database.php"); // Assumes $conn from sqlsrv_connect()
+include_once(__DIR__ . '/../config/database.php'); // Assumes $conn from sqlsrv_connect()
 
 if (isset($_POST['delete'])) {
     $id = $_POST['id'];

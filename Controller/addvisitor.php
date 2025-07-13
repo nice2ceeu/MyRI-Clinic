@@ -1,6 +1,6 @@
 <?php
 
-include("../config/database.php"); // should contain sqlsrv_connect()
+include_once(__DIR__ . '/../config/database.php'); // should contain sqlsrv_connect()
 include("../View/modal/alert.php");
 
 if (isset($_POST["submit"])) {

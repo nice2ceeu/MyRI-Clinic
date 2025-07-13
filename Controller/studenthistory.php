@@ -21,7 +21,7 @@ include('../View/components/body.php');
         </thead>
         <tbody class="text-left [&>tr]:odd:bg-[#a8a8a829] [&>tr>td]:px-4 [&>tr>td]:py-4.5">
             <?php
-            include('../config/database.php');
+           include_once(__DIR__ . '/../config/database.php');
 
             if (isset($_POST['view-history'])) {
                 $firstname = $_POST['fname'];

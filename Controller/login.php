@@ -1,5 +1,5 @@
 <?php
-include("../config/database.php"); // assumes $conn is your sqlsrv_connect() connection
+include_once(__DIR__ . '/../config/database.php'); // assumes $conn is your sqlsrv_connect() connection
 
 if (isset($_POST["submit"])) {
     $username = $_POST["username"];

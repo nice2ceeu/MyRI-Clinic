@@ -1,5 +1,5 @@
 <?php
-include('../config/database.php'); // assumes $conn is sqlsrv_connect()
+include_once(__DIR__ . '/../config/database.php'); // assumes $conn is sqlsrv_connect()
 
 if (isset($_POST['add'])) {
     $medName = $_POST['medicine_name'];
