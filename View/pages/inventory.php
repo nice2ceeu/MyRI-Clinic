@@ -39,7 +39,7 @@ include('../components/navbar.php');
 
     <section class="flex  mt-5 items-center sm:flex-nowrap flex-wrap poppins uppercase  py-3.5  w-full">
         <form
-            action="../../controller/addmeds.php"
+            action="../../Controller/addmeds.php"
             method="POST"
             class="mx-8.5 gap-3.5 uppercase flex  sm:flex-nowrap flex-wrap ">
             <section class="relative basis-[10rem]">
@@ -237,7 +237,7 @@ include('../components/navbar.php');
 
                                 echo "<td>" . $row['issued'] . "</td>";
                                 echo "<td>
-                        <form action='../../controller/delete.php' method='POST'>
+                        <form action='../../Controller/delete.php' method='POST'>
                             <input type='hidden' name='id' value='$_id'>
                             <button class='flex rounded-lg gap-5 px-7 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete'>
                                 <span>Delete</span>
@@ -282,7 +282,7 @@ include('../components/navbar.php');
 
                                 echo "<td>" . $row['issued'] . "</td>";
                                 echo "<td>
-                        <form action='../../controller/delete.php' method='POST'>
+                        <form action='../../Controller/delete.php' method='POST'>
                             <input type='hidden' name='id' value='$_id'>
                             <button class='flex rounded-lg gap-5 px-7 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete'>
                                 <span>Delete</span>
