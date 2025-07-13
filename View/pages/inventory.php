@@ -103,7 +103,7 @@ include('../components/navbar.php');
             id="view-comsume"
             class="uppercase bg-primary ml-auto mr-5 text-white border-1 rounded-lg py-2.5 px-5  flex gap-5 items-center justify-evenly cursor-pointer">
             <p class="text-nowrap ">view comsume</p>
-            <img class="size-5.5" src="../assets/icons/view-icon.svg" alt="" />
+            <img class="size-5.5" src="../assets/iconsView-icon.svg" alt="" />
         </button>
     </section>
 

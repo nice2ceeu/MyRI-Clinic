@@ -28,7 +28,7 @@ if (isset($_SESSION['username'])) {
   <title>MyRI Clinic</title>
   <link href="../style/output.css" rel="stylesheet" />
   <link href="../style/index.css" rel="stylesheet" />
-  <link rel="icon" type="/favicon.svg" href="../../view/assets/icons/school-icon.svg">
+  <link rel="icon" type="/favicon.svg" href="../../View/assets/icons/school-icon.svg">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
@@ -69,7 +69,7 @@ if (isset($_SESSION['username'])) {
       <p class="inline px-2  z-20">OR</p>
       <hr class="absolute right-0  top-3 w-24 ">
     </section>
-    <p>Don't Have An Account? <a href="/view/pages/signIn.php" class="text-blue-500">Sign up</a></p>
+    <p>Don't Have An Account? <a href="View/pages/signIn.php" class="text-blue-500">Sign up</a></p>
   </form>
 
   <img
