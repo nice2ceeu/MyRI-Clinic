@@ -1,4 +1,10 @@
+
+
 <?php
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(403);
+    exit('🚫 Forbidden: Direct access not allowed.');
+}
 include_once(__DIR__ . '/../config/database.php'); // assumes $conn is your sqlsrv_connect() connection
 
 if (isset($_POST["submit"])) {
