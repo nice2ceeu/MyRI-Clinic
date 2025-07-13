@@ -21,6 +21,7 @@ if (isset($_POST["submit"])) {
             if ($user) {
                 if (password_verify($password, $user['password'])) {
                     session_start();
+                    echo $_SESSION['id'];
                     $_SESSION['id'] = $user['id'];
                     $_SESSION['username'] = $user['username'];
                     $_SESSION['firstname'] = $user['firstname'];

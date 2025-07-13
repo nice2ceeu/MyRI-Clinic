@@ -45,18 +45,3 @@ if (!$conn) {
     die(print_r(sqlsrv_errors(), true));
 }
 
-$sql = "SELECT TOP 1 * FROM admin";
-$stmt = sqlsrv_query($conn, $sql);
-
-if ($stmt === false) {
-    die("Query failed: " . print_r(sqlsrv_errors(), true));
-}
-
-$row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-if ($row) {
-    echo "<pre>";
-    print_r($row);
-    echo "</pre>";
-} else {
-    echo "No data found.";
-}
