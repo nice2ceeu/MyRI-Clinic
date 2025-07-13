@@ -4,7 +4,7 @@ echo __DIR__;
 include(__DIR__ . '/../config/database.php');
 if (isset($_POST["submit"])) {
     $username = $_POST["username"];
-    $password = $_POST["password"];
+    $password = $_POST["password"]; 
 
     try {
         $sql = "SELECT * FROM admin WHERE username = ?";
