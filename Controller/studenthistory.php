@@ -3,15 +3,7 @@ include('../View/components/body.php');
 ?>
 
 <nav class="poppins uppercase font-semibold text-white text-center py-5 bg-[#06118e] text-[max(2vw,3rem)] w-full">Visit History</nav>
-<<<<<<< HEAD
-<a class="flex bg-[#06118e] poppins uppercase font-semibold text-white w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly text-[max(1vw,1rem)]" href="#" onclick="goBack()">
-    <span>Back</span>
-    <img src="../View/assets/icons/back-icon.svg" alt="back-icon">
-</a>
-
-=======
 <a class="flex bg-[#06118e] poppins uppercase font-semibold text-white w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly items-center text-[max(0.5vw,1rem)]" href="#" onclick="goBack()"><span>Back</span><img src="../View/assets/icons/back-icon.svg" alt="back-icon"></a>
->>>>>>> 067f87f4f27c370a3b912a8e512996bcdc01224f
 <main class="uppercase mt-22 px-8.5">
     <table class="w-full poppins">
         <thead class="[&>tr>th]:px-4 text-left [&>tr>th]:pb-22">
