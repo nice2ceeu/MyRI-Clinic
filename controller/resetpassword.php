@@ -48,7 +48,7 @@ if (isset($_POST['reset-password'])) {
 
                         exit;
                     } else {
-                        echo "<script>window.location.href = '../view/pages/clinic=patient.php'</script>";
+                        echo "<script>window.location.href = '../view/pages/clinic-patient.php'</script>";
                         exit;
                     }
                 } else {
