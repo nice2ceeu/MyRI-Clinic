@@ -43,7 +43,7 @@ if (isset($_POST['reset-password'])) {
                     session_start();
                     $_SESSION['modal_title'] = 'Success';
                     $_SESSION['modal_message'] = 'Password Successfully Changed!';
-                    echo "<script>window.location.href = 'userprofile.php'</script>";
+                    echo "<script>window.location.href = '../view/pages/userprofile.php'</script>";
                     
                     exit;
                 } else {
@@ -53,7 +53,7 @@ if (isset($_POST['reset-password'])) {
                 session_start();
                 $_SESSION['modal_title'] = 'Alert';
                 $_SESSION['modal_message'] = 'Current Password does not match our records.';
-                echo "<script>window.location.href = 'changepass.php'</script>";
+                echo "<script>window.location.href = '../view/pages/changepass.php'</script>";
                 
                 exit;
             }
@@ -61,14 +61,14 @@ if (isset($_POST['reset-password'])) {
             session_start();
             $_SESSION['modal_title'] = 'Alert';
             $_SESSION['modal_message'] = 'User not found.';
-            echo "<script>window.location.href = 'changepass.php'</script>";
+            echo "<script>window.location.href = '../view/pages/changepass.php'</script>";
             exit;
         }
     } else {
         session_start();
         $_SESSION['modal_title'] = 'Alert';
         $_SESSION['modal_message'] = 'Passwords must match and be longer than 8 characters.';
-        echo "<script>window.location.href = 'changepass.php'</script>";
+        echo "<script>window.location.href = '../view/pages/changepass.php'</script>";
         exit;
     }
 }
