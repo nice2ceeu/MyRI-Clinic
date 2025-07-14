@@ -69,7 +69,7 @@ if (isset($_POST['upload'])) {
             $_SESSION['modal_message'] = 'All student records uploaded successfully.';
         }
 
-        header("Location: ../../View/pages/enrolledstudentlist.php");
+        header("Location: ../../view/pages/enrolledstudentlist.php");
         exit;
     } else {
         echo "File upload failed.";
