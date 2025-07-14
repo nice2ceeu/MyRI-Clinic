@@ -44,4 +44,4 @@ if (!$conn) {
     echo "❌ Connection failed.<br>";
     die(print_r(sqlsrv_errors(), true));
 }
-
+echo "connectes";
