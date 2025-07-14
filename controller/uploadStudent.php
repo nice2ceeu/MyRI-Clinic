@@ -29,7 +29,8 @@ if (isset($_POST['upload'])) {
                 session_start();
                 $_SESSION['modal_title'] = 'Invalid File Format';
                 $_SESSION['modal_message'] = "Row $index is missing required data (Firstname, Lastname, Username).";
-                header("Location: ../../View/pages/enrolledstudentlist.php");
+                echo "<script>window.location.href = '../view/pages/enrolledstudentlist.php';</script>";
+                
                 exit;
             }
 
@@ -69,7 +70,7 @@ if (isset($_POST['upload'])) {
             $_SESSION['modal_message'] = 'All student records uploaded successfully.';
         }
 
-        header("Location: ../../view/pages/enrolledstudentlist.php");
+        echo "<script>window.location.href = '../view/pages/enrolledstudentlist.php';</script>";
         exit;
     } else {
         echo "File upload failed.";
