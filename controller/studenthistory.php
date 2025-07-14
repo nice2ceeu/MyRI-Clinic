@@ -65,7 +65,7 @@ include('../view/components/body.php');
                     session_start();
                     $_SESSION['modal_title'] = 'Alert';
                     $_SESSION['modal_message'] = 'No History found';
-                     echo "<script>window.location.href = 'studentlist.php'</script>";
+                     echo "<script>window.location.href = '../view/pages/studentlist.php'</script>";
                     
                     exit;
                 }
