@@ -1,13 +1,10 @@
-
 <?php
 session_start();
-include('../components/body.php');
-
 if (!isset($_SESSION['username'])) {
-    echo "<script>window.location.href = 'index.php';</script>";
+    echo "<script>window.location.href = 'index.php'</script>";
     exit();
 } else {
-
+    include('../components/body.php');
     include('../../config/database.php');
 
     $firstname = $_SESSION['firstname'];
