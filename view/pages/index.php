@@ -1,5 +1,5 @@
 <?php
-echo "👉 login controller reached<br>";
+
 
 session_start();
 
