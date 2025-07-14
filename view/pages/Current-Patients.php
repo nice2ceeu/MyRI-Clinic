@@ -236,7 +236,7 @@ include('../components/navbar.php');
                         echo "Error: " . $e->getMessage();
                     }
                 } else if (isset($_POST['submit'])) {
-                    include('../config/database.php');
+                    include('../../config/database.php');
                     $fullname = $_POST['fullname'];
                     $name = explode(',', $fullname);
 
@@ -331,7 +331,7 @@ include('../components/navbar.php');
                     </h1>
                     <img class='absolute right-1.5 top-1.5 invert cursor-pointer' onclick='hidePopup()' src='../assets/icons/close-icon.svg'>
 
-                    <form class='text-nowrap relative' action='../../Controller/release.php' method='POST'>
+                    <form class='text-nowrap relative' action='../../controller/release.php' method='POST'>
                         <div class='flex items-center gap-2'>
                             <input class='appearance-none checked:bg-[#06118e8a] w-5 h-5 border border-gray-500' type='radio' id='with-medicine' name='treatment' value='yes' onclick='toggleMedSection()' required>
                             <label for='with-medicine'>Medicinal Treatment</label>
