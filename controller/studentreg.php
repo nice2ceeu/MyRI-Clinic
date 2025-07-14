@@ -13,7 +13,7 @@ if (isset($_POST['register'])) {
         session_start();
         $_SESSION['modal_title'] = 'Alert';
         $_SESSION['modal_message'] = 'Password too short. Must be greater than 8 characters long.';
-        echo "<script>window.location.href = '../view/pages/signIn.ph'</script>";
+        echo "<script>window.location.href = '../view/pages/signIn.php'</script>";
         exit;
     }
 
@@ -21,7 +21,7 @@ if (isset($_POST['register'])) {
         session_start();
         $_SESSION['modal_title'] = 'Alert';
         $_SESSION['modal_message'] = 'Passwords do not match. Please try again.';
-        echo "<script>window.location.href = '../view/pages/signIn.ph'</script>";
+        echo "<script>window.location.href = '../view/pages/signIn.php'</script>";
 
         exit;
     }
@@ -44,7 +44,7 @@ if (isset($_POST['register'])) {
             $_SESSION['modal_title'] = 'Alert';
             $_SESSION['modal_message'] = 'Already Registered. Please sign in.';
 
-            echo "<script>window.location.href = '../view/pages/index.ph'</script>";
+            echo "<script>window.location.href = '../view/pages/index.php'</script>";
             exit;
         } else {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -60,7 +60,7 @@ if (isset($_POST['register'])) {
             $_SESSION['modal_title'] = 'Success';
             $_SESSION['modal_message'] = 'Registration successful. You may now sign in.';
 
-            echo "<script>window.location.href = '../view/pages/index.ph'</script>";
+            echo "<script>window.location.href = '../view/pages/index.php'</script>";
             exit;
         }
     }
@@ -69,7 +69,7 @@ if (isset($_POST['register'])) {
         session_start();
         $_SESSION['modal_title'] = 'Alert';
         $_SESSION['modal_message'] = 'The student is not currently enrolled. Please contact the administrator.';
-        echo "<script>window.location.href = '../view/pages/signIn.ph'</script>";
+        echo "<script>window.location.href = '../view/pages/signIn.php'</script>";
 
         exit;
     }

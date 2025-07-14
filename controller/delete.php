@@ -30,6 +30,7 @@ if (isset($_POST['delete'])) {
     $stmt = sqlsrv_prepare($conn, $sql, $params);
 
     if ($stmt && sqlsrv_execute($stmt)) {
+        
         session_start();
         $_SESSION['modal_title'] = 'Alert';
         $_SESSION['modal_message'] = 'A record is removed successfully.';
