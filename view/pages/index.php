@@ -2,7 +2,7 @@
 
 session_start();
 
-include("../../view/modal/alert.php");
+include("/view/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
   $msg = $_SESSION['modal_message'];
   $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -18,7 +18,7 @@ if (isset($_SESSION['username'])) {
   header("Location: index.php");
   exit();
 }
-
+include('/config/database.php');
   
 ?>
 
