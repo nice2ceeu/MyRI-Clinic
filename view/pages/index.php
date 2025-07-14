@@ -18,7 +18,7 @@ if (isset($_SESSION['username'])) {
   exit();
 }
 
-  include("../../config/database.php");
+  include("/config/database.php");
 ?>
 
 <!doctype html>
