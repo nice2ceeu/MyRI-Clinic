@@ -1,6 +1,6 @@
 <?php
 
-include(__DIR__ . '/../config/database.php');
+include('/config/database.php');
 
 if (isset($_POST["submit"])) {
     $username = $_POST["username"];
