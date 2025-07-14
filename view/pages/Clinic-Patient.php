@@ -14,10 +14,10 @@ if (isset($_SESSION['modal_message'])) {
   unset($_SESSION['modal_message'], $_SESSION['modal_title']);
 }
 
-if (!isset($_SESSION['username'])) {
-    echo "<script>window.location.href = 'index.php'</script>";
-  exit();
-}
+// if (!isset($_SESSION['username'])) {
+//     echo "<script>window.location.href = 'index.php'</script>";
+//   exit();
+// }
 
 ?>
 <?php
