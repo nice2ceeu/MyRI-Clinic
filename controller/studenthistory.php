@@ -1,11 +1,15 @@
 <?php
-include('../View/components/body.php');
+if (!isset($_SESSION['username'])) {
+    echo "<script>window.location.href = 'index.php'</script>";
+    exit();
+}
+include('../view/components/body.php');
 ?>
 
 <nav class="poppins uppercase font-semibold text-white text-center py-5 bg-[#06118e] text-[max(2vw,3rem)] w-full">Visit History</nav>
 <a class="flex bg-[#06118e] poppins uppercase font-semibold text-white w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly text-[max(1vw,1rem)]" href="#" onclick="goBack()">
     <span>Back</span>
-    <img src="../View/assets/icons/back-icon.svg" alt="back-icon">
+    <img src="../view/assets/icons/back-icon.svg" alt="back-icon">
 </a>
 
 <main class="uppercase mt-22 px-8.5">
