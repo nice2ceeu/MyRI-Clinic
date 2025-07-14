@@ -45,7 +45,7 @@ if (isset($_POST["submit"])) {
                 session_start();
                 $_SESSION['modal_title'] = 'Alert';
                 $_SESSION['modal_message'] = 'User not found';
-                echo "<script>location.href='/view/pages/index.php';</script>";
+                echo "<script>location.href='../view/pages/index.php';</script>";
                 exit();
             }
         } else {

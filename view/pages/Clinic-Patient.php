@@ -2,7 +2,7 @@
 
 session_start();
 
-include("../modal/alert.php");
+include("../../view/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
   $msg = $_SESSION['modal_message'];
   $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -15,7 +15,7 @@ if (isset($_SESSION['modal_message'])) {
 }
 
 if (!isset($_SESSION['username'])) {
-  echo "<script>window.location.href = 'index.php'</script>";
+    echo "<script>window.location.href = 'index.php'</script>";
   exit();
 }
 
@@ -34,7 +34,7 @@ include('../components/navbar.php');
   </section>
   <!-- visitor form  -->
   <form
-    action="../../Controller/addvisitor.php"
+    action="../../controller/addvisitor.php"
     method="POST"
     class="px-8.5 mt-5 gap-3.5 uppercase flex justify-center flex-wrap lg:flex-nowrap min-[200px]:w-[90%]">
 
