@@ -1,5 +1,5 @@
 <?php
-include('../../View/components/body.php');
+include('../../view/components/body.php');
 session_start();
 
 if (!isset($_SESSION['username'])) {
