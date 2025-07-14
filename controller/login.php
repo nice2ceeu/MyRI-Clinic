@@ -1,7 +1,7 @@
 <?php
-echo "👉 login controller reached<br>";
+
 include('/config/database.php');
-echo "👉 login controller reached<br>";
+
 if (isset($_POST["submit"])) {
     $username = $_POST["username"];
     $password = $_POST["password"]; 
