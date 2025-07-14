@@ -14,7 +14,7 @@ if (isset($_POST['download'])) {
 
     if ($stmt && ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC))) {
         // Sanitize values
-        echo $_firstname = htmlspecialchars($row['firstname']);
+        $_firstname = htmlspecialchars($row['firstname']);
         $_lastname = htmlspecialchars($row['lastname']);
         $gender = htmlspecialchars($row['gender']);
         $_date = htmlspecialchars($row['_date']);
@@ -184,7 +184,7 @@ if (isset($_POST['download-stud'])) {
 
     if ($stmt && ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC))) {
         // Sanitize values
-        echo $_firstname = htmlspecialchars($row['firstname']);
+        $_firstname = htmlspecialchars($row['firstname']);
         $_lastname = htmlspecialchars($row['lastname']);
         $gender = htmlspecialchars($row['gender']);
         $_date = htmlspecialchars($row['_date']);
