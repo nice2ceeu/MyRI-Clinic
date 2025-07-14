@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include("../../View/modal/alert.php");
+include("../../view/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
   $msg = $_SESSION['modal_message'];
   $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -15,7 +15,7 @@ if (isset($_SESSION['modal_message'])) {
 
 if (isset($_SESSION['username'])) {
   if ($_SESSION['user_role'] != "admin") {
-    
+
     echo "<script>window.location.href = 'userpage.php'</script>";
   } else if ($_SESSION['user_role'] != "student") {
     echo "<script>window.location.href = 'index.php'</script>";
@@ -29,7 +29,7 @@ include('../components/body.php');
 
 <body class="flex items-center justify-center w-lvw h-dvh">
   <form
-    action="../../Controller/studentreg.php"
+    action="../../controller/studentreg.php"
     method="POST"
     class="z-10 gap-5 p-6.5 flex flex-col flex-wrap justify-center shadow-[5px_5px_10px_rgba(0,0,0,0.1)] md:w-88 rounded-lg [&>input]:uppercase items-center">
     <section>

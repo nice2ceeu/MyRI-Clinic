@@ -67,7 +67,7 @@ include('../view/components/body.php');
             echo "Error: " . $e->getMessage();
         }
     } else {
-        include('../View/components/body.php');
+        include('../view/components/body.php');
 
     ?>
 <tbody

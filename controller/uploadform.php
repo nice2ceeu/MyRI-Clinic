@@ -97,11 +97,11 @@ if (isset($_POST['upload'])) {
     exit;
 } else {
     echo '
-<a class="flex bg-[#06118e] poppins uppercase font-semibold text-white w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly text-[max(1vw,1rem)]" href="../View/pages/studentlist.php" ><span>Back</span><img src="../View/assets/icons/back-icon.svg" alt="back-icon"></a>
+<a class="flex bg-[#06118e] poppins uppercase font-semibold text-white w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly text-[max(1vw,1rem)]" href="../view/pages/studentlist.php" ><span>Back</span><img src="../view/assets/icons/back-icon.svg" alt="back-icon"></a>
 
 <div class="flex flex-col gap-5 items-center justify-center overflow-hidden h-[30rem]">
-    <img class="absolute top-20 size-20 animate-spin duration-500" src="../View/assets/icons/spin-icon.svg" alt="alert-icon">
-    <img class="size-20 animate-pulse duration-500" src="../View/assets/icons/alert-icon.svg" alt="alert-icon">
+    <img class="absolute top-20 size-20 animate-spin duration-500" src="../view/assets/icons/spin-icon.svg" alt="alert-icon">
+    <img class="size-20 animate-pulse duration-500" src="../view/assets/icons/alert-icon.svg" alt="alert-icon">
     <h1 class="text-6xl font-bold poppins">Upload file Failed</h1>
 </div>';
 }

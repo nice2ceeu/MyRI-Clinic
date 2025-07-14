@@ -6,11 +6,11 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 session_start();
 
 if (!isset($_SESSION['username'])) {
-   echo "<script>window.location.href = 'index.php'</script>";
+    echo "<script>window.location.href = 'index.php'</script>";
     exit();
 }
 
-include("../../View/modal/alert.php");
+include("../../view/modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
     $msg = $_SESSION['modal_message'];
     $title = $_SESSION['modal_title'] ?? 'Notice';
@@ -39,7 +39,7 @@ include('../components/navbar.php');
 
     <section class="flex gap-5 mt-5 items-center flex-wrap poppins uppercase  py-3.5  w-full">
         <form
-            action="../../Controller/addmeds.php"
+            action="../../controller/addmeds.php"
             method="POST"
             class="mx-8.5 gap-3.5 uppercase flex  flex-wrap w-full md:basis-[73%] ">
             <section class="relative basis-xm  ">
@@ -237,7 +237,7 @@ include('../components/navbar.php');
 
                                 echo "<td>" . $row['issued'] . "</td>";
                                 echo "<td>
-                        <form action='../../Controller/delete.php' method='POST'>
+                        <form action='../../controller/delete.php' method='POST'>
                             <input type='hidden' name='id' value='$_id'>
                             <button class='flex rounded-lg gap-5 px-7 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete'>
                                 <span>Delete</span>
@@ -282,7 +282,7 @@ include('../components/navbar.php');
 
                                 echo "<td>" . $row['issued'] . "</td>";
                                 echo "<td>
-                        <form action='../../Controller/delete.php' method='POST'>
+                        <form action='../../controller/delete.php' method='POST'>
                             <input type='hidden' name='id' value='$_id'>
                             <button class='flex rounded-lg gap-5 px-7 py-2.5 bg-red-500 cursor-pointer text-white' type='submit' name='delete'>
                                 <span>Delete</span>
