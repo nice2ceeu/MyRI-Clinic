@@ -4,11 +4,11 @@ session_start();
 
 
 if (!isset($_SESSION['username'])) {
-    header("Location: index.php");
+    echo "<script>window.location.href = 'index.php'</script>";
     exit();
 }
 
-include("../../View/modal/alert.php");
+include("../modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
     $msg = $_SESSION['modal_message'];
     $title = $_SESSION['modal_title'] ?? 'Notice';
