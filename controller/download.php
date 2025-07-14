@@ -330,7 +330,7 @@ if (isset($_POST['download-stud'])) {
         $template->setValue('plus_covid_date', $plus_covid_date);
 
         $filename = $_lastname . $_firstname . ".docx";
-        $filepath = '../View/pages/downloads/' . $filename;
+        $filepath = '../view/pages/downloads/' . $filename;
         $template->saveAs($filepath);
 
         // Force file download
