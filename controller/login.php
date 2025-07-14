@@ -21,7 +21,6 @@ if (isset($_POST["submit"])) {
             if ($user) {
                 if (password_verify($password, $user['password'])) {
                     session_start();
-                    echo $_SESSION['id'];
                     $_SESSION['id'] = $user['id'];
                     $_SESSION['username'] = $user['username'];
                     $_SESSION['firstname'] = $user['firstname'];
@@ -29,24 +28,24 @@ if (isset($_POST["submit"])) {
                     $_SESSION['user_role'] = $user['user_role'];
 
                     if ($_SESSION['user_role'] === "admin") {
-                        header("Location: /view/pages/clinic-patient.php");
+                        echo "<script>location.href='/view/pages/clinic-patient.php';</script>";
                         exit();
                     } elseif ($_SESSION['user_role'] === "student") {
-                        header("Location: /view/pages/userprofile.php");
+                        echo "<script>location.href='/view/pages/userprofile.php';</script>";
                         exit();
                     }
                 } else {
                     session_start();
                     $_SESSION['modal_title'] = 'Alert';
                     $_SESSION['modal_message'] = 'Invalid Password';
-                    header("Location: /view/pages/index.php");
+                    echo "<script>location.href='/view/pages/index.php';</script>";
                     exit();
                 }
             } else {
                 session_start();
                 $_SESSION['modal_title'] = 'Alert';
                 $_SESSION['modal_message'] = 'User not found';
-                header("Location: /view/pages/index.php");
+                echo "<script>location.href='/view/pages/index.php';</script>";
                 exit();
             }
         } else {
