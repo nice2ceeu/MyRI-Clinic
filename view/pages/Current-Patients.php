@@ -3,8 +3,8 @@
 
 include("../components/body.php");
 
-
 session_start();
+
 include("../modal/alert.php");
 if (isset($_SESSION['modal_message'])) {
     $msg = $_SESSION['modal_message'];
@@ -237,7 +237,7 @@ if (isset($_POST['current-filter'])) {
         echo "Error: " . $e->getMessage();
     }
 } else if (isset($_POST['submit'])) {
-    include('../../config/database.php');
+    include('../config/database.php');
     $fullname = $_POST['fullname'];
     $name = explode(',', $fullname);
 
