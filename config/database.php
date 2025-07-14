@@ -27,11 +27,11 @@ $dbname = (string) $_ENV['DB_NAME'];
 
 
 
-$serverName = $name;
+$serverName = "tcp:krissslazarte.database.windows.net,1433";
 $connectionInfo = array(
-    "UID" => $user,
-    "PWD" => $pass,
-    "Database" => $dbname,
+    "UID" => "CloudSA38c8fe9d@krissslazarte",
+    "PWD" => "B09120146995b",
+    "Database" => "ridb",
     "LoginTimeout" => 30,
     "Encrypt" => 1,
     "TrustServerCertificate" => 0
@@ -44,4 +44,4 @@ if (!$conn) {
     echo "❌ Connection failed.<br>";
     die(print_r(sqlsrv_errors(), true));
 }
-echo "connectes";
+echo "connected";
