@@ -1,5 +1,5 @@
 <?php
-include("../View/components/body.php");
+include("../view/components/body.php");
 require '../vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -92,8 +92,8 @@ if (isset($_POST['upload'])) {
         $_SESSION['modal_title'] = 'Success';
         $_SESSION['modal_message'] = 'All records uploaded successfully.';
     }
+    echo "<script>window.location.href = '../view/pages/studentlist.php';</script>";
 
-    header("Location: ../View/pages/studentlist.php");
     exit;
 } else {
     echo '
