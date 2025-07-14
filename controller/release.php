@@ -17,7 +17,8 @@ if (isset($_POST['release'])) {
             session_start();
             $_SESSION['modal_title'] = 'Alert';
             $_SESSION['modal_message'] = 'Please fill all fields for medicinal treatment.';
-            header("Location: ../view/pages/current-patients.php");
+             echo "<script>window.location.href = '../view/pages/current-patients.php'</script>";
+           
             exit;
         }
 
@@ -36,7 +37,7 @@ if (isset($_POST['release'])) {
                 session_start();
                 $_SESSION['modal_title'] = 'Alert';
                 $_SESSION['modal_message'] = 'Not enough stock in medical inventory';
-                header("Location: ../view/pages/current-patients.php");
+                echo "<script>window.location.href = '../view/pages/current-patients.php'</script>";
                 exit;
             }
 
@@ -68,13 +69,13 @@ if (isset($_POST['release'])) {
             session_start();
             $_SESSION['modal_title'] = 'successfull';
             $_SESSION['modal_message'] = 'Patient record updated. You can check it in the visitor history';
-            header("Location: ../view/pages/current-patients.php");
+            echo "<script>window.location.href = '../view/pages/current-patients.php'</script>";
             exit;
         } else {
             session_start();
             $_SESSION['modal_title'] = 'ALERT';
             $_SESSION['modal_message'] = 'Medicine not found in inventory';
-            header("Location: ../view/pages/current-patients.php");
+            echo "<script>window.location.href = '../view/pages/current-patients.php'</script>";
             exit;
         }
     } else if ($withMedicine == "no") {
@@ -84,7 +85,7 @@ if (isset($_POST['release'])) {
             session_start();
             $_SESSION['modal_title'] = 'Alert';
             $_SESSION['modal_message'] = 'Please fill all fields for physical treatment.';
-            header("Location: ../view/pages/current-patients.php");
+            echo "<script>window.location.href = '../view/pages/current-patients.php'</script>";
             exit;
         }
 
@@ -95,7 +96,7 @@ if (isset($_POST['release'])) {
         session_start();
         $_SESSION['modal_title'] = 'successfull';
         $_SESSION['modal_message'] = 'Patient record updated. You can check it in the visitor history';
-        header("Location: ../view/pages/current-patients.php");
+        echo "<script>window.location.href = '../view/pages/current-patients.php'</script>";
         exit;
     }
 }
