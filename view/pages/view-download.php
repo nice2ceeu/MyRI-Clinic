@@ -1,5 +1,5 @@
 <?php
-include('../../view/components/body.php');
+
 session_start();
 
 if (!isset($_SESSION['username'])) {
@@ -11,7 +11,7 @@ if (!isset($_SESSION['username'])) {
 <a class="flex bg-[#06118e] poppins uppercase font-semibold text-white w-42 text-center py-2.5 px-3 rounded-lg m-5 justify-evenly text-[max(1vw,1rem)]" href="studentlist.php"><span>Back</span><img src="../assets/icons/back-icon.svg" alt="back-icon"></a>
 <?php
 $folder = "downloads/";
-
+include('../../view/components/body.php');
 if (isset($_POST['delete'])) {
     $itemToDelete = $_POST['item'];
 
