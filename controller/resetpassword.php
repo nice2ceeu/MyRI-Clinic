@@ -43,9 +43,14 @@ if (isset($_POST['reset-password'])) {
                     session_start();
                     $_SESSION['modal_title'] = 'Success';
                     $_SESSION['modal_message'] = 'Password Successfully Changed!';
-                    echo "<script>window.location.href = '../view/pages/userprofile.php'</script>";
-                    
-                    exit;
+                    if ($_SESSION['user_role'] != 'admin') {
+                        echo "<script>window.location.href = '../view/pages/userprofile.php'</script>";
+
+                        exit;
+                    } else {
+                        echo "<script>window.location.href = '../view/pages/clinic=patient.php'</script>";
+                        exit;
+                    }
                 } else {
                     die(print_r(sqlsrv_errors(), true));
                 }
@@ -54,7 +59,7 @@ if (isset($_POST['reset-password'])) {
                 $_SESSION['modal_title'] = 'Alert';
                 $_SESSION['modal_message'] = 'Current Password does not match our records.';
                 echo "<script>window.location.href = '../view/pages/changepass.php'</script>";
-                
+
                 exit;
             }
         } else {
