@@ -96,7 +96,7 @@ include('../components/navbar.php');
 
     <div id="blur" class="fixed h-dvh backdrop-blur-xs top-0 bg-white/30 z-20 w-full"></div>
 
-    <form id="upload" class="border-dotted absolute left-12.5 md:left-[30%] top-1/3 size-100 md:w-1/2 z-30 invisible shadow-xl bg-white border-3 border-[#8080808e] rounded-lg  flex flex-col items-center justify-between p-10 " action="../../controller//uploadStudent.php" method="POST" enctype="multipart/form-data">
+    <form id="upload" class="border-dotted absolute left-12.5 md:left-[30%] top-1/3 size-100 md:w-1/2 z-30 invisible shadow-xl bg-white border-3 border-[#8080808e] rounded-lg  flex flex-col items-center justify-between p-10 " action="../../controller/uploadStudent.php" method="POST" enctype="multipart/form-data">
 
         <img id="close" class="invert absolute z-10  top-1.5 right-1.5 cursor-pointer" src="../assets/icons/close-icon.svg" alt="close-icon">
         <table class="opacity-70 w-full  uppercase poppins mb-10">
