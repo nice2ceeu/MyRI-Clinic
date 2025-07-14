@@ -91,7 +91,8 @@ if (isset($_POST["submit"])) {
         session_start();
         $_SESSION['modal_title'] = 'Invalid Format';
         $_SESSION['modal_message'] = 'The Fullname Field Must be(Lastname, Firstname)';
-        header("Location: ../view/pages/medicalform.php");
+        echo "<script>window.location.href = '../view/pages/medicalform.php'</script>";
+       
         exit;
     }
     $sql = "SELECT id FROM medforms WHERE firstname = ? AND lastname = ?";
@@ -107,7 +108,8 @@ if (isset($_POST["submit"])) {
             session_start();
             $_SESSION['modal_title'] = 'Alert';
             $_SESSION['modal_message'] = 'This patient already exists in the record';
-            header("Location: ../view/pages/medicalform.php");
+            echo "<script>window.location.href = '../view/pages/medicalform.php'</script>";
+            
             exit;
         }
     } else {
@@ -207,7 +209,8 @@ if (isset($_POST["submit"])) {
         session_start();
         $_SESSION['modal_title'] = 'Successful';
         $_SESSION['modal_message'] = 'Patient record updated. You can check it in the Enrolled';
-        header("Location: ../view/pages/medicalform.php");
+        echo "<script>window.location.href = '../view/pages/medicalform.php'</script>";
+    
         exit;
     } else {
         die(print_r(sqlsrv_errors(), true));

@@ -2,6 +2,7 @@
 <?php
 session_start();
 include('../components/body.php');
+
 if (!isset($_SESSION['username'])) {
     echo "<script>window.location.href = 'index.php';</script>";
     exit();
