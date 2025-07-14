@@ -3,7 +3,7 @@ include('../../View/components/body.php');
 session_start();
 
 if (!isset($_SESSION['username'])) {
-    header("Location: index.php");
+   echo "<script>window.location.href = 'index.php'</script>";
     exit();
 }
 ?>

@@ -15,9 +15,10 @@ if (isset($_SESSION['modal_message'])) {
 
 if (isset($_SESSION['username'])) {
   if ($_SESSION['user_role'] != "admin") {
-    header("Location: userpage.php");
+    
+    echo "<script>window.location.href = 'userpage.php'</script>";
   } else if ($_SESSION['user_role'] != "student") {
-    header("Location: index.php");
+    echo "<script>window.location.href = 'index.php'</script>";
     exit();
   }
 }
