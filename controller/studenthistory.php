@@ -60,7 +60,8 @@ include('../View/components/body.php');
                     session_start();
                     $_SESSION['modal_title'] = 'Alert';
                     $_SESSION['modal_message'] = 'No History found';
-                    header("Location: ../view/pages/studentlist.php");
+                     echo "<script>window.location.href = 'studentlist.php'</script>";
+                    
                     exit;
                 }
             }
