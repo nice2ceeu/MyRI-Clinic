@@ -27,10 +27,14 @@ if (isset($_POST["submit"])) {
                     $_SESSION['lastname'] = $user['lastname'];
                     $_SESSION['user_role'] = $user['user_role'];
 
-                    if ($_SESSION['user_role'] === "admin") {
+                    // Safely check before closing session
+                    $role = $_SESSION['user_role'];
+                    session_write_close();
+
+                    if ($role === "admin") {
                         echo "<script>location.href='/view/pages/clinic-patient.php';</script>";
                         exit();
-                    } elseif ($_SESSION['user_role'] === "student") {
+                    } elseif ($role === "student") {
                         echo "<script>location.href='/view/pages/userprofile.php';</script>";
                         exit();
                     }
@@ -38,6 +42,7 @@ if (isset($_POST["submit"])) {
                     session_start();
                     $_SESSION['modal_title'] = 'Alert';
                     $_SESSION['modal_message'] = 'Invalid Password';
+                    session_write_close();
                     echo "<script>location.href='/view/pages/index.php';</script>";
                     exit();
                 }
@@ -45,6 +50,7 @@ if (isset($_POST["submit"])) {
                 session_start();
                 $_SESSION['modal_title'] = 'Alert';
                 $_SESSION['modal_message'] = 'User not found';
+                session_write_close();
                 echo "<script>location.href='../view/pages/index.php';</script>";
                 exit();
             }
